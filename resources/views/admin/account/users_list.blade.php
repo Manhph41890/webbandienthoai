@@ -1,0 +1,162 @@
+@extends('admin.layouts')
+
+@section('title', 'Danh sách tài khoản người dùng')
+
+@section('content')
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Danh sách tài khoản người dùng</h1>
+    </div>
+
+    {{-- Hiển thị thông báo nếu có --}}
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
+    <!-- Form Lọc và Tìm kiếm -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Bộ lọc</h6>
+        </div>
+        <div class="card-body">
+            <form action="{{ route('admin.accounts.users.index') }}" method="GET">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="search">Tìm kiếm</label>
+                            <input type="text" class="form-control" name="search" id="search"
+                                placeholder="Nhập tên hoặc email..." value="{{ request('search') }}">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bảng dữ liệu -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Dữ liệu tài khoản người dùng</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" width="100%" cellspacing="0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="width: 60px;">Avatar</th>
+                            <th>Họ và tên</th>
+                            <th>Email</th>
+                            <th>Trạng thái</th>
+                            <th>Ngày đăng ký</th>
+                            <th style="width: 130px;">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($users as $user)
+                            <tr>
+                                <td>
+                                    @if ($user->avatar)
+                                        <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }}"
+                                            class="img-fluid rounded-circle"
+                                            style="width: 40px; height: 40px; object-fit: cover;">
+                                    @else
+                                        <div class="img-placeholder rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center"
+                                            style="width: 40px; height: 40px; font-weight: bold;">
+                                            {{ strtoupper(substr($user->name, 0, 1)) }}
+                                        </div>
+                                    @endif
+                                </td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>
+                                    @if ($user->is_active)
+                                        <span class="badge badge-success">Hoạt động</span>
+                                    @else
+                                        <span class="badge badge-secondary">Bị khóa</span>
+                                    @endif
+                                </td>
+                                <td>{{ $user->created_at->format('d/m/Y') }}</td>
+                                <td>
+                                    {{-- Nút Xem chi tiết (có thể tái sử dụng modal cũ) --}}
+                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
+                                        data-target="#accountDetailModal" data-id="{{ $user->id }}"
+                                        data-name="{{ $user->name }}" data-email="{{ $user->email }}"
+                                        data-avatar="{{ $user->avatar ? asset('storage/' . $user->avatar) : '' }}"
+                                        data-avatar-text="{{ strtoupper(substr($user->name, 0, 1)) }}"
+                                        data-phone="{{ $user->phone ?? 'Chưa cập nhật' }}"
+                                        data-bio="{{ $user->bio ?? 'Chưa có tiểu sử.' }}"
+                                        data-role="{{ $user->role->name_role ?? 'N/A' }}"
+                                        data-status="{{ $user->is_active }}"
+                                        data-created="{{ $user->created_at->format('H:i:s d/m/Y') }}">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+
+
+
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center">
+                                    @if (request('search') || request('month'))
+                                        Không tìm thấy tài khoản nào khớp với điều kiện lọc.
+                                    @else
+                                        Chưa có tài khoản người dùng nào.
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-center mt-3">
+                {{-- Giữ lại các tham số lọc khi chuyển trang --}}
+                {{ $users->appends(request()->query())->links() }}
+            </div>
+        </div>
+    </div>
+
+    {{-- Tái sử dụng Modal chi tiết tài khoản --}}
+    @include('admin.account.detail_modal')
+
+@endsection
+
+@push('scripts')
+    {{-- Tái sử dụng script của modal chi tiết tài khoản --}}
+    <script>
+        $('#accountDetailModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var modal = $(this);
+            var name = button.data('name');
+            var avatarUrl = button.data('avatar');
+            var avatarText = button.data('avatar-text');
+            modal.find('.modal-title').text('Chi tiết tài khoản: ' + name);
+            modal.find('#modal-account-id').text(button.data('id'));
+            modal.find('#modal-account-name').text(name);
+            modal.find('#modal-account-email').text(button.data('email'));
+            modal.find('#modal-account-phone').text(button.data('phone'));
+            modal.find('#modal-account-bio').text(button.data('bio'));
+            modal.find('#modal-account-role').text(button.data('role'));
+            modal.find('#modal-account-created').text(button.data('created'));
+            if (avatarUrl) {
+                modal.find('#modal-avatar-img').attr('src', avatarUrl).show();
+                modal.find('#modal-avatar-text').hide();
+            } else {
+                modal.find('#modal-avatar-img').hide();
+                modal.find('#modal-avatar-text').text(avatarText).show();
+            }
+            var status = button.data('status');
+            var statusBadge = status ?
+                '<span class="badge badge-success">Hoạt động</span>' :
+                '<span class="badge badge-secondary">Bị khóa</span>';
+            modal.find('#modal-account-status').html(statusBadge);
+        });
+    </script>
+@endpush

@@ -37,6 +37,7 @@ return new class extends Migration
                 'ngừng_bán'
             ])->default('còn_hàng');
 
+            $table->softDeletes();
             $table->timestamps();
 
             // ❗ tránh trùng variant

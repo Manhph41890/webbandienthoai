@@ -39,6 +39,7 @@ return new class extends Migration
                 'Hoạt_động',
                 'ngừng_bán'
             ])->default('Hoạt_động');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

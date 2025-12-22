@@ -45,7 +45,7 @@ return new class extends Migration
      */
             $table->json('specifications')->nullable();
 
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }

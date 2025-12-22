@@ -24,7 +24,7 @@ return new class extends Migration
                 'ngừng_bán'
             ])->default('còn_hàng');
             $table->string('main_image')->nullable();
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }
