@@ -71,7 +71,7 @@ class PhoneController extends Controller
     public function store(StorePhoneRequest $request)
     {
         DB::beginTransaction();
-        try {   
+        try {
             // Xử lý Slug ổn định
             $slug = $request->slug ? Str::slug($request->slug) : Str::slug($request->name);
 
@@ -161,75 +161,47 @@ class PhoneController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(UpdatePhoneRequest $request, Phone $phone)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'categories_id' => 'required|exists:categories,id',
-            'short_description' => 'nullable|string|max:500',
-            'description' => 'nullable|string',
-            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:20480',
-            'variants' => 'required|array|min:1',
-            'variants.*.id' => 'nullable|exists:phone_variants,id',
-            'variants.*.size_id' => 'nullable|exists:sizes,id',
-            'variants.*.color_id' => 'nullable|exists:colors,id',
-            'variants.*.price' => 'required|numeric|min:0',
-            'variants.*.stock' => 'required|integer|min:0',
-            'variants.*.image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'existing_other_images' => 'nullable|array', // ID của các ảnh phụ hiện có mà muốn giữ lại
-            'other_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Ảnh phụ mới
-        ]);
-
         DB::beginTransaction();
-
         try {
-            // Cập nhật ảnh chính
+            // 1. Xử lý ảnh chính
+            $mainImagePath = $phone->main_image;
             if ($request->hasFile('main_image')) {
-                // Xóa ảnh cũ nếu có
-                if ($phone->main_image) {
-                    Storage::disk('public')->delete($phone->main_image);
-                }
+                if ($phone->main_image) Storage::disk('public')->delete($phone->main_image);
                 $mainImagePath = $request->file('main_image')->store('phones/main', 'public');
-                $phone->main_image = $mainImagePath;
-            } elseif ($request->input('remove_main_image')) { // Thêm tùy chọn xóa ảnh chính
-                if ($phone->main_image) {
-                    Storage::disk('public')->delete($phone->main_image);
-                    $phone->main_image = null;
-                }
+            } elseif ($request->has('remove_main_image')) {
+                if ($phone->main_image) Storage::disk('public')->delete($phone->main_image);
+                $mainImagePath = null;
             }
 
-
+            // 2. Cập nhật thông tin Phone
             $phone->update([
                 'categories_id' => $request->categories_id,
                 'name' => $request->name,
+                'slug' => $request->slug, // Lấy từ request đã qua validate unique
                 'short_description' => $request->short_description,
                 'description' => $request->description,
-                'main_image' => $phone->main_image, // Cập nhật lại đường dẫn ảnh chính
+                'main_image' => $mainImagePath,
             ]);
 
-            // Xử lý biến thể: Thêm mới, cập nhật, xóa cũ
-            $existingVariantIds = $phone->variants->pluck('id')->toArray();
+            // 3. Xử lý biến thể
             $variantsToKeep = [];
+            foreach ($request->variants as $index => $variantData) {
+                $variantImagePath = null;
 
-            foreach ($request->variants as $variantData) {
-                if (isset($variantData['id']) && $variantData['id']) {
-                    // Cập nhật biến thể hiện có
+                // Nếu là biến thể đã tồn tại
+                if (isset($variantData['id'])) {
                     $variant = Variant::find($variantData['id']);
                     if ($variant) {
                         $variantsToKeep[] = $variant->id;
+                        $variantImagePath = $variant->image_path;
 
-                        // Cập nhật ảnh biến thể
-                        if (isset($variantData['image_path']) && $variantData['image_path']->isValid()) {
-                            if ($variant->image_path) {
-                                Storage::disk('public')->delete($variant->image_path);
-                            }
-                            $variantImagePath = $variantData['image_path']->store('phones/variants', 'public');
-                            $variant->image_path = $variantImagePath;
-                        } elseif (isset($variantData['remove_image_path']) && $variantData['remove_image_path']) {
-                            if ($variant->image_path) {
-                                Storage::disk('public')->delete($variant->image_path);
-                                $variant->image_path = null;
-                            }
+                        // Cập nhật ảnh biến thể nếu có file mới
+                        if ($request->hasFile("variants.$index.image_path")) {
+                            if ($variant->image_path) Storage::disk('public')->delete($variant->image_path);
+                            $variantImagePath = $request->file("variants.$index.image_path")->store('phones/variants', 'public');
                         }
 
                         $variant->update([
@@ -237,63 +209,55 @@ class PhoneController extends Controller
                             'color_id' => $variantData['color_id'] ?? null,
                             'sku' => $variantData['sku'] ?? null,
                             'price' => $variantData['price'],
-                            'stock' => $variantData['stock'],
-                            'is_default' => isset($variantData['is_default']) && $variantData['is_default'] ? true : false,
-                            'image_path' => $variant->image_path, // Cập nhật lại đường dẫn ảnh biến thể
+                            'stock' => $variantData['stock'], // Dùng 'stock' theo yêu cầu của bạn
+                            'image_path' => $variantImagePath,
+                            'is_default' => isset($variantData['is_default']),
                         ]);
                     }
                 } else {
-                    // Thêm biến thể mới
-                    $variantImagePath = null;
-                    if (isset($variantData['image_path']) && $variantData['image_path']->isValid()) {
-                        $variantImagePath = $variantData['image_path']->store('phones/variants', 'public');
+                    // Thêm biến thể mới hoàn toàn
+                    if ($request->hasFile("variants.$index.image_path")) {
+                        $variantImagePath = $request->file("variants.$index.image_path")->store('phones/variants', 'public');
                     }
-                    $phone->variants()->create([
+                    $newVariant = $phone->variants()->create([
                         'size_id' => $variantData['size_id'] ?? null,
                         'color_id' => $variantData['color_id'] ?? null,
                         'sku' => $variantData['sku'] ?? null,
                         'price' => $variantData['price'],
                         'stock' => $variantData['stock'],
                         'image_path' => $variantImagePath,
-                        'is_default' => isset($variantData['is_default']) && $variantData['is_default'] ? true : false,
+                        'is_default' => isset($variantData['is_default']),
                     ]);
+                    $variantsToKeep[] = $newVariant->id;
                 }
             }
 
-            // Xóa các biến thể không còn trong request
-            Variant::where('phone_id', $phone->id)
-                ->whereNotIn('id', $variantsToKeep)
-                ->each(function ($variant) {
-                    if ($variant->image_path) {
-                        Storage::disk('public')->delete($variant->image_path);
-                    }
-                    $variant->delete();
-                });
-
-
-            // Xử lý các hình ảnh phụ
-            $existingImageIds = $request->input('existing_other_images', []);
-            // Xóa các ảnh phụ không còn được giữ lại
-            $phone->images()->whereNotIn('id', $existingImageIds)->each(function ($image) {
-                Storage::disk('public')->delete($image->image_path);
-                $image->delete();
+            // Xóa những biến thể không còn nằm trong danh sách gửi lên
+            $phone->variants()->whereNotIn('id', $variantsToKeep)->each(function ($v) {
+                if ($v->image_path) Storage::disk('public')->delete($v->image_path);
+                $v->delete();
             });
 
-            // Thêm các ảnh phụ mới
+            // 4. Xử lý ảnh phụ (Gallery)
+            $existingImageIds = $request->input('existing_other_images', []);
+            $phone->images()->whereNotIn('id', $existingImageIds)->each(function ($img) {
+                Storage::disk('public')->delete($img->image_path);
+                $img->delete();
+            });
+
             if ($request->hasFile('other_images')) {
-                foreach ($request->file('other_images') as $otherImage) {
-                    $otherImagePath = $otherImage->store('phones/gallery', 'public');
+                foreach ($request->file('other_images') as $file) {
                     $phone->images()->create([
-                        'image_path' => $otherImagePath,
+                        'image_path' => $file->store('phones/gallery', 'public')
                     ]);
                 }
             }
 
             DB::commit();
-            return redirect()->route('admin.phones.index')->with('success', 'Sản Phẩm và biến thể đã được cập nhật thành công!');
+            return redirect()->route('admin.phones.index')->with('success', 'Cập nhật sản phẩm thành công!');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Có lỗi khi cập nhật sản phẩm: ' . $e->getMessage())->withInput();
+            return back()->with('error', 'Lỗi cập nhật: ' . $e->getMessage())->withInput();
         }
     }
 

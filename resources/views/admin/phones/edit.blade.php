@@ -1,200 +1,119 @@
 @extends('admin.layouts')
-
-@section('title', 'Chỉnh sửa sản phẩm: ' . $phone->name)
+@section('title', 'Chỉnh sửa: ' . $phone->name)
 
 @section('content')
-
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Chỉnh sửa sản phẩm</h1>
-        <a href="{{ route('admin.phones.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
-            <i class="fas fa-arrow-left fa-sm text-white-50"></i> Quay lại danh sách
-        </a>
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Chỉnh sửa sản phẩm</h6>
+        <a href="{{ route('admin.phones.index') }}" class="btn btn-sm btn-secondary">Quay lại</a>
     </div>
+    <div class="card-body">
+        <form action="{{ route('admin.phones.update', $phone->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
 
-    <!-- Thông báo thành công (nếu có) -->
-    @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>{{ session('success') }}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-
-    <!-- Thông báo lỗi (nếu có) -->
-    @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Thông tin sản phẩm</h6>
-        </div>
-        <div class="card-body">
-            <form action="{{ route('admin.phones.update', $phone->id) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('PUT') {{-- Sử dụng phương thức PUT cho cập nhật --}}
-
-                <!-- Thông tin cơ bản sản phẩm -->
-                <div class="mb-3">
-                    <label for="name" class="form-label">Tên sản phẩm <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="name" name="name"
-                        value="{{ old('name', $phone->name) }}" required>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Tên sản phẩm <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="name" id="name" value="{{ old('name', $phone->name) }}">
                 </div>
-
-                <div class="mb-3">
-                    <label for="categories_id" class="form-label">Danh mục <span class="text-danger">*</span></label>
-                    <select class="form-control" id="categories_id" name="categories_id" required>
-                        <option value="">Chọn danh mục</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}"
-                                {{ old('categories_id', $phone->categories_id) == $category->id ? 'selected' : '' }}>
-                                {{ $category->name }}
-                            </option>
-                        @endforeach
-                    </select>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Đường dẫn (Slug) <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug', $phone->slug) }}">
                 </div>
+            </div>
 
-                <div class="mb-3">
-                    <label for="short_description" class="form-label">Mô tả ngắn</label>
-                    <textarea class="form-control" id="short_description" name="short_description" rows="3">{{ old('short_description', $phone->short_description) }}</textarea>
-                </div>
-
-
-                <div class="mb-3">
-                    <label for="main_image" class="form-label">Ảnh chính sản phẩm</label>
-                    @if ($phone->main_image)
-                        <div class="mb-2">
-                            <img src="{{ Storage::url($phone->main_image) }}" alt="Ảnh chính hiện tại" width="150"
-                                class="img-thumbnail">
-                            <div class="form-check mt-1">
-                                <input type="checkbox" class="form-check-input" id="remove_main_image"
-                                    name="remove_main_image" value="1">
-                                <label class="form-check-label" for="remove_main_image">Xóa ảnh chính hiện tại</label>
-                            </div>
-                        </div>
-                    @endif
-                    <input type="file" class="form-control" id="main_image" name="main_image" accept="image/*">
-                    <small class="form-text text-muted">Kích thước tối đa 2MB. Định dạng: JPG, PNG, GIF. (Chọn ảnh mới sẽ
-                        thay thế ảnh cũ)</small>
-                </div>
-
-                <hr>
-
-                <!-- Quản lý biến thể sản phẩm -->
-                <h4 class="mb-3">Biến thể sản phẩm <span class="text-danger">*</span></h4>
-                <div id="phone-variants-container">
-                    {{-- Các biến thể hiện có sẽ được load ở đây --}}
-                    @foreach (old('variants', $phone->variants) as $index => $variant)
-                        @include('admin.phones.variant_form_fields', [
-                            'index' => $index,
-                            'sizes' => $sizes,
-                            'colors' => $colors,
-                            'variant' => $variant, // Truyền biến thể hiện tại vào partial
-                        ])
+            <div class="mb-3">
+                <label class="form-label">Danh mục <span class="text-danger">*</span></label>
+                <select class="form-control" name="categories_id">
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" {{ old('categories_id', $phone->categories_id) == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
                     @endforeach
-                </div>
-                <button type="button" class="btn btn-secondary btn-sm mt-3" id="add-variant-btn">
-                    <i class="fas fa-plus"></i> Thêm biến thể khác
-                </button>
+                </select>
+            </div>
 
-                <hr>
+            <div class="mb-3">
+                <label class="form-label">Mô tả ngắn</label>
+                <textarea class="form-control" name="short_description" rows="2">{{ old('short_description', $phone->short_description) }}</textarea>
+            </div>
 
-                <!-- Quản lý ảnh phụ sản phẩm -->
-                <h4 class="mb-3">Ảnh phụ sản phẩm</h4>
-                <div class="mb-3">
-                    <label class="form-label">Ảnh phụ hiện có</label>
-                    <div class="row mb-2">
-                        @forelse ($phone->images as $image)
-                            <div class="col-md-2 mb-2 existing-other-image-item" id="other-image-{{ $image->id }}">
-                                <img src="{{ Storage::url($image->image_path) }}" alt="Ảnh phụ" class="img-thumbnail"
-                                    width="100">
-                                <div class="form-check mt-1">
-                                    <input type="checkbox" class="form-check-input"
-                                        id="existing_other_images_{{ $image->id }}" name="existing_other_images[]"
-                                        value="{{ $image->id }}" checked>
-                                    <label class="form-check-label" for="existing_other_images_{{ $image->id }}">Giữ
-                                        lại</label>
-                                </div>
-                                <button type="button" class="btn btn-danger btn-sm mt-1 delete-existing-other-image"
-                                    data-image-id="{{ $image->id }}">Xóa</button>
-                            </div>
-                        @empty
-                            <div class="col-12 text-muted">Không có ảnh phụ nào.</div>
-                        @endforelse
+            <div class="mb-3">
+                <label class="form-label">Ảnh chính</label>
+                @if ($phone->main_image)
+                    <div class="mb-2">
+                        <img src="{{ Storage::url($phone->main_image) }}" width="100" class="img-thumbnail">
+                        <label><input type="checkbox" name="remove_main_image"> Xóa ảnh hiện tại</label>
                     </div>
+                @endif
+                <input type="file" class="form-control" name="main_image">
+            </div>
 
-                    <label for="other_images" class="form-label">Thêm ảnh phụ mới</label>
-                    <input type="file" class="form-control" id="other_images" name="other_images[]" multiple
-                        accept="image/*">
-                    <small class="form-text text-muted">Chọn nhiều ảnh. Kích thước tối đa 2MB mỗi ảnh.</small>
-                </div>
+            <hr>
+            <h4>Biến thể sản phẩm</h4>
+            <div id="phone-variants-container">
+                @foreach (old('variants', $phone->variants) as $index => $variant)
+                    @include('admin.phones.variant_form_fields', [
+                        'index' => $index,
+                        'variant' => $variant,
+                        'sizes' => $sizes,
+                        'colors' => $colors
+                    ])
+                @endforeach
+            </div>
+            <button type="button" class="btn btn-dark btn-sm mt-2" id="add-variant-btn"> + Thêm biến thể</button>
 
-                <button type="submit" class="btn btn-primary mt-4">Cập nhật sản phẩm</button>
-            </form>
-        </div>
+            <hr>
+            <h4>Ảnh phụ hiện có</h4>
+            <div class="row">
+                @foreach ($phone->images as $image)
+                    <div class="col-md-2 mb-3 text-center" id="image-item-{{ $image->id }}">
+                        <img src="{{ Storage::url($image->image_path) }}" class="img-thumbnail mb-1">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="existing_other_images[]" value="{{ $image->id }}" checked>
+                            <label class="form-check-label small">Giữ lại</label>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Thêm ảnh phụ mới</label>
+                <input type="file" class="form-control" name="other_images[]" multiple>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block shadow">CẬP NHẬT SẢN PHẨM</button>
+        </form>
     </div>
-
+</div>
 @endsection
 
 @push('scripts')
-    <script>
-        $(document).ready(function() {
-            // Đặt variantIndex bắt đầu từ số lượng biến thể hiện có hoặc từ 0 nếu không có
-            let variantIndex = {{ old('variants') ? count(old('variants')) : $phone->variants->count() }};
+<script>
+    $(document).ready(function() {
+        let variantIndex = {{ count(old('variants', $phone->variants)) }};
 
-            // Hàm để tải form biến thể mới bằng AJAX
-            function loadNewVariantForm(index) {
-                $.ajax({
-                    url: '{{ route('admin.phones.getVariantFormFields') }}',
-                    type: 'GET',
-                    data: {
-                        index: index
-                    },
-                    success: function(data) {
-                        $('#phone-variants-container').append(data);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Lỗi khi tải form biến thể:", error);
-                        alert("Không thể thêm biến thể. Vui lòng thử lại.");
-                    }
-                });
-            }
+        // Tự động tạo slug khi gõ tên
+        $('#name').on('keyup', function() {
+            let title = $(this).val();
+            let slug = title.toLowerCase()
+                .replace(/[^\w ]+/g, '')
+                .replace(/ +/g, '-');
+            $('#slug').val(slug);
+        });
 
-            // Xử lý thêm biến thể
-            $('#add-variant-btn').on('click', function() {
-                loadNewVariantForm(variantIndex);
+        $('#add-variant-btn').on('click', function() {
+            $.get('{{ route('admin.phones.getVariantFormFields') }}', { index: variantIndex }, function(data) {
+                $('#phone-variants-container').append(data);
                 variantIndex++;
             });
-
-            // Xử lý xóa biến thể (sử dụng event delegation)
-            $('#phone-variants-container').on('click', '.remove-variant-btn', function() {
-                $(this).closest('.variant-item').remove();
-            });
-
-            // Xử lý xóa ảnh phụ hiện có (chỉ xóa khỏi giao diện, giữ lại input hidden để thông báo server)
-            $('.delete-existing-other-image').on('click', function() {
-                const imageId = $(this).data('image-id');
-                // Uncheck và disable checkbox "Giữ lại"
-                $(`#existing_other_images_${imageId}`).prop('checked', false).prop('disabled', true);
-                // Ẩn ảnh khỏi giao diện
-                $(`#other-image-${imageId}`).hide();
-                alert('Ảnh sẽ được xóa khi bạn lưu thay đổi sản phẩm.');
-            });
-
-            // Nếu có lỗi validation và dữ liệu cũ từ old(), cần tải lại form với dữ liệu cũ
-            @if (old('variants'))
-            @endif
         });
-    </script>
+
+        $(document).on('click', '.remove-variant-btn', function() {
+            if(confirm('Bạn có chắc muốn xóa biến thể này?')) {
+                $(this).closest('.variant-item').remove();
+            }
+        });
+    });
+</script>
 @endpush
