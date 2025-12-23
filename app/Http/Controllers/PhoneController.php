@@ -21,6 +21,8 @@ class PhoneController extends Controller
     public function index(Request $request)
     {
         $query = Phone::with('category', 'variants.size', 'variants.color');
+                $trashedCount = Phone::onlyTrashed()->count(); // Đếm số lượng điện thoại trong thùng rác
+
 
         // Xử lý tìm kiếm
         if ($request->has('search') && !empty($request->search)) {
@@ -33,7 +35,7 @@ class PhoneController extends Controller
 
         $phones = $query->latest()->paginate(10); // Phân trang và sắp xếp mới nhất
 
-        return view('admin.phones.index', compact('phones'));
+        return view('admin.phones.index', compact('phones', 'trashedCount'));
     }
 
     /**
@@ -90,7 +92,7 @@ class PhoneController extends Controller
         DB::beginTransaction(); // Bắt đầu transaction
 
         try {
-            $mainImagePath = null;
+            $mainImagePath = null;  
             if ($request->hasFile('main_image')) {
                 $mainImagePath = $request->file('main_image')->store('phones/main', 'public');
             }
