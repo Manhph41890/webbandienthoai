@@ -11,7 +11,14 @@
             <a href="{{ route('admin.phones.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                 <i class="fas fa-plus fa-sm text-white-50"></i> Thêm Điện Thoại
             </a>
+
+            <a href="{{ route('admin.phones.trash') }}"
+                class="d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm mr-2">
+                <i class="fas fa-trash fa-sm"></i> Thùng rác ({{ $trashedCount }})
+            </a>
+
         </div>
+        
     </div>
 
     {{-- Hiển thị thông báo --}}

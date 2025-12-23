@@ -38,7 +38,7 @@
     </li>
 
     <!-- Nav Item - Quản lý Bài viết -->
-    {{-- <li class="nav-item {{ Request::is('admin/phones*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('admin/phones*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsephones"
             aria-expanded="true" aria-controls="collapsephones">
             <i class="fas fa-fw fa-pen-square"></i>
@@ -53,7 +53,7 @@
                     href="{{ route('admin.phones.create') }}">Thêm mới</a>
             </div>
         </div>
-    </li> --}}
+    </li>
 
 
     <!-- Heading -->

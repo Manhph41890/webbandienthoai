@@ -7,9 +7,17 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Danh sách Chuyên mục</h1>
-        <a href="{{ route('admin.categories.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-plus fa-sm text-white-50"></i> Thêm Mới
-        </a>
+        <div class="">
+            <a href="{{ route('admin.categories.create') }}"
+                class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-plus fa-sm text-white-50"></i> Thêm Mới
+            </a>
+            <a href="{{ route('admin.categories.trash') }}"
+                class="d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm">
+                <i class="fas fa-trash fa-sm"></i> Thùng rác ({{ $trashedCount }})
+            </a>
+        </div>
+
     </div>
 
     {{-- Hiển thị thông báo (Giữ nguyên) --}}
@@ -77,7 +85,8 @@
                                     </button>
 
                                     {{-- Nút Sửa --}}
-                                    <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-info btn-sm">
+                                    <a href="{{ route('admin.categories.edit', $category->id) }}"
+                                        class="btn btn-info btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
 
@@ -136,7 +145,7 @@
             modal.find('#modal-name').text(name);
             modal.find('#modal-slug').text(slug);
             modal.find('#modal-description').html(description.replace(/\n/g,
-            '<br>')); // Dùng .html() và thay a\n bằng <br> để hiển thị xuống dòng
+                '<br>')); // Dùng .html() và thay a\n bằng <br> để hiển thị xuống dòng
             modal.find('#modal-parent').text(parent);
             modal.find('#modal-status').html(status === 'Hoạt động' ?
                 '<span class="badge badge-success">Hoạt động</span>' :

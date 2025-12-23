@@ -16,6 +16,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $query = Category::query();
+        $trashedCount = Category::onlyTrashed()->count(); // Đếm số lượng bài trong thùng rác
 
         // Đếm số điện thoại trong mỗi danh mục
         // Nếu bạn muốn hiển thị tổng số điện thoại trong danh mục,
@@ -30,7 +31,7 @@ class CategoryController extends Controller
 
         $categories = $query->latest()->paginate(10); // Phân trang và sắp xếp mới nhất
 
-        return view('admin.categories.index', compact('categories'));
+        return view('admin.categories.index', compact('categories', 'trashedCount'));
     }
 
     /**
@@ -48,7 +49,7 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
 
-   // Lấy dữ liệu đã được validate từ Form Request
+        // Lấy dữ liệu đã được validate từ Form Request
         $validatedData = $request->validated();
 
 
@@ -64,9 +65,7 @@ class CategoryController extends Controller
 
         // Chuyển hướng về trang danh sách và gửi kèm một thông báo thành công
         return redirect()->route('admin.categories.index')
-                         ->with('success', 'Chuyên mục đã được tạo thành công.');
-
-
+            ->with('success', 'Chuyên mục đã được tạo thành công.');
     }
 
     /**
@@ -82,38 +81,78 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('admin.categories.edit', compact('category'));
+        $parentCategories = Category::where('id', '!=', $category->id)->ordered()->get();
+        return view('admin.categories.edit', compact('category', 'parentCategories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name,' . $category->id, // Loại trừ chính nó khi check unique
-            'description' => 'nullable|string',
-        ], [
-            'name.required' => 'Tên danh mục không được để trống.',
-            'name.unique' => 'Tên danh mục này đã tồn tại.',
-            'name.max' => 'Tên danh mục không được vượt quá 255 ký tự.',
-        ]);
+        $validatedData = $request->validated();
 
-        $category->update([
-            'name' => $request->name,
-            'description' => $request->description,
-        ]);
+        if (empty($validatedData['slug'])) {
+            $validatedData['slug'] = Str::slug($validatedData['name']);
+        }
 
-        return redirect()->route('categories.index')->with('success', 'Danh mục đã được cập nhật thành công!');
+        $category->update($validatedData);
+        return redirect()->route('admin.categories.index')->with('success', 'Chuyên mục đã được cập nhật thành công.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 1. Xóa mềm (soft delete) chuyên mục
+     * 2. Trả về trang danh sách chuyên mục với thông báo thành công
      */
     public function destroy(Category $category)
     {
+        // Kiểm tra nếu category có ràng buộc (ví dụ có sản phẩm) thì có thể báo lỗi nếu muốn
+        // if ($category->phones()->count() > 0) {
+        //     return back()->with('error', 'Không thể xóa danh mục đang có sản phẩm!');
+        // }
+
         $category->delete();
 
-        return redirect()->route('admin.categories.index')->with('success', 'Danh mục và các sách liên quan đã được xóa vĩnh viễn!');
+        return redirect()->route('admin.categories.index')
+            ->with('success', 'Danh mục đã được chuyển vào thùng rác!');
+    }
+
+    /**
+     * 2. Hiển thị danh sách thùng rác (Trash)
+     */
+    public function trash()
+    {
+        // Lấy ra những danh mục đã bị xóa mềm
+        $trashCategories = Category::onlyTrashed()->latest()->get();
+        return view('admin.categories.trash', compact('trashCategories'));
+    }
+
+    /**
+     * 3. Khôi phục danh mục (Restore)
+     */
+    public function restore($id)
+    {
+        // Tìm ID trong danh sách đã xóa mềm
+        $category = Category::onlyTrashed()->findOrFail($id);
+        $category->restore();
+
+        return redirect()->route('admin.categories.trash')
+            ->with('success', 'Khôi phục danh mục thành công!');
+    }
+
+    /**
+     * 4. Xóa vĩnh viễn (Force Delete)
+     */
+    public function forceDelete($id)
+    {
+        $category = Category::onlyTrashed()->findOrFail($id);
+
+        // Xử lý thêm: nếu danh mục có ảnh đại diện thì xóa file vật lý tại đây
+        // if ($category->image) { Storage::disk('public')->delete($category->image); }
+
+        $category->forceDelete(); // Xóa hoàn toàn khỏi database
+
+        return redirect()->route('admin.categories.trash')
+            ->with('success', 'Danh mục đã được xóa vĩnh viễn!');
     }
 }

@@ -8,7 +8,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         {{-- Thay đổi tiêu đề để thể hiện rõ hơn --}}
         <h1 class="h3 mb-0 text-gray-800">Chỉnh sửa Chuyên mục: <span class="text-primary">{{ $category->name }}</span></h1>
-        <a href="{{ route('categories.index') }}" class="btn btn-secondary btn-sm shadow-sm">
+        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary btn-sm shadow-sm">
             <i class="fas fa-arrow-left fa-sm text-white-50"></i> Quay lại
         </a>
     </div>
@@ -30,7 +30,7 @@
         </div>
         <div class="card-body">
             {{-- THAY ĐỔI 1: Action của form trỏ đến route update và truyền ID --}}
-            <form action="{{ route('categories.update', $category->id) }}" method="POST">
+            <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
                 @csrf
                 {{-- THAY ĐỔI 2: Thêm @method('PUT') để Laravel hiểu đây là request UPDATE --}}
                 @method('PUT')
@@ -115,7 +115,7 @@
                     <button type="submit" class="btn btn-primary shadow-sm">
                         <i class="fas fa-save fa-sm text-white-50"></i> Cập nhật
                     </button>
-                    <a href="{{ route('categories.index') }}" class="btn btn-secondary shadow-sm">Hủy</a>
+                    <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary shadow-sm">Hủy</a>
                 </div>
             </form>
         </div>

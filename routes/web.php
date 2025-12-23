@@ -11,6 +11,15 @@ Route::get('/', function () {
 });
 
 Route::prefix('admin')->name('admin.')->group(function () {
+
+    // Thùng rác và khôi phục Category
+    Route::get('categories/trash', [CategoryController::class, 'trash'])->name('categories.trash');
+    Route::post('categories/{id}/restore', [CategoryController::class, 'restore'])->name('categories.restore');
+    Route::delete('categories/{id}/force-delete', [CategoryController::class, 'forceDelete'])->name('categories.forceDelete');
+
+    // Route resource chuẩn
+    Route::resource('categories', CategoryController::class);
+
     Route::get('/trash', [PhoneController::class, 'trash'])->name('phones.trash');
 
     // Khôi phục
@@ -18,7 +27,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // Xóa vĩnh viễn
     Route::delete('/{id}/force-delete', [PhoneController::class, 'forceDelete'])->name('phones.forceDelete');
-    Route::resource('categories', CategoryController::class)->names('categories');
+
     Route::resource('phones', PhoneController::class)->names('phones');
 
     // Các route cho thùng rác phải đặt TRƯỚC resource
@@ -37,4 +46,3 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // CRUD Resource
     Route::resource('sims', SimController::class);
 });
-
