@@ -1,28 +1,28 @@
 @php
-    // Đảm bảo $product được truyền vào từ controller
-    // $product->load('category', 'variants.size', 'variants.color', 'images');
+    // Đảm bảo $phone được truyền vào từ controller
+    // $phone->load('category', 'variants.size', 'variants.color', 'images');
 @endphp
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4 text-center">
-            @if ($product->main_image)
-                <img src="{{ Storage::url($product->main_image) }}" class="img-fluid rounded mb-3"
-                    alt="{{ $product->name }}">
+            @if ($phone->main_image)
+                <img src="{{ Storage::url($phone->main_image) }}" class="img-fluid rounded mb-3"
+                    alt="{{ $phone->name }}">
             @else
                 <img src="https://via.placeholder.com/200?text=No+Image" class="img-fluid rounded mb-3" alt="No Image">
             @endif
-            <h5>{{ $product->name }}</h5>
-            <p class="text-muted">{{ $product->category->name ?? 'Không có danh mục' }}</p>
+            <h5>{{ $phone->name }}</h5>
+            <p class="text-muted">{{ $phone->category->name ?? 'Không có danh mục' }}</p>
         </div>
         <div class="col-md-8">
-            <p><strong>Mô tả ngắn:</strong> {{ $product->short_description ?? 'N/A' }}</p>
+            <p><strong>Mô tả ngắn:</strong> {{ $phone->short_description ?? 'N/A' }}</p>
             <h6>Mô tả chi tiết:</h6>
-            <p>{{ $product->description ?? 'N/A' }}</p>
+            <p>{{ $phone->description ?? 'N/A' }}</p>
 
             <hr>
             <h6>Biến thể sản phẩm:</h6>
-            @if ($product->variants->isNotEmpty())
+            @if ($phone->variants->isNotEmpty())
                 <div class="table-responsive">
                     <table class="table table-bordered table-sm">
                         <thead>
@@ -38,7 +38,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($product->variants as $variant)
+                            @foreach ($phone->variants as $variant)
                                 <tr>
                                     <td>{{ $variant->id }}</td>
                                     <td>{{ $variant->sku ?? 'N/A' }}</td>
@@ -80,12 +80,12 @@
 
             <hr>
             <h6>Thư viện hình ảnh:</h6>
-            @if ($product->images->isNotEmpty())
+            @if ($phone->images->isNotEmpty())
                 <div class="row">
-                    @foreach ($product->images as $image)
+                    @foreach ($phone->images as $image)
                         <div class="col-md-3 mb-2">
                             <img src="{{ Storage::url($image->image_path) }}" class="img-fluid rounded"
-                                alt="Product Gallery Image">
+                                alt="phone Gallery Image">
                         </div>
                     @endforeach
                 </div>

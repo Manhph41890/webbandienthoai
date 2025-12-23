@@ -1,15 +1,15 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-5">
-            <img src="{{ $product->main_image ? Storage::url($product->main_image) : asset('img/no-image.png') }}"
-                class="img-fluid rounded" alt="{{ $product->name }}">
+            <img src="{{ $phone->main_image ? Storage::url($phone->main_image) : asset('img/no-image.png') }}"
+                class="img-fluid rounded" alt="{{ $phone->name }}">
             <h5 class="mt-3">Hình ảnh phụ:</h5>
-            @if ($product->images->isNotEmpty())
+            @if ($phone->images->isNotEmpty())
                 <div class="row">
-                    @foreach ($product->images as $image)
+                    @foreach ($phone->images as $image)
                         <div class="col-4 mb-2">
                             <img src="{{ Storage::url($image->image_path) }}" class="img-fluid rounded border"
-                                alt="Product Image">
+                                alt="phone Image">
                         </div>
                     @endforeach
                 </div>
@@ -18,16 +18,16 @@
             @endif
         </div>
         <div class="col-md-7">
-            <h3>{{ $product->name }}</h3>
-            <p class="text-muted"><strong>Danh mục:</strong> {{ $product->category->name ?? 'N/A' }}</p>
-            <p><strong>Mô tả ngắn:</strong> {{ $product->short_description ?? 'Không có mô tả ngắn.' }}</p>
+            <h3>{{ $phone->name }}</h3>
+            <p class="text-muted"><strong>Danh mục:</strong> {{ $phone->category->name ?? 'N/A' }}</p>
+            <p><strong>Mô tả ngắn:</strong> {{ $phone->short_description ?? 'Không có mô tả ngắn.' }}</p>
             <p><strong>Mô tả chi tiết:</strong></p>
             <div class="border p-3 rounded bg-light" style="max-height: 200px; overflow-y: auto;">
-                {!! nl2br(e($product->description)) !!}
+                {!! nl2br(e($phone->description)) !!}
             </div>
 
             <h4 class="mt-4">Biến thể sản phẩm:</h4>
-            @if ($product->variants->isNotEmpty())
+            @if ($phone->variants->isNotEmpty())
                 <div class="table-responsive">
                     <table class="table table-sm table-bordered">
                         <thead>
@@ -43,7 +43,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($product->variants as $variant)
+                            @foreach ($phone->variants as $variant)
                                 <tr>
                                     <td>{{ $variant->id }}</td>
                                     <td>

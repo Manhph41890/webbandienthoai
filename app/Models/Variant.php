@@ -10,23 +10,29 @@ class Variant extends Model
 {
     use HasFactory, SoftDeletes;
 
-     protected $fillable = [
+    protected $fillable = [
         'phone_id',
         'color_id',
         'size_id',
         'price',
+        'sku',
         'stock',
-        'battery_health',
-        'status',
+        'image_path',
+        'status',      // Trạng thái kho hàng (còn hàng/hết hàng)
+        'condition',   // Trạng thái máy (mới/cũ) - THÊM MỚI
+        'general_specs', // Lưu: storage, screen_size, ram
+        'used_details',  // Lưu: battery_health, charging_cycles, description
     ];
 
     protected $casts = [
         'price' => 'decimal:2',
         'stock' => 'integer',
-        'battery_health' => 'integer',
+        'image_path' => 'string',
         'phone_id' => 'integer',
         'color_id' => 'integer',
         'size_id' => 'integer',
+        'general_specs' => 'array', // Tự động convert JSON sang Array và ngược lại
+        'used_details' => 'array',  // Tự động convert JSON sang Array và ngược lại
     ];
 
     /**
@@ -53,6 +59,18 @@ class Variant extends Model
         return $this->belongsTo(Size::class);
     }
 
+    // Scope để lấy máy mới
+    public function scopeNew($query)
+    {
+        return $query->where('condition', 'new');
+    }
+
+    // Scope để lấy máy cũ
+    public function scopeUsed($query)
+    {
+        return $query->where('condition', 'used');
+    }
+
     /**
      * Scope: Lọc theo khoảng giá
      */
@@ -66,6 +84,20 @@ class Variant extends Model
      */
     public function scopeInStock($query)
     {
+        // Lưu ý: Nếu cột status lưu tiếng Việt, hãy đảm bảo đúng giá trị 'còn_hàng'
         return $query->where('stock', '>', 0)->where('status', 'còn_hàng');
+    }
+
+    /**
+     * Gợi ý: Bạn có thể thêm các Accessor để lấy dữ liệu nhanh hơn (Không bắt buộc)
+     */
+    public function getScreenSizeAttribute()
+    {
+        return $this->general_specs['screen_size'] ?? 'N/A';
+    }
+
+    public function getBatteryHealthAttribute()
+    {
+        return $this->used_details['battery_health'] ?? null;
     }
 }
