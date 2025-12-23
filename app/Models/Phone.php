@@ -15,12 +15,13 @@ class Phone extends Model
         'name',
         'slug',
         'short_description',
-        'status',
+        'is_active',
         'main_image',
     ];
 
     protected $casts = [
         'categories_id' => 'integer',
+        'is_active' => 'boolean',
     ];
 
     /**

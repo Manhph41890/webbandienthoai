@@ -8,10 +8,12 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800 font-weight-bold">Quản lý sản phẩm Điện thoại</h1>
         <div>
-            <a href="{{ route('admin.phones.create') }}" class="btn btn-sm btn-primary shadow-sm border-0" style="border-radius: 8px;">
+            <a href="{{ route('admin.phones.create') }}" class="btn btn-sm btn-primary shadow-sm border-0"
+                style="border-radius: 8px;">
                 <i class="fas fa-plus fa-sm text-white-50"></i> Thêm sản phẩm mới
             </a>
-            <a href="{{ route('admin.categories.trash') }}" class="btn btn-sm btn-outline-danger shadow-sm border-0" style="border-radius: 8px;">
+            <a href="{{ route('admin.categories.trash') }}" class="btn btn-sm btn-outline-danger shadow-sm border-0"
+                style="border-radius: 8px;">
                 <i class="fas fa-trash-alt fa-sm"></i> Thùng rác ({{ $trashedCount }})
             </a>
         </div>
@@ -34,7 +36,8 @@
                 <div class="col-md-10">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text bg-white border-right-0"><i class="fas fa-search text-muted"></i></span>
+                            <span class="input-group-text bg-white border-right-0"><i
+                                    class="fas fa-search text-muted"></i></span>
                         </div>
                         <input type="text" name="search" class="form-control border-left-0"
                             placeholder="Tìm kiếm theo tên sản phẩm hoặc danh mục..." value="{{ request('search') }}">
@@ -44,7 +47,7 @@
                     <button type="submit" class="btn btn-primary btn-block">Tìm kiếm</button>
                 </div>
             </form>
-        </div> 
+        </div>
     </div>
 
     <!-- Bảng danh sách -->
@@ -63,6 +66,7 @@
                             <th width="20%">Khoảng giá</th>
                             <th width="15%">Kho hàng</th>
                             <th width="10%">Tình trạng</th>
+                            <th width="10%" class="text-center">Hiển thị</th>
                             <th width="15%" class="text-center">Thao tác</th>
                         </tr>
                     </thead>
@@ -75,22 +79,25 @@
                                         <img src="{{ Storage::url($phone->main_image) }}" alt="{{ $phone->name }}"
                                             width="60" class="rounded shadow-sm">
                                     @else
-                                        <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width:60px; height:60px;">
+                                        <div class="bg-light rounded d-flex align-items-center justify-content-center"
+                                            style="width:60px; height:60px;">
                                             <i class="fas fa-image text-muted"></i>
                                         </div>
                                     @endif
                                 </td>
                                 <td class="align-middle">
                                     <div class="font-weight-bold text-dark mb-0">{{ $phone->name }}</div>
-                                    <small class="badge badge-light border text-muted">{{ $phone->category->name ?? 'N/A' }}</small>
+                                    <small
+                                        class="badge badge-light border text-muted">{{ $phone->category->name ?? 'N/A' }}</small>
                                 </td>
                                 <td class="align-middle">
                                     @if ($phone->variants->count() > 0)
                                         <span class="text-danger font-weight-bold">
                                             {{ number_format($phone->variants->min('price'), 0, ',', '.') }}đ
                                         </span>
-                                        @if($phone->variants->min('price') != $phone->variants->max('price'))
-                                            <small class="text-muted">- {{ number_format($phone->variants->max('price'), 0, ',', '.') }}đ</small>
+                                        @if ($phone->variants->min('price') != $phone->variants->max('price'))
+                                            <small class="text-muted">-
+                                                {{ number_format($phone->variants->max('price'), 0, ',', '.') }}đ</small>
                                         @endif
                                     @else
                                         <span class="text-muted small italic">Chưa có giá</span>
@@ -99,7 +106,7 @@
                                 <td class="align-middle">
                                     @php $totalStock = $phone->variants->sum('stock'); @endphp
                                     <div class="mb-1">Tổng: <strong>{{ $totalStock }}</strong></div>
-                                    @if($totalStock <= 0)
+                                    @if ($totalStock <= 0)
                                         <span class="badge badge-danger">Hết hàng</span>
                                     @elseif($totalStock <= 5)
                                         <span class="badge badge-warning">Sắp hết hàng</span>
@@ -109,25 +116,40 @@
                                 </td>
                                 <td class="align-middle">
                                     {{-- Hiển thị tóm tắt tình trạng máy --}}
-                                    @php 
+                                    @php
                                         $hasNew = $phone->variants->where('condition', 'new')->count();
                                         $hasUsed = $phone->variants->where('condition', 'used')->count();
                                     @endphp
-                                    @if($hasNew) <div class="small text-success"><i class="fas fa-check-circle"></i> Máy mới</div> @endif
-                                    @if($hasUsed) <div class="small text-warning"><i class="fas fa-history"></i> Máy cũ</div> @endif
+                                    @if ($hasNew)
+                                        <div class="small text-success"><i class="fas fa-check-circle"></i> Máy mới</div>
+                                    @endif
+                                    @if ($hasUsed)
+                                        <div class="small text-warning"><i class="fas fa-history"></i> Máy cũ</div>
+                                    @endif
                                 </td>
+
+                                <td class="align-middle text-center">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input change-status"
+                                            id="customSwitch{{ $phone->id }}" data-id="{{ $phone->id }}"
+                                            {{ $phone->is_active ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="customSwitch{{ $phone->id }}"></label>
+                                    </div>
+                                </td>
+
                                 <td class="align-middle text-center">
                                     <div class="btn-group shadow-sm" role="group">
-                                        <button class="btn btn-white btn-sm view-phone-detail" 
-                                            data-id="{{ $phone->id }}" 
-                                            title="Xem chi tiết"
-                                            data-toggle="modal" data-target="#phoneDetailModal">
+                                        <button class="btn btn-white btn-sm view-phone-detail"
+                                            data-id="{{ $phone->id }}" title="Xem chi tiết" data-toggle="modal"
+                                            data-target="#phoneDetailModal">
                                             <i class="fas fa-eye text-info"></i>
                                         </button>
-                                        <a href="{{ route('admin.phones.edit', $phone->id) }}" class="btn btn-white btn-sm" title="Chỉnh sửa">
+                                        <a href="{{ route('admin.phones.edit', $phone->id) }}"
+                                            class="btn btn-white btn-sm" title="Chỉnh sửa">
                                             <i class="fas fa-edit text-warning"></i>
                                         </a>
-                                        <form action="{{ route('admin.phones.destroy', $phone->id) }}" method="POST" class="d-inline">
+                                        <form action="{{ route('admin.phones.destroy', $phone->id) }}" method="POST"
+                                            class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-white btn-sm" title="Xóa"
@@ -157,11 +179,14 @@
     </div>
 
     <!-- Modal Chi tiết -->
-    <div class="modal fade" id="phoneDetailModal" tabindex="-1" role="dialog" aria-labelledby="phoneDetailModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable" style="max-width: 70%; min-height: 70%;" role="document">
+    <div class="modal fade" id="phoneDetailModal" tabindex="-1" role="dialog" aria-labelledby="phoneDetailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable" style="max-width: 70%; min-height: 70%;"
+            role="document">
             <div class="modal-content border-0 shadow-lg">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="phoneDetailModalLabel"><i class="fas fa-info-circle mr-2"></i> Chi tiết sản phẩm</h5>
+                    <h5 class="modal-title" id="phoneDetailModalLabel"><i class="fas fa-info-circle mr-2"></i> Chi tiết
+                        sản phẩm</h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -214,6 +239,29 @@
                                 Không thể tải thông tin. Lỗi: ${xhr.status} - ${xhr.statusText}
                             </div>
                         `);
+                    }
+                });
+            });
+            $('.change-status').on('change', function() {
+                const phoneId = $(this).data('id');
+                const isChecked = $(this).is(':checked');
+
+                $.ajax({
+                    url: `/admin/phones/${phoneId}/change-status`,
+                    method: 'PATCH',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            // Hiển thị thông báo nhỏ (Toast) nếu muốn
+                            console.log(response.message);
+                        }
+                    },
+                    error: function() {
+                        alert('Không thể cập nhật trạng thái. Vui lòng thử lại!');
+                        // Trả lại trạng thái cũ nếu lỗi
+                        $(this).prop('checked', !isChecked);
                     }
                 });
             });

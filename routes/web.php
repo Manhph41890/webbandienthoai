@@ -29,9 +29,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::delete('/{id}/force-delete', [PhoneController::class, 'forceDelete'])->name('phones.forceDelete');
     Route::get('/phones/get-variant-form-fields', [PhoneController::class, 'getVariantFormFields'])->name('phones.getVariantFormFields');
 
-
+    Route::patch('phones/{phone}/change-status', [PhoneController::class, 'changeStatus'])
+        ->name('phones.changeStatus');
 
     Route::resource('phones', PhoneController::class)->names('phones');
+
 
     // Các route cho thùng rác phải đặt TRƯỚC resource
     Route::get('packages/trash', [PackageController::class, 'trash'])->name('packages.trash');

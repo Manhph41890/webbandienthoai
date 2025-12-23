@@ -322,6 +322,24 @@ class PhoneController extends Controller
         }
     }
 
+    public function changeStatus(Phone $phone)
+    {
+        try {
+            $phone->is_active = !$phone->is_active;
+            $phone->save();
+
+            return response()->json([
+                'success' => true,
+                'is_active' => $phone->is_active,
+                'message' => 'Cập nhật trạng thái thành công!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Có lỗi xảy ra!'
+            ], 500);
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -404,4 +422,3 @@ class PhoneController extends Controller
         }
     }
 }
-    
