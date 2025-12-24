@@ -50,9 +50,10 @@
     <!-- Cột Ảnh -->
     <div class="auth-image-column">
         {{-- Thay thế ảnh minh họa bằng ảnh nội thất sang trọng --}}
-        <img src="{{ asset('images/login-decor.png') }}" alt="Homer Decor Interior">
-        <h3>Nội thất sang trọng, kiến tạo không gian sống mơ ước</h3>
-        <p>Khám phá bộ sưu tập độc đáo, từ cổ điển đến hiện đại, mang lại vẻ đẹp đẳng cấp cho ngôi nhà của bạn.</p>
+        <img src="{{ asset('logo/logo_remove.png') }}" alt="ToanHongKorea Interior">
+        <h3>Kết nối thông minh cho cuộc sống số</h3>
+        <p>Giải pháp trọn gói từ điện thoại, sim đến gói cước – đơn giản, nhanh gọn, tiết kiệm chi phí.</p>
+
     </div>
 @endsection
 

@@ -48,15 +48,16 @@
                 <input type="password" name="password_confirmation" placeholder="Xác nhận mật khẩu" id="password-field-2">
             </div>
 
-            <div class="register-actions">
-                <button type="submit" class="btn-submit">ĐĂNG KÝ</button>
-                <a href="{{ route('login') }}" class="btn-submit btn-secondary">ĐĂNG NHẬP</a> {{-- Thay đổi nút HỦY thành Đăng nhập --}}
-            </div>
+
+            <button type="submit" class="btn-submit">ĐĂNG KÝ</button>
+            <p class="auth-switch-link">
+                Bạn đã có tài khoản? <a href="{{ route('login') }}">Đăng nhập ngay</a>
+            </p>
         </form>
 
         <p class="register-terms">
             Khi bấm đăng ký bạn đã đồng ý với <a href="#">Điều khoản dịch vụ</a> và <a href="#">Chính sách quyền
-                riêng tư</a> của Homer Decor.
+                riêng tư</a> của ToanHongKorea.
         </p>
 
     </div>
@@ -64,9 +65,10 @@
     <!-- Cột Ảnh -->
     <div class="auth-image-column">
         {{-- Thay thế ảnh minh họa bằng ảnh nội thất sang trọng --}}
-        <img src="{{ asset('images/register-decor.png') }}" alt="Homer Decor Interior">
-        <h3>Tham gia Homer Decor để trải nghiệm mua sắm nội thất đẳng cấp!</h3>
-        <p>Truy cập vào các ưu đãi độc quyền, quản lý đơn hàng dễ dàng và nhiều hơn thế nữa.</p>
+        <img src="{{ asset('logo/logo_remove.png') }}" alt="ToanHongKorea Interior">
+        <h3>Kết nối thông minh cho cuộc sống số</h3>
+        <p>Giải pháp trọn gói từ điện thoại, sim đến gói cước – đơn giản, nhanh gọn, tiết kiệm chi phí.</p>
+
     </div>
 @endsection
 
