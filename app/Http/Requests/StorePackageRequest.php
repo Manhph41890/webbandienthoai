@@ -24,14 +24,22 @@ class StorePackageRequest extends FormRequest
         $id = $this->route('package') ? $this->route('package')->id : null;
 
         return [
-            'name' => 'required|string|max:255|unique:packages,name,' . $id,
-            'duration_days' => 'required|integer|min:1',
+            'name' => 'required|string|max:255',
+            'slug' => 'nullable|string|unique:packages,slug',
             'price' => 'required|numeric|min:0',
+            'duration_days' => 'required|integer|min:1',
+            'description' => 'nullable|string',
+            'carrier' => 'required|in:sk,kt,lgu',
+            'payment_type' => 'required|in:tra_truoc,tra_sau',
+            'sim_type' => 'required|in:hop_phap,bat_hop_phap',
+            'status' => 'required|in:con_hang,het_hang',
+            'is_active' => 'nullable', // Chấp nhận bất cứ giá trị nào từ checkbox/switch
+
+            // PHẦN QUAN TRỌNG NHẤT: Định nghĩa quy tắc cho mảng specifications
             'specifications' => 'nullable|array',
-            'specifications.data.per_month' => 'nullable|string',
-            'specifications.data.per_day' => 'nullable|string',
-            'specifications.data.note' => 'nullable|string',
-            'specifications.call' => 'nullable|string',
+            'specifications.data_thang' => 'nullable|string',
+            'specifications.data_ngay' => 'nullable|string',
+            'specifications.uu_dai_thoai' => 'nullable|string',
         ];
     }
 

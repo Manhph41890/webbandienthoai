@@ -78,7 +78,7 @@
     {{-- Scripts chung và modal --}}
     @include('admin.partials.scripts')
     @stack('scripts') {{-- Đây là nơi nội dung các modal sẽ được nạp vào --}}
-
+    @include('sweetalert::alert')
 </body>
 
 </html>

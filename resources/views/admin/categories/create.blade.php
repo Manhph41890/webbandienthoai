@@ -12,7 +12,7 @@
             <i class="fas fa-arrow-left fa-sm text-white-50"></i> Quay lại
         </a>
     </div>
-    @if ($errors->any())
+    {{-- @if ($errors->any())
         <div class="alert alert-danger">
             <strong>Có lỗi xảy ra!</strong>
             <ul class="mb-0 mt-2">
@@ -21,7 +21,7 @@
                 @endforeach
             </ul>
         </div>
-    @endif
+    @endif --}}
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">

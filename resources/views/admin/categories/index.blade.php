@@ -66,7 +66,7 @@
                 <table class="table table-hover align-middle" id="dataTable" width="100%" cellspacing="0">
                     <thead class="bg-light text-secondary small text-uppercase">
                         <tr>
-                            <th width="5%">ID</th>
+                            <th width="5%">STT</th>
                             <th width="35%">Chuyên mục</th>
                             <th width="25%">Chuyên mục cha</th>
                             <th width="15%">Trạng thái</th>
@@ -76,7 +76,7 @@
                     <tbody>
                         @forelse ($categories as $category)
                             <tr>
-                                <td class="align-middle font-weight-bold">#{{ $category->id }}</td>
+                                <td class="align-middle font-weight-bold">#{{ $loop->iteration }}</td>
                                 <td class="align-middle">
                                     <div class="font-weight-bold text-dark mb-0">{{ $category->name }}</div>
                                     <small class="text-muted"><i class="fas fa-link fa-xs"></i> /{{ $category->slug }}</small>

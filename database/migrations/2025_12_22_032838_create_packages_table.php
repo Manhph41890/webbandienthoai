@@ -37,7 +37,6 @@ return new class extends Migration
      |   "data": {
      |     "per_month": "30GB",
      |     "per_day": "1GB/ngày",
-     |     "note": "Hết 1GB dừng truy cập"
      |   },
      |   "call": "Miễn phí nội mạng <10 phút/cuộc (tối đa 1.500 phút/tháng),
      |            ngoại mạng 30 phút/tháng"

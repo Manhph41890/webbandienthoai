@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Phone;
 use App\Models\Category; // Đảm bảo import Category model
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Storage; // Để quản lý file
 use App\Http\Requests\StorePhoneRequest;
 use App\Http\Requests\UpdatePhoneRequest;
@@ -151,10 +152,12 @@ class PhoneController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('admin.phones.index')->with('success', 'Thêm sản phẩm thành công!');
+            Alert::success('Thành công', 'Sản phẩm và biến thể đã được thêm thành công.');
+            return redirect()->route('admin.phones.index');
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error("Lỗi khi thêm sản phẩm: " . $e->getMessage());
+            Alert::error('Lỗi', 'Có lỗi xảy ra: ' . $e->getMessage());
             return back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage())->withInput();
         }
     }
@@ -314,9 +317,11 @@ class PhoneController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('admin.phones.index')->with('success', 'Cập nhật sản phẩm và biến thể thành công!');
+            Alert::success('Thành công', 'Sản phẩm và biến thể đã được cập nhật thành công.');
+            return redirect()->route('admin.phones.index');
         } catch (\Exception $e) {
             DB::rollBack();
+            Alert::error($e->getMessage());
             Log::error("Lỗi cập nhật: " . $e->getMessage());
             return back()->with('error', 'Lỗi cập nhật: ' . $e->getMessage())->withInput();
         }

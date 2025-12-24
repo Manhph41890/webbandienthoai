@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Support\Str;
@@ -17,11 +18,6 @@ class CategoryController extends Controller
     {
         $query = Category::query();
         $trashedCount = Category::onlyTrashed()->count(); // Đếm số lượng bài trong thùng rác
-
-        // Đếm số điện thoại trong mỗi danh mục
-        // Nếu bạn muốn hiển thị tổng số điện thoại trong danh mục,
-        // cần thêm `withCount('phones')` vào query
-        // $query->withCount('phones');
 
         // Xử lý tìm kiếm
         if ($search = $request->input('search')) {
@@ -62,10 +58,9 @@ class CategoryController extends Controller
         // Tạo mới category
         Category::create($validatedData);
 
-
+        Alert::success('Thành công', 'Gói cước đã được tạo thành công!');
         // Chuyển hướng về trang danh sách và gửi kèm một thông báo thành công
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Chuyên mục đã được tạo thành công.');
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -95,9 +90,9 @@ class CategoryController extends Controller
         if (empty($validatedData['slug'])) {
             $validatedData['slug'] = Str::slug($validatedData['name']);
         }
-
+        Alert::success('Thành công', 'Gói cước đã được cập nhật thành công.');
         $category->update($validatedData);
-        return redirect()->route('admin.categories.index')->with('success', 'Chuyên mục đã được cập nhật thành công.');
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -112,9 +107,8 @@ class CategoryController extends Controller
         // }
 
         $category->delete();
-
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Danh mục đã được chuyển vào thùng rác!');
+        Alert::success('Thành công', 'Danh mục đã được chuyển vào thùng rác.');
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -135,9 +129,8 @@ class CategoryController extends Controller
         // Tìm ID trong danh sách đã xóa mềm
         $category = Category::onlyTrashed()->findOrFail($id);
         $category->restore();
-
-        return redirect()->route('admin.categories.trash')
-            ->with('success', 'Khôi phục danh mục thành công!');
+        Alert::success('Thành công', 'Danh mục đã được khôi phục thành công!');
+        return redirect()->route('admin.categories.trash');
     }
 
     /**
@@ -151,8 +144,7 @@ class CategoryController extends Controller
         // if ($category->image) { Storage::disk('public')->delete($category->image); }
 
         $category->forceDelete(); // Xóa hoàn toàn khỏi database
-
-        return redirect()->route('admin.categories.trash')
-            ->with('success', 'Danh mục đã được xóa vĩnh viễn!');
+        Alert::success('Thành công', 'Danh mục đã được xóa vĩnh viễn!');
+        return redirect()->route('admin.categories.trash');
     }
 }

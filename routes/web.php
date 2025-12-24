@@ -34,20 +34,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('phones', PhoneController::class)->names('phones');
 
+    Route::patch('packages/{package}/toggle-active', [PackageController::class, 'toggleActive'])
+        ->name('packages.toggleActive');
 
     // Các route cho thùng rác phải đặt TRƯỚC resource
     Route::get('packages/trash', [PackageController::class, 'trash'])->name('packages.trash');
     Route::patch('packages/{id}/restore', [PackageController::class, 'restore'])->name('packages.restore');
     Route::delete('packages/{id}/force-delete', [PackageController::class, 'forceDelete'])->name('packages.forceDelete');
 
+
     // Route Resource chuẩn
     Route::resource('packages', PackageController::class);
-
-    // Thùng rác SIM
-    Route::get('sims/trash', [SimController::class, 'trash'])->name('sims.trash');
-    Route::patch('sims/{id}/restore', [SimController::class, 'restore'])->name('sims.restore');
-    Route::delete('sims/{id}/force-delete', [SimController::class, 'forceDelete'])->name('sims.forceDelete');
-
-    // CRUD Resource
-    Route::resource('sims', SimController::class);
 });

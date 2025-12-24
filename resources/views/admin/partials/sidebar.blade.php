@@ -37,7 +37,7 @@
         </a>
     </li>
 
-    <!-- Nav Item - Quản lý Bài viết -->
+    <!-- Nav Item - Quản lý Điện thoại -->
     <li class="nav-item {{ Request::is('admin/phones*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsephones"
             aria-expanded="true" aria-controls="collapsephones">
@@ -51,6 +51,24 @@
                     href="{{ route('admin.phones.index') }}">Danh sách</a>
                 <a class="collapse-item {{ Request::is('admin/phones/create') ? 'active' : '' }}"
                     href="{{ route('admin.phones.create') }}">Thêm mới</a>
+            </div>
+        </div>
+    </li>
+
+        <!-- Nav Item - Quản lý Gói Cước -->
+    <li class="nav-item {{ Request::is('admin/packages*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsepackages"
+            aria-expanded="true" aria-controls="collapsepackages">
+            <i class="fas fa-fw fa-pen-square"></i>
+            <span>Quản lý Gói Cước</span>
+        </a>
+        <div id="collapsepackages" class="collapse {{ Request::is('admin/packages*') ? 'show' : '' }}"
+            aria-labelledby="headingpackages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item {{ Request::is('admin/packages') && !request()->routeIs('packages.trash') ? 'active' : '' }}"
+                    href="{{ route('admin.packages.index') }}">Danh sách</a>
+                <a class="collapse-item {{ Request::is('admin/packages/create') ? 'active' : '' }}"
+                    href="{{ route('admin.packages.create') }}">Thêm mới</a>
             </div>
         </div>
     </li>

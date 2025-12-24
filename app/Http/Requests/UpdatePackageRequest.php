@@ -28,10 +28,9 @@ class UpdatePackageRequest extends FormRequest
             'duration_days' => 'required|integer|min:1',
             'price' => 'required|numeric|min:0',
             'specifications' => 'nullable|array',
-            'specifications.data.per_month' => 'nullable|string',
-            'specifications.data.per_day' => 'nullable|string',
-            'specifications.data.note' => 'nullable|string',
-            'specifications.call' => 'nullable|string',
+            'specifications.data_thang' => 'nullable|string',
+            'specifications.data_ngay' => 'nullable|string',
+            'specifications.uu_dai_thoai' => 'nullable|string',
         ];
     }
 

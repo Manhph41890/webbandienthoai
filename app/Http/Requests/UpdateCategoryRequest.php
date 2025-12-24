@@ -22,8 +22,8 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => 'required|string|max:255|unique:categories,name',
-            'slug'        => 'nullable|string|max:255|alpha_dash|unique:categories,slug',
+            'name'        => 'required|string|max:255',
+            'slug'        => 'nullable|string|max:255|alpha_dash',
             'description' => 'nullable|string',
             'parent_id'   => 'nullable|integer|exists:categories,id', // Phải tồn tại trong bảng categories
             'is_active'   => 'required|boolean',
@@ -43,13 +43,11 @@ class UpdateCategoryRequest extends FormRequest
             'name.required'     => 'Tên chuyên mục không được để trống.',
             'name.string'       => 'Tên chuyên mục phải là một chuỗi ký tự.',
             'name.max'          => 'Tên chuyên mục không được vượt quá 255 ký tự.',
-            'name.unique'       => 'Tên chuyên mục này đã tồn tại.',
 
 
             'slug.string'       => 'Slug phải là một chuỗi ký tự.',
             'slug.max'          => 'Slug không được vượt quá 255 ký tự.',
             'slug.alpha_dash'   => 'Slug chỉ được chứa chữ cái, số, dấu gạch ngang và gạch dưới.',
-            'slug.unique'       => 'Slug này đã được sử dụng.',
 
 
             'parent_id.integer' => 'Chuyên mục cha không hợp lệ.',

@@ -60,7 +60,7 @@
                 <table class="table table-hover align-middle" id="dataTable" width="100%" cellspacing="0">
                     <thead class="bg-light">
                         <tr class="text-secondary small text-uppercase">
-                            <th width="5%">ID</th>
+                            <th width="5%">STT</th>
                             <th width="10%">Hình ảnh</th>
                             <th width="25%">Sản phẩm</th>
                             <th width="20%">Khoảng giá</th>
@@ -73,7 +73,7 @@
                     <tbody>
                         @forelse ($phones as $phone)
                             <tr>
-                                <td class="align-middle font-weight-bold">#{{ $phone->id }}</td>
+                                <td class="align-middle font-weight-bold">#{{ $loop->iteration }}</td>
                                 <td class="align-middle text-center">
                                     @if ($phone->main_image)
                                         <img src="{{ Storage::url($phone->main_image) }}" alt="{{ $phone->name }}"
