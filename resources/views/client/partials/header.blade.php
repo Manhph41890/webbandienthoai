@@ -26,7 +26,6 @@
                 </a>
                 <a href="/wishlist" class="action-item">
                     <i class="fa-regular fa-heart"></i>
-                    <span class="badge">+</span>
                     <span>Yêu thích</span>
                 </a>
             </div>
