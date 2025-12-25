@@ -2,14 +2,13 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\SimController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
@@ -55,5 +54,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/header', function () {
-    return view('client.partials.header');
+    return view('client.desktop.partials.header');
 });

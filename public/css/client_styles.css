@@ -12,7 +12,7 @@
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 15px;
 }
@@ -27,7 +27,7 @@
 }
 
 .logo img {
-    height: 50px; /* Điều chỉnh tùy theo ảnh thật */
+    height: 60px; /* Điều chỉnh tùy theo ảnh thật */
 }
 
 .search-box {
@@ -100,18 +100,18 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .nav-icon_apple {
-    height: 18px;
+    height: 20px;
     object-fit: contain;
 }
 
 .nav-icon_samsung {
-    height: 11px;
+    height: 14px;
     object-fit: contain;
-    margin-top: 5px;
+    margin-top: 8px;
 }
 
 .arrow-icon {

@@ -1,20 +1,29 @@
-@extends('client.layouts.auth')
+@extends('auth.auth')
 
-@section('title', 'Đăng nhập')
+@section('title', 'Đăng ký tài khoản')
 
 @section('content')
     <!-- Cột Form -->
     <div class="auth-form-column">
-        <h2>Chào mừng trở lại!</h2>
-        <p class="social-prompt">Đăng nhập nhanh bằng tài khoản mạng xã hội</p>
+        <h2>Tạo tài khoản mới</h2>
+        <p class="social-prompt">Đăng ký nhanh bằng tài khoản mạng xã hội</p>
         <div class="social-login">
             <a href="#" class="google"><i class="fab fa-google-plus-g"></i></a>
             <a href="#" class="apple"><i class="fab fa-apple"></i></a>
         </div>
         <div class="divider">Hoặc</div>
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('register') }}">
             @csrf
+            <div class="form-group">
+                <i class="fas fa-user input-icon"></i>
+                <input type="text" name="name" placeholder="Họ và tên của bạn" value="{{ old('name') }}"
+                    class="@error('name') is-invalid @enderror">
+            </div>
+            @error('name')
+                <small class="error-text">{{ $message }}</small>
+            @enderror
+
             <div class="form-group">
                 <i class="fas fa-envelope input-icon"></i>
                 <input type="email" name="email" placeholder="Email của bạn" value="{{ old('email') }}"
@@ -24,27 +33,33 @@
                 <small class="error-text">{{ $message }}</small>
             @enderror
 
-
             <div class="form-group">
                 <i class="fas fa-lock input-icon"></i>
                 <input type="password" name="password" placeholder="Mật khẩu"
-                    class="@error('password') is-invalid @enderror" id="password-field">
+                    class="@error('password') is-invalid @enderror" id="password-field-1">
                 <button type="button" class="password-toggle"><i class="fas fa-eye"></i></button>
             </div>
             @error('password')
                 <small class="error-text">{{ $message }}</small>
             @enderror
 
-
-            <div class="form-actions">
-                <a href="#">Quên mật khẩu?</a>
+            <div class="form-group">
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" name="password_confirmation" placeholder="Xác nhận mật khẩu" id="password-field-2">
             </div>
-            <button type="submit" class="btn-submit">ĐĂNG NHẬP</button>
+
+
+            <button type="submit" class="btn-submit">ĐĂNG KÝ</button>
+            <p class="auth-switch-link">
+                Bạn đã có tài khoản? <a href="{{ route('login') }}">Đăng nhập ngay</a>
+            </p>
         </form>
 
-        <p class="auth-switch-link">
-            Chưa có tài khoản? <a href="{{ route('register') }}">Đăng ký ngay</a>
+        <p class="register-terms">
+            Khi bấm đăng ký bạn đã đồng ý với <a href="#">Điều khoản dịch vụ</a> và <a href="#">Chính sách quyền
+                riêng tư</a> của ToanHongKorea.
         </p>
+
     </div>
 
     <!-- Cột Ảnh -->
@@ -59,7 +74,7 @@
 
 @push('scripts')
     <script>
-        // Xử lý ẩn/hiện mật khẩu
+        // Xử lý ẩn/hiện mật khẩu (code tương tự trang login)
         document.querySelectorAll('.password-toggle').forEach(button => {
             button.addEventListener('click', function() {
                 const passwordField = this.previousElementSibling;
