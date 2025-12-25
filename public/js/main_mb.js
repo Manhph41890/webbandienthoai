@@ -1,15 +1,25 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Lấy tất cả các nút mũi tên
+    header.addEventListener('click', () => {
+        const parent = header.parentElement;
+
+        document.querySelectorAll('.m-footer-accordion').forEach(item => {
+            if (item !== parent) item.classList.remove('active');
+        });
+
+        // Toggle class active cho cái đang nhấn
+        parent.classList.toggle('active');
+    });
     const toggles = document.querySelectorAll('.arrow-toggle');
 
     toggles.forEach(btn => {
-        btn.addEventListener('click', function(e) {
+        btn.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
 
             // Tìm phần tử cha (li) chứa menu này
             const parentLi = this.closest('li');
-            
+
             // Toggle class 'open' để hiển thị menu con (CSS sẽ xử lý hiển thị)
             parentLi.classList.toggle('open');
 
@@ -39,5 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
     openBtn.addEventListener('click', toggleMenu);
     closeBtn.addEventListener('click', toggleMenu);
     overlay.addEventListener('click', toggleMenu);
-    
+
+
 });

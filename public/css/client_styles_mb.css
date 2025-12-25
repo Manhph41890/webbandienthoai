@@ -259,3 +259,169 @@
 .has-submenu.open > .nav-link-wrapper .arrow-toggle {
     transform: rotate(90deg); /* Xoay mũi tên xuống */
 }
+
+/* =====================================footer=============================================================== */
+.mobile-footer {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 40px 15px 20px;
+    font-family: sans-serif;
+    text-align: center; /* Căn giữa toàn bộ trên mobile */
+}
+
+.m-footer-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.m-footer-logo img {
+    height: 70px;
+    margin-bottom: 15px;
+}
+
+.m-footer-desc {
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.5;
+    padding: 0 10px;
+}
+
+.m-social-links {
+    margin-top: 15px;
+}
+
+.m-social-links a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #d4af37;
+    border-radius: 50%;
+    color: #d4af37;
+    line-height: 40px;
+    margin: 0 5px;
+    font-size: 18px;
+}
+
+/* Chia 2 cột cho phần Link để tiết kiệm diện tích chiều dọc */
+.m-footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: left;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+    padding: 20px 0;
+}
+
+.m-footer-title {
+    color: #d4af37;
+    font-size: 15px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.m-footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.m-footer-links li {
+    margin-bottom: 10px;
+}
+
+.m-footer-links li a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+/* Phần liên hệ */
+.m-footer-contact {
+    text-align: center;
+}
+
+.m-contact-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #ccc;
+}
+
+.m-contact-item i {
+    color: #d4af37;
+}
+
+.m-contact-item a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+/* Highlight số điện thoại để người dùng dễ thấy */
+.m-contact-item.highlight a {
+    color: #d4af37;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.divider {
+    margin: 0 5px;
+    color: #444;
+}
+
+.m-payment-methods {
+    margin-top: 20px;
+}
+
+.m-payment-methods img {
+    height: 25px;
+    margin: 0 10px;
+    filter: grayscale(1) invert(1);
+    opacity: 0.6;
+}
+
+.m-footer-bottom {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #333;
+    font-size: 12px;
+    color: #666;
+}
+
+.m-accordion-header h4 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    color: #eee;
+    text-transform: uppercase;
+}
+
+.m-accordion-header i {
+    font-size: 12px;
+    transition: transform 0.3s;
+    color: #888;
+}
+
+/* Nội dung thu gọn */
+.m-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: #111;
+    padding: 0 20px;
+}
+
+/* Khi active thì mở ra */
+.m-footer-accordion.active .m-accordion-content {
+    max-height: 500px; /* Đủ lớn để chứa nội dung */
+    padding-bottom: 20px;
+}
+
+.m-footer-accordion.active .m-accordion-header i {
+    transform: rotate(180deg);
+}
+.iconfy{
+    margin-top: 10px;
+}
