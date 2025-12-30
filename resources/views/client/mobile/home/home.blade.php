@@ -14,6 +14,6 @@
 
  @include('client.mobile.home.bannerphukep')
 
- {{-- @include('client.mobile.home.packages') --}}
+ @include('client.mobile.home.packages')
     @include('client.mobile.home.sevice')
 @endsection
