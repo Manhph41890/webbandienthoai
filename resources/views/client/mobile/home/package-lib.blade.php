@@ -1,71 +1,98 @@
 @push('styles')
     <style>
-        /* Root container để định nghĩa biến nội bộ, tránh ảnh hưởng toàn cục */
-        .hpkg-wrapper {
-            --hpkg-primary: #4a6cf7;
-            --hpkg-danger: #e74c3c;
-            --hpkg-warning: #f1c40f;
-            --hpkg-dark: #2d3436;
-            --hpkg-gray: #636e72;
-            --hpkg-bg-soft: #f8f9fa;
-            --hpkg-gap: 20px;
-
-            padding: 40px 0;
-            background-color: transparent;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-        }
-
-        .hpkg-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        /* Tiêu đề */
-        .hpkg-head-group {
-            margin-bottom: 30px;
-        }
-
-        .hpkg-main-title {
-            font-size: 28px !important;
-            font-weight: 800 !important;
-            color: var(--hpkg-dark) !important;
-            margin-bottom: 8px !important;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: none !important;
-        }
-
-        .hpkg-title-divider {
-            width: 60px;
-            height: 4px;
-            background: var(--hpkg-primary);
-            border-radius: 2px;
-        }
-
-        /* Slider Core */
-        .hpkg-slider-outer {
-            overflow: hidden !important;
+        /* Container bao bọc bên ngoài */
+        .spc-pagination-outer {
+            overflow: hidden !important; 
+            /* Ẩn các sản phẩm ở trang khác */
             width: 100%;
             cursor: grab;
             touch-action: pan-y;
-            position: relative;
         }
 
-        .hpkg-slider-outer:active {
+        .spc-pagination-outer:active {
             cursor: grabbing;
         }
 
-        .hpkg-track-list {
+        /* Track chứa các sản phẩm */
+        .spc-list-wrapper {
             display: flex !important;
             transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-            will-change: transform;
-            gap: var(--hpkg-gap) !important;
-            padding: 10px 0;
+            will-change: transform !important;
+            gap: 20px !important;
+            /* Khoảng cách giữa các card */
         }
 
-        /* Thẻ Card */
-        .hpkg-card-item {
+
+        /* Phân trang (Dots) */
+        .spc-pagination-controls {
+            display: flex !important;
+            justify-content: center !important;
+            gap: 10px !important;
+            margin-top: 20px !important;
+        }
+
+        .spc-dot {
+            width: 12px;
+            height: 12px;
+            background-color: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            padding: 0;
+        }
+
+        .spc-dot.active {
+            background-color: #ee0000;
+            /* Màu thương hiệu của bạn */
+            width: 30px;
+            border-radius: 10px;
+        }
+
+        .spc-section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        /* Style cho Tiêu đề "Gói cước Hot" */
+        .spc-section-header {
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .spc-main-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #2d3436;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .spc-title-underline {
+            width: 60px;
+            height: 4px;
+            background: #4a6cf7;
+            border-radius: 2px;
+        }
+
+        /* Grid Layout 3 cột */
+        .spc-list-wrapper {
+            --spc-primary: #4a6cf7;
+            --spc-danger: #e74c3c;
+            --spc-warning: #f1c40f;
+            --spc-dark: #2d3436;
+            --spc-gray: #636e72;
+            --spc-bg-alt: #f8f9fa;
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .spc-card-container {
             background: #fff;
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
@@ -73,127 +100,132 @@
             display: flex;
             flex-direction: column;
             transition: transform 0.3s ease;
+            min-width: 165px !important;
             border: 1px solid #eee;
-            min-width: 285px;
-            /* Điều chỉnh tùy layout */
-            flex-shrink: 0;
         }
 
-        .hpkg-card-item:hover {
+        .spc-card-container:hover {
             transform: translateY(-5px);
         }
 
-        .hpkg-package-name {
-            font-size: 18px !important;
-            color: var(--hpkg-dark);
-            margin: 0 0 10px 0 !important;
-            font-weight: 700 !important;
-            min-height: 50px;
-            line-height: 1.4;
+        /* Header */
+        .spc-card-head {
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
         }
 
-        .hpkg-meta-flex {
+        .spc-product-title {
+            font-size: 18px;
+            color: var(--spc-dark);
+            margin: 0 0 10px 0;
+            font-weight: 700;
+            line-height: 1.4;
+            min-height: 50px;
+        }
+
+        .spc-meta-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .hpkg-rating-stars {
-            color: var(--hpkg-warning);
+        .spc-rating-box {
+            color: var(--spc-warning);
             font-size: 12px;
         }
 
-        .hpkg-rating-count {
-            color: var(--hpkg-gray);
+        .spc-rating-text {
+            color: var(--spc-gray);
             margin-left: 4px;
         }
 
-        .hpkg-btn-wishlist {
-            background: none;
-            border: none;
-            color: var(--hpkg-gray);
-            cursor: pointer;
-            padding: 5px;
-            font-size: 18px;
+
+        /* Body */
+        .spc-card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            flex-grow: 1;
         }
 
-        /* Mid Section */
-        .hpkg-price-area {
+        .spc-price-wrapper {
             text-align: center;
             background: #fdf2f2;
-            padding: 12px;
+            padding: 10px;
             border-radius: 10px;
-            margin: 15px 0;
         }
 
-        .hpkg-price-val {
+        .spc-price-num {
             font-size: 22px;
             font-weight: 800;
-            color: var(--hpkg-danger);
+            color: var(--spc-danger);
         }
 
-        .hpkg-currency {
-            font-size: 16px;
-            margin-left: 2px;
-        }
-
-        .hpkg-duration {
-            color: var(--hpkg-gray);
+        .spc-period {
+            color: var(--spc-gray);
             font-size: 13px;
         }
 
-        .hpkg-tag-item {
-            background: var(--hpkg-bg-soft);
+        .spc-highlight-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .spc-highlight-item {
+            background: var(--spc-bg-alt);
             padding: 8px 12px;
             border-radius: 8px;
             display: flex;
             align-items: center;
             gap: 10px;
             font-size: 14px;
-            margin-bottom: 8px;
         }
 
-        .hpkg-tag-item i {
-            color: var(--hpkg-primary);
-            width: 16px;
+        .spc-highlight-item i {
+            color: var(--spc-primary);
+            width: 15px;
         }
 
-        .hpkg-specs-grid {
+        .spc-spec-column {
             border-top: 1px dashed #eee;
-            padding-top: 12px;
-            margin-top: 5px;
+            padding-top: 10px;
         }
 
-        .hpkg-spec-row {
+        .spc-spec-entry {
             display: flex;
             justify-content: space-between;
             font-size: 13px;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
 
-        .hpkg-spec-label {
-            color: var(--hpkg-gray);
+        .spc-spec-key {
+            color: var(--spc-gray);
         }
 
-        .hpkg-spec-value {
+        .spc-spec-val {
             font-weight: 600;
-            color: var(--hpkg-dark);
+            color: var(--spc-dark);
         }
 
-        .hpkg-text-red {
+        .spc-brand-color {
             color: #e11d48;
         }
 
-        /* Footer Buttons */
-        .hpkg-card-bot {
+        /* Footer - 2 Nút Mua ngay & Chi tiết */
+        .spc-card-foot {
             display: flex;
             gap: 8px;
-            margin-top: auto;
-            padding-top: 15px;
+            margin-top: 15px;
         }
 
-        .hpkg-btn-action {
-            text-decoration: none !important;
+        .spc-btn-buy {
+            flex: 1.8;
+            background-color: #4a6cf7;
+            /* Màu xanh đen như ảnh */
+            color: white !important;
+            text-decoration: none;
             padding: 10px 5px;
             border-radius: 8px;
             font-weight: 700;
@@ -201,131 +233,152 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 6px;
+            transition: all 0.3s;
             text-transform: uppercase;
-            transition: 0.3s;
         }
 
-        .hpkg-btn-buy {
-            flex: 1.8;
-            background-color: var(--hpkg-primary);
-            color: #fff !important;
+        .spc-btn-buy:hover {
+            background-color: #2c3e50;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .hpkg-btn-buy:hover {
-            background-color: #3451d1;
-        }
-
-        .hpkg-btn-info {
+        .spc-btn-detail {
             flex: 1;
             background-color: #f0f2f5;
-            color: var(--hpkg-dark) !important;
-        }
-
-        /* Pagination */
-        .hpkg-dots-container {
+            color: #2d3436 !important;
+            text-decoration: none;
+            padding: 10px 5px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 12px;
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 8px;
-            margin-top: 25px;
+            transition: all 0.3s;
+            text-transform: uppercase;
         }
 
-        .hpkg-dot {
-            width: 10px;
-            height: 10px;
-            background: #ccc;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .hpkg-dot.is-active {
-            background: var(--hpkg-danger);
-            width: 25px;
-            border-radius: 10px;
+        .spc-btn-detail:hover {
+            background-color: #e4e6e9;
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .hpkg-card-item {
-                min-width: calc(100vw - 60px);
+        @media (max-width: 1024px) {
+            .spc-list-wrapper {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+            .spc-list-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .spc-main-title {
+                font-size: 22px;
             }
         }
     </style>
-    @push('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const track = document.getElementById('hpkg-track-list');
-                const dotsContainer = document.getElementById('hpkg-pagination-dots');
-                const items = track.querySelectorAll('.hpkg-card-item');
+@endpush
 
-                if (items.length === 0) return;
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const track = document.getElementById('spc-list-track');
+        const dotsContainer = document.getElementById('spc-pagination-dots');
+        const outer = document.querySelector('.spc-pagination-outer');
+        const items = track.querySelectorAll('.spc-card-container');
 
-                let itemsPerPage = window.innerWidth <= 768 ? 1 : (window.innerWidth <= 1024 ? 2 : 4);
-                const totalPages = Math.ceil(items.length / itemsPerPage);
-                let currentPage = 0;
+        let itemsPerPage = 4;
+        if (window.innerWidth <= 768) itemsPerPage = 1;
+        else if (window.innerWidth <= 1024) itemsPerPage = 2;
 
-                // Tạo dots
-                function initDots() {
-                    dotsContainer.innerHTML = '';
-                    for (let i = 0; i < totalPages; i++) {
-                        const btn = document.createElement('button');
-                        btn.className = `hpkg-dot ${i === 0 ? 'is-active' : ''}`;
-                        btn.addEventListener('click', () => moveToPage(i));
-                        dotsContainer.appendChild(btn);
-                    }
-                }
+        const totalPages = Math.ceil(items.length / itemsPerPage);
+        let currentPage = 0;
 
-                function moveToPage(idx) {
-                    currentPage = idx;
-                    const gap = 20;
-                    const itemWidth = items[0].offsetWidth;
-                    const offset = idx * (itemWidth + gap) * itemsPerPage;
-                    track.style.transform = `translateX(-${offset}px)`;
+        // 1. Tạo các chấm phân trang
+        function createDots() {
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < totalPages; i++) {
+                const dot = document.createElement('button');
+                dot.classList.add('spc-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToPage(i));
+                dotsContainer.appendChild(dot);
+            }
+        }
 
-                    dotsContainer.querySelectorAll('.hpkg-dot').forEach((d, i) => {
-                        d.classList.toggle('is-active', i === idx);
-                    });
-                }
+        // 2. Hàm chuyển trang
+        function goToPage(pageIndex) {
+            if (pageIndex < 0) pageIndex = 0;
+            if (pageIndex >= totalPages) pageIndex = totalPages - 1;
 
-                // Kéo thả (Swipe) logic
-                let isDown = false,
-                    startX, scrollLeftVal;
+            currentPage = pageIndex;
+            const gap = 20; // Khớp với gap trong CSS
+            const itemWidth = items[0].offsetWidth + gap;
+            const moveDistance = pageIndex * itemWidth * itemsPerPage;
 
-                track.parentElement.addEventListener('mousedown', (e) => {
-                    isDown = true;
-                    startX = e.pageX;
-                    track.style.transition = 'none';
-                });
+            track.style.transform = `translateX(-${moveDistance}px)`;
 
-                window.addEventListener('mouseup', (e) => {
-                    if (!isDown) return;
-                    isDown = false;
-                    track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                    const endX = e.pageX;
-                    if (startX - endX > 50 && currentPage < totalPages - 1) moveToPage(currentPage + 1);
-                    else if (endX - startX > 50 && currentPage > 0) moveToPage(currentPage - 1);
-                    else moveToPage(currentPage);
-                });
-
-                // Touch events cho mobile
-                track.parentElement.addEventListener('touchstart', (e) => {
-                    isDown = true;
-                    startX = e.touches[0].pageX;
-                    track.style.transition = 'none';
-                });
-
-                track.parentElement.addEventListener('touchend', (e) => {
-                    if (!isDown) return;
-                    isDown = false;
-                    track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                    const endX = e.changedTouches[0].pageX;
-                    if (startX - endX > 50 && currentPage < totalPages - 1) moveToPage(currentPage + 1);
-                    else if (endX - startX > 50 && currentPage > 0) moveToPage(currentPage - 1);
-                    else moveToPage(currentPage);
-                });
-
-                initDots();
+            // Cập nhật dots
+            document.querySelectorAll('.spc-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentPage);
             });
-        </script>
-    @endpush
+        }
+
+        // 3. Xử lý Kéo (Drag) và Vuốt (Swipe)
+        let isDragging = false,
+            startX, scrollLeft, currentTranslate = 0;
+
+        outer.addEventListener('mousedown', startDrag);
+        outer.addEventListener('touchstart', startDrag);
+
+        function startDrag(e) {
+            isDragging = true;
+            startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+            track.style.transition = 'none'; // Tắt transition khi đang kéo
+        }
+
+        window.addEventListener('mousemove', drag);
+        window.addEventListener('touchmove', drag);
+
+        function drag(e) {
+            if (!isDragging) return;
+            const x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+            const walk = x - startX;
+            const gap = 20;
+            const itemWidth = items[0].offsetWidth + gap;
+            const currentOffset = -(currentPage * itemWidth * itemsPerPage);
+            track.style.transform = `translateX(${currentOffset + walk}px)`;
+        }
+
+        window.addEventListener('mouseup', endDrag);
+        window.addEventListener('touchend', endDrag);
+
+        function endDrag(e) {
+            if (!isDragging) return;
+            isDragging = false;
+            track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+
+            const endX = e.type === 'touchend' ? e.changedTouches[0].clientX : e.clientX;
+            const distance = endX - startX;
+
+            // Nếu kéo đủ xa (> 50px) thì chuyển trang
+            if (distance < -50 && currentPage < totalPages - 1) {
+                goToPage(currentPage + 1);
+            } else if (distance > 50 && currentPage > 0) {
+                goToPage(currentPage - 1);
+            } else {
+                goToPage(currentPage); // Quay lại trang cũ
+            }
+        }
+
+        // Khởi tạo
+        createDots();
+
+        // Xử lý khi resize màn hình
+        window.addEventListener('resize', () => {
+            location.reload(); // Reload để tính toán lại số item trên mỗi trang
+        });
+    });
+</script>
