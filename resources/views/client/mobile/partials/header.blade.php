@@ -95,90 +95,96 @@
 
             <ul class="mobile-accordion-menu">
                 <!-- Menu iPhone -->
-                <li class="has-dropdown">
-                    <div class="nav-link-wrapper">
-                        <a href="/iphone" class="main-link">
-                            <span>Iphone</span>
-                        </a>
-                        <span class="arrow-toggle"><i class="fa-solid fa-chevron-right"></i></span>
-                    </div>
+                @if ($menuIphones->isNotEmpty())
+                    <li class="has-dropdown">
+                        <div class="nav-link-wrapper">
+                            <a href="/iphone" class="main-link">
+                                <span>Iphone</span>
+                            </a>
+                            <span class="arrow-toggle"><i class="fa-solid fa-chevron-right"></i></span>
+                        </div>
 
-                    <ul class="dropdown-menu">
-                        <li class="has-submenu">
-                            <div class="nav-link-wrapper">
-                                <a href="/iphone-11-series">iPhone 11 Series</a>
-                                <span class="arrow-toggle"><i class="fa-solid fa-chevron-right"></i></span>
-                            </div>
-                            <ul class="submenu">
-                                <li><a href="/iphone-11">iPhone 11</a></li>
-                                <li><a href="/iphone-11-pro">iPhone 11 Pro</a></li>
-                                <li><a href="/iphone-11-pro-max">iPhone 11 Pro Max</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu">
-                            <div class="nav-link-wrapper">
-                                <a href="/iphone-15-series">iPhone 15 Series</a>
-                                <span class="arrow-toggle"><i class="fa-solid fa-chevron-right"></i></span>
-                            </div>
-                            <ul class="submenu">
-                                <li><a href="/iphone-15-pro">iPhone 15 Pro</a></li>
-                                <li><a href="/iphone-15-pro-max">iPhone 15 Pro Max</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+                        <ul class="dropdown-menu">
+                            @foreach ($menuIphones as $series)
+                                <li class="{{ $series->children->isNotEmpty() ? 'has-submenu' : '' }}">
+                                    <div class="nav-link-wrapper">
+                                        <a href="{{ url($series->slug) }}">{{ $series->name }}</a>
+                                        @if ($series->children->isNotEmpty())
+                                            <span class="arrow-toggle"><i class="fa-solid fa-chevron-right"></i></span>
+                                        @endif
+                                    </div>
+                                    @if ($series->children->isNotEmpty())
+                                        <ul class="submenu">
+                                            @foreach ($series->children as $model)
+                                                <li><a href="{{ url($model->slug) }}">{{ $model->name }}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                @endif
 
                 <!-- Menu Samsung -->
-                <li class="has-dropdown">
-                    <div class="nav-link-wrapper">
-                        <a href="/samsung" class="main-link">
-                            <span>Samsung</span>
-                        </a>
-                        <span class="arrow-toggle"><i class="fa-solid fa-chevron-right"></i></span>
-                    </div>
-                    <ul class="dropdown-menu">
-                        <li class="has-submenu">
-                            <div class="nav-link-wrapper">
-                                <a href="/galaxy-s">Galaxy S Series</a>
-                                <span class="arrow-toggle"><i class="fa-solid fa-chevron-right"></i></span>
-                            </div>
-                            <ul class="submenu">
-                                <li><a href="/s24-ultra">Galaxy S24 Ultra</a></li>
-                                <li><a href="/s21">Galaxy S21</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+                @if ($menuSamsungs->isNotEmpty())
+                    <li class="has-dropdown">
+                        <div class="nav-link-wrapper">
+                            <a href="/samsung" class="main-link">
+                                <span>Samsung</span>
+                            </a>
+                            <span class="arrow-toggle"><i class="fa-solid fa-chevron-right"></i></span>
+                        </div>
+                        <ul class="dropdown-menu">
+                            @foreach ($menuSamsungs as $series)
+                                <li class="{{ $series->children->isNotEmpty() ? 'has-submenu' : '' }}">
+                                    <div class="nav-link-wrapper">
+                                        <a href="{{ url($series->slug) }}">{{ $series->name }}</a>
+                                        @if ($series->children->isNotEmpty())
+                                            <span class="arrow-toggle"><i class="fa-solid fa-chevron-right"></i></span>
+                                        @endif
+                                    </div>
+                                    @if ($series->children->isNotEmpty())
+                                        <ul class="submenu">
+                                            @foreach ($series->children as $model)
+                                                <li><a href="{{ url($model->slug) }}">{{ $model->name }}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                @endif
 
                 <!-- Menu Dịch vụ Sim -->
-                <li class="has-dropdown">
-                    <div class="nav-link-wrapper">
-                        <a href="/dich-vu-sim" class="main-link">Dịch vụ Sim</a>
-                        <span class="arrow-toggle"><i class="fa-solid fa-chevron-right"></i></span>
-                    </div>
-                    <ul class="dropdown-menu">
-                        <li class="has-submenu">
-                            <div class="nav-link-wrapper">
-                                <a href="/sim-hop-phap">Sim Hợp Pháp</a>
-                                <span class="arrow-toggle"><i class="fa-solid fa-chevron-right"></i></span>
-                            </div>
-                            <ul class="submenu">
-                                <li><a href="/sim-tra-truoc">Sim trả trước</a></li>
-                                <li><a href="/sim-tra-sau">Sim trả sau</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu">
-                            <div class="nav-link-wrapper">
-                                <a href="/sim-bhp">Sim BHP</a>
-                                <span class="arrow-toggle"><i class="fa-solid fa-chevron-right"></i></span>
-                            </div>
-                            <ul class="submenu">
-                                <li><a href="/sim-bhp-tra-truoc">Sim trả trước</a></li>
-                                <li><a href="/sim-bhp-tra-sau">Sim trả sau</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+                @if ($menuSims->isNotEmpty())
+                    <li class="has-dropdown">
+                        <div class="nav-link-wrapper">
+                            <a href="/goi-cuoc" class="main-link">Dịch vụ Sim</a>
+                            <span class="arrow-toggle"><i class="fa-solid fa-chevron-right"></i></span>
+                        </div>
+                        <ul class="dropdown-menu">
+                            @foreach ($menuSims as $type)
+                                <li class="{{ $type->children->isNotEmpty() ? 'has-submenu' : '' }}">
+                                    <div class="nav-link-wrapper">
+                                        <a href="{{ url($type->slug) }}">{{ $type->name }}</a>
+                                        @if ($type->children->isNotEmpty())
+                                            <span class="arrow-toggle"><i class="fa-solid fa-chevron-right"></i></span>
+                                        @endif
+                                    </div>
+                                    @if ($type->children->isNotEmpty())
+                                        <ul class="submenu">
+                                            @foreach ($type->children as $subType)
+                                                <li><a href="{{ url($subType->slug) }}">{{ $subType->name }}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>

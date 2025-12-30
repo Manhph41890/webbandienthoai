@@ -4,28 +4,15 @@
             style="background-color: #ffffff; border-top: 5px solid #b11c44;">
 
             <!-- Header -->
-            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
-                <div class="ss-header d-flex flex-column flex-lg-row justify-content-between align-items-lg-center mb-4">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div class="ss-header d-flex flex-column flex-lg-row justify-content-between align-items-lg-center">
                     <div class="ss-title-group">
                         <h2 class="ss-title mt-2" style="color: #b11c44 !important">IPHONE CHÍNH HÃNG</h2>
                         <p class="ss-subtitle">Trải nghiệm công nghệ đỉnh cao</p>
                     </div>
                 </div>
-
-                <div class="category-tabs-wrapper d-flex align-items-center">
-                    <button class="nav-tag-btn left"><i class="fa-solid fa-chevron-left"></i></button>
-                    <div class="category-tabs" id="category-tabs">
-                        <a href="#" class="tab-item active" data-filter="all">Nổi bật</a>
-
-                        @foreach ($categories_iphone as $cat)
-                            <a href="#" class="tab-item" data-filter="cat-{{ $cat->id }}">
-                                {{ $cat->name }}
-                            </a>
-                        @endforeach
-                    </div>
-                    <button class="nav-tag-btn right"><i class="fa-solid fa-chevron-right"></i></button>
-                </div>
             </div>
+        </div>
 
             <!-- Danh sách sản phẩm -->
             <div class="row g-4" id="product-list">
@@ -91,8 +78,8 @@
                     </ul>
                 </nav>
             </div>
-        </div>
+
     </div>
 </section>
 
-@include('client.desktop.home.product-list')
+@include('client.mobile.home.product-list')

@@ -10,9 +10,19 @@ use App\Http\Controllers\Admin\SimController;
 use App\Http\Controllers\Client\PhoneClientController;
 use Illuminate\Support\Facades\Route;
 
+
+// 1. Trang chủ
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// 2. Chi tiết sản phẩm (Ưu tiên khớp route này trước)
+Route::get('/phone/{slug}', [PhoneClientController::class, 'phoneDetail'])->name('phone.detail');
+
+// 3. Danh mục sản phẩm (Để dưới cùng vì nó khớp với mọi chuỗi sau dấu /)
 Route::get('/{slug}', [PhoneClientController::class, 'listByCategory'])->name('category.show');
+
+
+
+
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
@@ -52,7 +62,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('users', [AccountController::class, 'indexUsers'])->name('accounts.users.index');
     Route::patch('accounts/{account}/toggle-status', [AccountController::class, 'toggleStatus'])->name('accounts.toggleStatus');
     Route::resource('accounts', AccountController::class);
-
 });
 
 // Hiển thị form đăng nhập

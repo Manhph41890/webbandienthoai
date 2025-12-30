@@ -33,7 +33,7 @@
                             </div>
 
                             <div class="product-image">
-                                <a href="#">
+                                <a href="{{ route('phone.detail', $samsung->slug) }}">
                                     <img src="{{ asset('storage/' . $samsung->main_image) }}" alt="{{ $samsung->name }}"
                                         onerror="this.src=#">
                                 </a>
@@ -44,7 +44,7 @@
                                 <div class="ss-tag">{{ $samsung->category->name ?? 'Samsung Galaxy' }}</div>
 
                                 <h3 class="ss-name">
-                                    <a href="#"
+                                    <a href="{{ route('phone.detail', $samsung->slug) }}"
                                         style="text-decoration: none; color: inherit;">
                                         {{ $samsung->name }}
                                     </a>
@@ -72,7 +72,7 @@
                                     <a href="https://m.me/yourpage" target="_blank" class="btn-messenger">
                                         <i class="fa-brands fa-facebook-messenger"></i> MUA NGAY
                                     </a>
-                                    <a href="#" class="btn-detail">CHI
+                                    <a href="{{ route('phone.detail', $samsung->slug) }}" class="btn-detail">CHI
                                         TIẾT</a>
                                 </div>
                             </div>

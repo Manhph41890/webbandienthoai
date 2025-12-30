@@ -36,62 +36,6 @@
             </div>
         </div>
 
-        <!-- Khối Sản phẩm Hot phía dưới -->
-        <div class="x-hero-hot-grid">
-            <!-- Sản phẩm 1 -->
-            <div class="x-hero-hot-card">
-                <div class="x-hero-hot-tag">HOT</div>
-                <div class="x-hero-card-inner">
-                    <a href="{{ url('/phone/samsung-galaxy-s24-ultra') }}">
-                        <div class="x-hero-card-thumb">
-                            <img src="{{ asset('images/s24_ultra.png') }}" alt="S24 Ultra">
-                        </div>
-                    </a>
-                    <a href="{{ url('/phone/samsung-galaxy-s24-ultra') }}" style="text-decoration: none">
-                        <div class="x-hero-card-desc">
-                            <h3>Galaxy <br> S24 Ultra</h3>
-                            <p class="x-hero-card-price">930.000 won</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Sản phẩm 2 -->
-            <div class="x-hero-hot-card">
-                <div class="x-hero-hot-tag">HOT</div>
-                <div class="x-hero-card-inner">
-                    <a href="{{ url('/phone/iphone-17-pro-max') }}">
-                        <div class="x-hero-card-thumb">
-                            <img src="{{ asset('images/iphone_17.png') }}" alt="Iphone 17">
-                        </div>
-                    </a>
-                    <a href="{{ url('/phone/iphone-17-pro-max') }}" style="text-decoration: none">
-                        <div class="x-hero-card-desc">
-                            <h3>Iphone <br>  17Pro Max</h3>
-                            <p class="x-hero-card-price">930.000 won</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Sản phẩm 3 -->
-            <div class="x-hero-hot-card">
-                <div class="x-hero-hot-tag">HOT</div>
-                <div class="x-hero-card-inner">
-                     <a href="{{ url('/phone/samsung-galaxy-z-flip-7') }}">
-                    <div class="x-hero-card-thumb">
-                        <img src="{{ asset('images/galaxyflip7.png') }}" alt="S24 Ultra" style="width: 160px;">
-                    </div>
-                </a>
-                <a href="{{ url('/phone/samsung-galaxy-z-flip-7') }}" style="text-decoration: none">
-                    <div class="x-hero-card-desc">
-                        <h3>Galaxy <br>Z Flip 7</h3>
-                        <p class="x-hero-card-price">930.000 won</p>
-                    </div>
-                </a>
-                </div>
-            </div>
-        </div>
     </div>
 </section>
 @push('styles')

@@ -18,13 +18,14 @@ class PhoneClientController extends Controller
             ->with('children')
             ->firstOrFail();
 
+        $isIphone = \Illuminate\Support\Str::contains(strtolower($currentCategory->name), 'iphone');
+
         $categoryIds = $currentCategory->getAllChildIds();
 
         // 2. Khởi tạo Query lấy Phone
         $query = Phone::whereIn('phones.categories_id', $categoryIds)
-            ->where('phones.is_active', true)
+
             ->join('variants', 'phones.id', '=', 'variants.phone_id')
-            ->where('variants.status', 'còn_hàng')
             // Tính toán các giá trị ảo để lọc/sắp xếp
             ->select(
                 'phones.*',
@@ -87,6 +88,82 @@ class PhoneClientController extends Controller
 
         $categories_iphone = $currentCategory->children()->active()->ordered()->get();
 
-        return view('phones.iphones.iphone-list', compact('iphones', 'currentCategory', 'categories_iphone'));
+        return view(
+            'phones.categories.phone-list',
+            compact(
+                'iphones',
+                'currentCategory',
+                'categories_iphone',
+                'isIphone'
+            )
+        );
     }
+
+    // phones detail
+    public function phoneDetail($slug)
+    {
+        // 1. Lấy thông tin Phone cùng các quan hệ liên quan
+        $phone = Phone::where('slug', $slug)
+            ->where('is_active', true)
+            ->with([
+                'category',
+                'images',
+                'variants.color',
+                'variants.size'
+            ])
+            ->firstOrFail();
+
+        $allImages = collect([$phone->main_image]);
+        $parentId = $phone->category->parent_id ?? $phone->category_id;
+
+        $categoryIds = Category::where('parent_id', $parentId)
+            ->orWhere('id', $parentId)
+            ->pluck('id');
+
+        foreach ($phone->images as $img) {
+            $allImages->push($img->image_path);
+        }
+
+        foreach ($phone->variants as $variant) {
+            if ($variant->image_path) {
+                $allImages->push($variant->image_path);
+            }
+        }
+
+        // Xóa các ảnh trùng lặp
+        $allImages = $allImages->unique();
+
+        // 2. Lấy toàn bộ variants (không lọc theo stock để hiển thị cả hàng sắp về)
+        $variants = $phone->variants;
+
+        // 3. Kiểm tra xem có phải iPhone không để logic hiển thị banner/quà tặng riêng
+        $isIphone = \Illuminate\Support\Str::contains(strtolower($phone->name), 'iphone');
+
+        // 4. Lấy danh sách duy nhất các Condition, Color, Size để hiển thị nút chọn
+        // Chúng ta dùng collection để lọc từ danh sách variants đã lấy
+        $availableConditions = $variants->pluck('condition')->unique()->values();
+        $availableSizes = $variants->pluck('size')->unique('id')->values();
+        $availableColors = $variants->pluck('color')->unique('id')->values();
+
+
+        $relatedPhones = Phone::whereIn('categories_id', $categoryIds) // Dùng whereIn thay vì where
+            ->where('id', '!=', $phone->id) // Loại trừ sản phẩm hiện tại
+            ->where('is_active', true)
+            ->with(['category', 'variants'])
+            ->limit(4)
+            ->get();
+
+        return view('client.desktop.phones.phone-detail', compact(
+            'phone',
+            'variants',
+            'isIphone',
+            'availableConditions',
+            'availableSizes',
+            'availableColors',
+            'allImages',
+            'relatedPhones'
+        ));
+    }
+
+    
 }

@@ -3,6 +3,12 @@
 @section('content')
     <section class="featured-products">
         <div class="container ">
+
+            @if ($isIphone)
+                @include('client.desktop.phones.categories.banner-cateip')
+            @else
+                @include('client.desktop.phones.categories.banner-catess')
+            @endif
             <div class="products-content-wrapper ss-content-wrapper shadow-sm"
                 style="background-color: #ffffff; border-top: 5px solid #b11c44;">
 
@@ -62,7 +68,7 @@
                                 </div>
 
                                 <div class="product-image">
-                                    <a href="#"> {{-- Giả sử bạn có route này --}}
+                                    <a href={{ route('phone.detail', $phone->slug) }}>
                                         <img src="{{ asset('storage/' . $phone->main_image) }}" alt="{{ $phone->name }}"
                                             onerror="this.src=#">
                                     </a>
@@ -71,7 +77,8 @@
                                 <div class="product-content">
                                     <div class="ss-tag" style="color: #b11c44">{{ $phone->category->name }}</div>
                                     <h3 class="ss-name">
-                                        <a href="#" style="text-decoration: none; color: inherit;">
+                                        <a href="{{ route('phone.detail', $phone->slug) }}"
+                                            style="text-decoration: none; color: inherit; font-size: 20px !important;">
                                             {{ $phone->name }}
                                         </a>
                                     </h3>
@@ -99,7 +106,7 @@
                                         <a href="https://m.me/yourpage" target="_blank" class="btn-messenger">
                                             <i class="fa-brands fa-facebook-messenger"></i> MUA NGAY
                                         </a>
-                                        <a href="#" class="btn-detail">CHI TIẾT</a>
+                                        <a href={{ route('phone.detail', $phone->slug) }} class="btn-detail">CHI TIẾT</a>
                                     </div>
                                 </div>
                             </div>

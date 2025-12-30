@@ -60,7 +60,7 @@ class HomeController extends Controller
                 'phones.short_description',
                 'phones.is_active',
                 'phones.main_image',
-                'phones.created_at',    
+                'phones.created_at',
                 'phones.updated_at',
                 'phones.deleted_at'
             )
@@ -81,7 +81,7 @@ class HomeController extends Controller
                 $q->where('status', 'còn_hàng');
             })
             ->with(['variants' => function ($q) {
-                $q->where('status', 'còn_hàng')->orderBy('price', 'asc');   
+                $q->where('status', 'còn_hàng')->orderBy('price', 'asc');
             }])
             ->latest() // Hoặc inRandomOrder() tùy bạn
             ->get(); // Thay paginate(8) bằng get() để lấy hết
@@ -120,4 +120,5 @@ class HomeController extends Controller
             )
         );
     }
+
 }

@@ -40,7 +40,7 @@
 
 /* 2. Main Nav Bar */
 .main-nav-bar {
-    background-color: var(--primary-navy);
+    background: linear-gradient(180deg, #1E293C 45%, #e56583 100%) !important;
     display: flex;
     align-items: center;
     justify-content: space-between;

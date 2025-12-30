@@ -1,4 +1,4 @@
-@extends('client.desktop.layouts.app')
+@extends('client.mobile.layouts.app')
 
 @section('content')
     <!-- Cấu trúc HTML chính trong phone-detail.blade.php -->
@@ -108,7 +108,7 @@
                 </div>
             </div>
         </div>
-        @include('client.desktop.phones.relate-phone')
+        @include('client.mobile.phones.relate-phone')
     </div>
 
     <!-- DATA BRIDGE: Truyền dữ liệu sang JS -->
@@ -116,4 +116,4 @@
         const VARIANT_DATA = @json($variants);
     </script>
 @endsection
-@include('client.desktop.phones.lib-detail')
+@include('client.mobile.phones.lib-detail')

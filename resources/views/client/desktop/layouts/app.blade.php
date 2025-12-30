@@ -4,8 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'HB Group')</title> {{-- Cho phép các trang con định nghĩa title riêng --}}
-        <link rel="stylesheet" href="{{ asset('css/desk/header_footer.css') }}">
+    <title>@yield('title', 'Toàn Hồng Korea')</title> {{-- Cho phép các trang con định nghĩa title riêng --}}
+
+    <!-- Thêm Favicon (Biểu tượng trên tab trình duyệt) -->
+    <link rel="icon" type="image/png" href="{{ asset('logo/logo.png') }}">
+    <!-- Biểu tượng cho iPhone/iOS -->
+    <link rel="apple-touch-icon" href="{{ asset('logo/logo.png') }}">
+
+
+    <link rel="stylesheet" href="{{ asset('css/desk/header_footer.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('css/desk/client_styles.css') }}"> --}}
     <script src="{{ asset('js/main.js') }}"></script>
     <!-- Font Awesome cho icon -->

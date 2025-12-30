@@ -50,6 +50,7 @@ class AppServiceProvider extends ServiceProvider
             // Với Sim, lấy con của 'goi-cuoc'
             $simRoot = $allCategories->where('slug', 'goi-cuoc')->first();
             $view->with('menuSims', $simRoot ? $simRoot->children : collect());
+            
         });
     }
 }

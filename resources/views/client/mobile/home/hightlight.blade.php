@@ -24,7 +24,7 @@
                             $oldPrice = $price * 1.2; 
                         @endphp
 
-                        <div class="product-item swiper-slide">
+                        <div class="product-items swiper-slide">
                             <div class="badge-container">
                                 <span class="badge-sale">Giảm 20%</span>
                                 <span class="badge-installment">Trả góp 0%</span>
@@ -72,7 +72,7 @@
             border-radius: 15px;
             padding: 20px 10px;
             position: relative;
-            margin-top: 30px;
+            /* margin-top: 30px; */
         }
 
         /* Tiêu đề Sản Phẩm Nổi Bật */
@@ -121,7 +121,7 @@
         /* Ẩn scrollbar Chrome */
 
         /* Thẻ sản phẩm trắng */
-        .product-item {
+        .product-items {
             background: #fff;
             border-radius: 12px;
             min-width: 215px;
@@ -132,7 +132,7 @@
             transition: transform 0.2s;
         }
 
-        .product-item:hover {
+        .product-items:hover {
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
@@ -201,21 +201,21 @@
         }
 
         /* 4. Hiệu ứng khi di chuột vào Thẻ sản phẩm */
-        .product-item:hover .product-img img {
+        .product-items:hover .product-img img {
             transform: scale(1.1);
             /* Phóng to ảnh 10% */
             filter: brightness(1.1);
             /* Làm ảnh sáng hơn chút */
         }
 
-        .product-item:hover .product-img::after {
+        .product-items:hover .product-img::after {
             left: 150%;
             transition: all 0.7s;
             /* Vệt sáng chạy qua trong 0.7 giây */
         }
 
         /* 5. Thêm một chút đổ bóng nhẹ cho ảnh khi hover */
-        .product-item:hover .product-img {
+        .product-items:hover .product-img {
             filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.1));
         }
 
@@ -312,7 +312,7 @@
             /* Dùng spaceBetween trong JS thay vì gap */
         }
 
-        .product-item.swiper-slide {
+        .product-items.swiper-slide {
             min-width: unset;
             /* Bỏ min-width cũ để Swiper tự tính toán */
             height: auto;
@@ -324,12 +324,6 @@
             opacity: 0.3;
             cursor: not-allowed;
             pointer-events: none;
-        }
-
-        /* Đảm bảo container không bị tràn */
-        .product-slider-container {
-            overflow: hidden;
-            padding: 10px 5px;
         }
     </style>
 @endpush
