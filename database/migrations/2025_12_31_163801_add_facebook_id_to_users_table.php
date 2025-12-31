@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            
+            $table->string('facebook_id')->nullable()->after('id');
+            $table->string('password')->nullable()->change(); // Cho phép password null khi đăng nhập mạng xã hội
         });
     }
 
