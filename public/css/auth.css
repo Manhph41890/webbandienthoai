@@ -1,13 +1,20 @@
 /* public/css/auth.css */
 
 :root {
-    --primary-golden: #1a2a40; /* Vàng đồng đậm */
-    --light-golden: #1a2a40;   /* Vàng đồng nhạt */
-    --background-light: #F8F8F8; /* Nền sáng nhẹ */
-    --text-dark: #333333;      /* Chữ tối */
-    --text-light: #FFFFFF;     /* Chữ sáng */
-    --border-color: #E0E0E0;   /* Màu viền */
-    --error-color: #E74C3C;    /* Màu lỗi */
+    --primary-golden: #1a2a40;
+    /* Vàng đồng đậm */
+    --light-golden: #1a2a40;
+    /* Vàng đồng nhạt */
+    --background-light: #F8F8F8;
+    /* Nền sáng nhẹ */
+    --text-dark: #333333;
+    /* Chữ tối */
+    --text-light: #FFFFFF;
+    /* Chữ sáng */
+    --border-color: #E0E0E0;
+    /* Màu viền */
+    --error-color: #E74C3C;
+    /* Màu lỗi */
     --box-shadow: rgba(0, 0, 0, 0.08);
 }
 
@@ -19,19 +26,23 @@ body.auth-background {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: var(--background-light); /* Nền tổng thể của trang */
+    background-color: var(--background-light);
+    /* Nền tổng thể của trang */
     color: var(--text-dark);
     line-height: 1.6;
-    background-image: url('/images/auth-bg-texture.png'); /* Có thể thêm một texture nhẹ nhàng */
+    background-image: url('/images/auth-bg-texture.png');
+    /* Có thể thêm một texture nhẹ nhàng */
     background-size: cover;
     background-position: center;
 }
 
 .auth-container {
     display: flex;
-    max-width: 1200px; /* Tăng kích thước tổng thể */
+    max-width: 1200px;
+    /* Tăng kích thước tổng thể */
     width: 90%;
-    margin: 40px auto; /* Tăng margin để form không bị dính vào cạnh */
+    margin: 40px auto;
+    /* Tăng margin để form không bị dính vào cạnh */
     background-color: var(--text-light);
     border-radius: 12px;
     overflow: hidden;
@@ -41,7 +52,8 @@ body.auth-background {
 /* Cột Form */
 .auth-form-column {
     flex: 1;
-    padding: 60px 50px; /* Tăng padding */
+    padding: 60px 50px;
+    /* Tăng padding */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -51,7 +63,8 @@ body.auth-background {
 }
 
 .auth-form-column h2 {
-    font-size: 2.5rem; /* Kích thước chữ lớn hơn */
+    font-size: 2.5rem;
+    /* Kích thước chữ lớn hơn */
     margin-bottom: 20px;
     color: var(--primary-golden);
     font-weight: 700;
@@ -73,21 +86,31 @@ body.auth-background {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 55px; /* Kích thước nút lớn hơn */
+    width: 55px;
+    /* Kích thước nút lớn hơn */
     height: 55px;
     border-radius: 50%;
     font-size: 1.5rem;
+    color: white;
     color: var(--text-light);
     transition: all 0.3s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    line-height: 0;
+}
+
+.social-login a i {
+    line-height: 1;
+}
+
+.social-login a.facebook {
+    background-color: #1877F2;
+    /* Facebook blue */
 }
 
 .social-login a.google {
-    background-color: #DB4437; /* Google red */
-}
-
-.social-login a.apple {
-    background-color: #000000; /* Apple black */
+    background-color: #DB4437;
+    /* Google red */
 }
 
 .social-login a:hover {
@@ -100,7 +123,8 @@ body.auth-background {
     align-items: center;
     text-align: center;
     width: 100%;
-    margin: 20px 0 30px; /* Tăng khoảng cách */
+    margin: 20px 0 30px;
+    /* Tăng khoảng cách */
     color: #999;
 }
 
@@ -122,14 +146,17 @@ body.auth-background {
 /* Form Groups */
 .form-group {
     position: relative;
-    margin-bottom: 25px; /* Tăng khoảng cách giữa các group */
+    margin-bottom: 25px;
+    /* Tăng khoảng cách giữa các group */
     width: 100%;
-    max-width: 380px; /* Giới hạn chiều rộng của input */
+    max-width: 380px;
+    /* Giới hạn chiều rộng của input */
 }
 
 .form-group .input-icon {
     position: absolute;
-    left: 18px; /* Di chuyển icon vào trong */
+    left: 18px;
+    /* Di chuyển icon vào trong */
     top: 50%;
     transform: translateY(-50%);
     color: #999;
@@ -137,8 +164,10 @@ body.auth-background {
 }
 
 .form-group input {
-    width: calc(100% - 40px); /* Giảm chiều rộng để chừa chỗ cho icon */
-    padding: 15px 15px 15px 50px; /* Tăng padding, chừa chỗ cho icon */
+    width: calc(100% - 40px);
+    /* Giảm chiều rộng để chừa chỗ cho icon */
+    padding: 15px 15px 15px 50px;
+    /* Tăng padding, chừa chỗ cho icon */
     border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 1rem;
@@ -226,8 +255,10 @@ body.auth-background {
     transform: translateY(-2px);
 }
 
-.btn-submit.btn-secondary { /* Dùng cho nút Hủy trong Đăng ký */
-    background-color: #6c757d; /* Xám */
+.btn-submit.btn-secondary {
+    /* Dùng cho nút Hủy trong Đăng ký */
+    background-color: #6c757d;
+    /* Xám */
     margin-top: 15px;
 }
 
@@ -235,18 +266,21 @@ body.auth-background {
     background-color: #5a6268;
 }
 
-.auth-switch-link, .register-terms {
+.auth-switch-link,
+.register-terms {
     margin-top: 30px;
     font-size: 0.95rem;
 }
 
-.auth-switch-link a, .register-terms a {
+.auth-switch-link a,
+.register-terms a {
     color: var(--primary-golden);
     text-decoration: none;
     font-weight: 500;
 }
 
-.auth-switch-link a:hover, .register-terms a:hover {
+.auth-switch-link a:hover,
+.register-terms a:hover {
     text-decoration: underline;
 }
 
@@ -254,7 +288,8 @@ body.auth-background {
 .register-actions {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Khoảng cách giữa Đăng ký và Hủy */
+    gap: 15px;
+    /* Khoảng cách giữa Đăng ký và Hủy */
     width: 100%;
     max-width: 380px;
     margin-top: 20px;
@@ -264,7 +299,8 @@ body.auth-background {
 /* Cột Ảnh */
 .auth-image-column {
     flex: 1;
-    background: linear-gradient(to bottom right, var(--primary-golden), var(--light-golden)); /* Gradient vàng */
+    background: linear-gradient(to bottom right, var(--primary-golden), var(--light-golden));
+    /* Gradient vàng */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -278,7 +314,8 @@ body.auth-background {
     max-width: 80%;
     height: auto;
     margin-bottom: 30px;
-    animation: fadeInScale 1s ease-out; /* Hiệu ứng nhẹ khi load */
+    animation: fadeInScale 1s ease-out;
+    /* Hiệu ứng nhẹ khi load */
 }
 
 .auth-image-column h3 {
@@ -301,6 +338,7 @@ body.auth-background {
         opacity: 0;
         transform: scale(0.9);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
@@ -317,7 +355,8 @@ body.auth-background {
 
     .auth-image-column {
         padding: 30px;
-        order: -1; /* Đặt ảnh lên trên form trên mobile */
+        order: -1;
+        /* Đặt ảnh lên trên form trên mobile */
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
         border-top-left-radius: 12px;
@@ -359,9 +398,11 @@ body.auth-background {
     .form-group input {
         padding: 12px 12px 12px 45px;
     }
+
     .form-group .input-icon {
         left: 15px;
     }
+
     .password-toggle {
         right: 12px;
     }

@@ -1,354 +1,292 @@
 @push('styles')
     <style>
-        /* Đảm bảo dùng Font Inter hoặc Roboto để nhìn chuẩn Tech */
-        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
-
-        #ss-pd-wrapper {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #f8f9fa;
-            padding: 30px 0;
-            color: #333;
+        :root {
+            --primary-red: #d70018;
+            --bg-gray: #f2f2f2;
         }
 
-        .ss-pd-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        #m-pd-wrapper {
             background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            margin-top: 40px;
-            padding-bottom: 100px;
+            padding-bottom: 80px;
+            /* Chừa chỗ cho sticky footer */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica;
         }
 
-        .ss-pd-row {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        /* Cột ảnh */
-        .ss-pd-col-image {
-            flex: 0 0 45%;
-            padding: 30px;
-            border-right: 1px solid #eee;
-        }
-
-        .ss-pd-main-img-box {
+        /* Slider Image */
+        .m-pd-image-slider {
             position: relative;
-            border: 1px solid #f0f0f0;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            overflow: hidden;
-            cursor: zoom-in;
-        }
-
-        .ss-pd-main-img-box img {
             width: 100%;
-            display: block;
-            transition: transform 0.3s ease;
+            background: #fff;
+            overflow: hidden;
         }
 
-        .ss-pd-main-img-box:hover img {
-            transform: scale(1.05);
+        .m-pd-main-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
         }
 
-        .ss-pd-badge-condition {
+        .m-pd-main-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .m-pd-slide {
+            min-width: 100%;
+            scroll-snap-align: start;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 350px;
+        }
+
+        .m-pd-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .m-pd-badge-condition {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            background: #007bff;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.6);
             color: #fff;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
+            padding: 4px 10px;
+            font-size: 11px;
+            border-radius: 4px;
             text-transform: uppercase;
         }
 
-        .ss-pd-thumb-list {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
+        .m-pd-slider-dots {
+            text-align: center;
+            padding: 10px 0;
         }
 
-        .ss-pd-thumb-list img {
-            width: 70px;
-            height: 70px;
-            object-fit: cover;
-            border: 2px solid #eee;
-            border-radius: 6px;
-            cursor: pointer;
+        .m-pd-slider-dots .dot {
+            height: 6px;
+            width: 6px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 3px;
         }
 
-        .ss-pd-thumb-list img.active {
-            border-color: #007bff;
+        .m-pd-slider-dots .dot.active {
+            background-color: var(--primary-red);
+            width: 12px;
+            border-radius: 10px;
         }
 
-        /* Cột thông tin */
-        .ss-pd-col-info {
-            flex: 0 0 55%;
-            padding: 30px;
+        /* Info Section */
+        .m-pd-info-container {
+            padding: 0 15px;
         }
 
-        .ss-pd-breadcrumb {
-            font-size: 13px;
-            color: #888;
-            margin-bottom: 10px;
-        }
-
-        .ss-pd-title {
-            font-size: 28px;
-            font-weight: 700;
+        .m-pd-breadcrumb {
+            font-size: 12px;
+            color: #777;
             margin-bottom: 5px;
+        }
+
+        .m-pd-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .m-pd-meta-row {
             display: flex;
-            align-items: center;
-            gap: 10px;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 12px;
         }
 
-        .ss-pd-tag {
-            background: #e1f0ff;
-            color: #007bff;
-            font-size: 14px;
-            padding: 2px 10px;
-            border-radius: 4px;
-        }
-
-        .ss-pd-rating {
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .ss-pd-rating .stars i {
+        .m-pd-rating i {
             color: #ffc107;
-            font-size: 14px;
         }
 
-        .ss-pd-review-count {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .ss-pd-price-area {
-            margin-bottom: 25px;
-            padding: 15px;
-            background: #fdf2f2;
+        .m-pd-price-box {
+            background: #fef2f2;
+            padding: 12px;
             border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .ss-pd-price-new {
-            font-size: 32px;
+        .m-pd-price-new {
+            font-size: 24px;
             font-weight: 800;
-            color: #d70018;
+            color: var(--primary-red);
         }
 
-        .ss-pd-price-old {
-            text-decoration: line-through;
-            color: #888;
-            margin-left: 15px;
+        .m-pd-stock-status {
+            font-size: 12px;
+            font-weight: 600;
         }
 
-        /* Biến thể */
-        .ss-pd-label {
+        /* Variant Selectors */
+        .m-v-group {
+            margin-bottom: 15px;
+        }
+
+        .m-v-group label {
             display: block;
             font-weight: 600;
-            margin: 15px 0 8px;
-        }
-
-        .ss-pd-variant-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .ss-pd-v-item {
-            padding: 8px 16px;
-            border: 1px solid #ddd;
-            background: #fff;
-            border-radius: 6px;
-            cursor: pointer;
             font-size: 14px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .m-v-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 8px;
         }
 
-        .ss-pd-v-item:hover {
-            border-color: #007bff;
+        .ss-pd-v-item {
+            border: 1px solid #ddd;
+            background: #fff;
+            padding: 10px 5px;
+            border-radius: 6px;
+            font-size: 12px;
+            text-align: center;
+            color: #333;
         }
 
         .ss-pd-v-item.active {
-            border-color: #007bff;
-            background: #eef6ff;
-            color: #007bff;
+            border: 1.5px solid var(--primary-red);
+            color: var(--primary-red);
+            background: #fff5f5;
             font-weight: 600;
-            box-shadow: 0 2px 5px rgba(0, 123, 255, 0.1);
         }
 
         .color-dot {
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            border: 1px solid #ddd;
+            display: inline-block;
+            margin-right: 4px;
+            border: 1px solid #eee;
         }
 
-        /* Thông số cũ */
-        .ss-pd-spec-summary {
+        /* Used Info Card */
+        .m-pd-used-card {
             display: flex;
-            gap: 20px;
-            margin: 20px 0;
-            padding: 15px;
+            justify-content: space-around;
+            background: #f8f9fa;
             border: 1px dashed #ccc;
+            padding: 12px;
             border-radius: 8px;
+            margin: 15px 0;
         }
 
-        .spec-item {
-            font-size: 14px;
+        .m-used-item {
+            text-align: center;
+            font-size: 12px;
         }
 
-        .spec-item i {
+        .m-used-item i {
+            display: block;
             color: #007bff;
-            margin-right: 5px;
+            font-size: 18px;
+            margin-bottom: 4px;
         }
 
-        /* Promo Box */
-        .ss-pd-promo-box {
-            border: 1px solid #ffccbc;
+        /* Promo */
+        .m-pd-promo {
+            border: 1px solid #ffd5d5;
             border-radius: 8px;
-            margin-top: 25px;
+            margin-top: 20px;
         }
 
-        .promo-title {
-            background: #fff3e0;
-            padding: 10px 15px;
-            font-weight: bold;
-            color: #e64a19;
+        .m-promo-header {
+            background: #ffebeb;
+            color: var(--primary-red);
+            font-weight: 700;
+            padding: 8px 12px;
+            font-size: 14px;
             border-radius: 8px 8px 0 0;
         }
 
-        .promo-list {
+        .m-promo-list {
             list-style: none;
-            padding: 15px;
+            padding: 10px 12px;
             margin: 0;
         }
 
-        .promo-list li {
-            font-size: 14px;
-            margin-bottom: 10px;
-            line-height: 1.5;
+        .m-promo-list li {
+            font-size: 13px;
+            margin-bottom: 8px;
             display: flex;
             align-items: flex-start;
+            gap: 8px;
         }
 
-        .check-icon {
-            color: #2e7d32;
-            margin-right: 10px;
-            font-weight: bold;
+        .m-promo-list li i {
+            color: #28a745;
+            margin-top: 3px;
         }
 
-        /* Buttons */
-        .ss-pd-actions {
+        /* Sticky Action Footer */
+        .m-pd-sticky-actions {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
             display: flex;
-            gap: 15px;
-            margin-top: 30px;
+            padding: 10px 15px;
+            gap: 10px;
+            box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.1);
+            z-index: 999;
         }
 
-        .ss-pd-btn-buy {
-            flex: 2;
-            padding: 15px;
-            background: linear-gradient(to right, #d70018, #ff4d4d);
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .ss-pd-btn-cart {
+        .m-btn-contact {
             flex: 1;
-            padding: 15px;
+            border: 1px solid #ddd;
             background: #fff;
-            color: #d70018;
-            border: 2px solid #d70018;
             border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .ss-pd-btn-buy:hover {
-            opacity: 0.9;
-        }
-
-        .ss-pd-btn-cart:hover {
-            background: #fff5f5;
-        }
-
-        /* Làm rõ nút đang được chọn */
-        .ss-pd-v-item.active {
-            border: 2px solid #d70018 !important;
-            /* Đổi sang màu đỏ thương hiệu của bạn */
-            background: #fff5f5 !important;
-            color: #d70018 !important;
-            position: relative;
-        }
-
-        /* Thêm icon check nhỏ ở góc nút active (tùy chọn) */
-        .ss-pd-v-item.active::after {
-            content: "\f058";
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #fff;
-            border-radius: 50%;
+            font-weight: 600;
             font-size: 14px;
         }
 
-        /* Hiệu ứng cho Thumbnail */
-        .ss-pd-thumb-list img {
-            transition: all 0.2s;
-            opacity: 0.6;
-        }
-
-        .ss-pd-thumb-list img.active {
-            opacity: 1;
-            border-color: #d70018;
-            transform: scale(1.05);
+        .m-btn-buy {
+            flex: 2;
+            background: linear-gradient(to right, #0841ec, #f76060);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
         }
     </style>
 @endpush
+
 <script>
-    const VARIANT_DATA = @json($variants);
-
     document.addEventListener('DOMContentLoaded', function() {
-        const wrapper = document.getElementById('ss-pd-wrapper');
-        const mainImg = document.getElementById('ss-pd-main-view');
-        const thumbs = document.querySelectorAll('#ss-pd-thumbs img');
+        const slider = document.getElementById('m-pd-slider');
+        const dots = document.querySelectorAll('.m-pd-slider-dots .dot');
 
-        // State lưu trữ lựa chọn (Chuyển về String để khớp với dataset)
+        // State mặc định từ biến thể đầu tiên
         let selected = {
             condition: String(VARIANT_DATA[0].condition),
             size: String(VARIANT_DATA[0].size_id),
             color: String(VARIANT_DATA[0].color_id)
         };
 
-        // --- 1. XỬ LÝ CHUYỂN ẢNH KHI CLICK THUMBNAIL ---
-        thumbs.forEach(thumb => {
-            thumb.addEventListener('click', function() {
-                // Đổi ảnh chính
-                mainImg.src = this.getAttribute('data-full');
-
-                // Active thumb
-                thumbs.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
+        // Xử lý Dots cho slider cuộn ngang
+        slider.addEventListener('scroll', () => {
+            let index = Math.round(slider.scrollLeft / slider.offsetWidth);
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
             });
         });
 
-        // --- 2. CẬP NHẬT GIAO DIỆN KHI CHỌN BIẾN THỂ ---
         function updateUI() {
             const match = VARIANT_DATA.find(v =>
                 String(v.condition) === selected.condition &&
@@ -357,50 +295,40 @@
             );
 
             if (match) {
-                // Cập nhật Giá & SKU
                 document.getElementById('ss-pd-main-price').innerText = new Intl.NumberFormat('vi-VN').format(
-                    match.price) + ' WON';
+                    match.price) + 'đ';
                 document.getElementById('ss-pd-sku').innerText = match.sku || 'N/A';
 
-                // Cập nhật Stock
                 const stockLabel = document.getElementById('ss-pd-stock-status');
-                stockLabel.innerText = match.stock > 0 ? `Còn hàng (${match.stock})` : 'Hết hàng';
+                stockLabel.innerText = match.stock > 0 ? `Còn hàng` : 'Hết hàng';
                 stockLabel.style.color = match.stock > 0 ? '#2e7d32' : '#d70018';
 
-                // Cập nhật Specs
-                if (document.getElementById('ss-pd-screen'))
-                    document.getElementById('ss-pd-screen').innerText = match.general_specs?.screen_size ||
-                    'N/A';
-                if (document.getElementById('val-ram'))
-                    document.getElementById('val-ram').innerText = match.general_specs?.ram || 'N/A';
-
-                // Xử lý máy cũ
+                // Máy cũ / mới
                 const usedBox = document.getElementById('ss-pd-used-info');
                 if (match.condition === 'used') {
                     usedBox.style.display = 'flex';
                     document.getElementById('val-pin').innerText = match.used_details?.battery_health || 'N/A';
                     document.getElementById('val-sac').innerText = (match.used_details?.charging_cycles ||
                         '0') + ' lần';
-                    document.getElementById('ss-pd-current-status').innerText = 'Máy cũ / Like New';
+                    document.getElementById('ss-pd-current-status').innerText = 'Like New';
                 } else {
                     usedBox.style.display = 'none';
-                    document.getElementById('ss-pd-current-status').innerText = 'Máy mới 100%';
+                    document.getElementById('ss-pd-current-status').innerText = 'Mới 100%';
                 }
 
-                // TỰ ĐỘNG CHUYỂN ẢNH THEO BIẾN THỂ (Nếu có)
+                // Scroll slider đến ảnh tương ứng nếu có
                 if (match.image_path) {
-                    const newSrc = window.location.origin + '/storage/' + match.image_path;
-                    mainImg.src = newSrc;
-
-                    // Tìm và active thumbnail tương ứng
-                    thumbs.forEach(t => {
-                        t.classList.remove('active');
-                        if (t.src === newSrc) t.classList.add('active');
+                    const fullPath = window.location.origin + '/storage/' + match.image_path;
+                    const slides = document.querySelectorAll('.m-pd-slide img');
+                    slides.forEach((img, idx) => {
+                        if (img.src.includes(match.image_path)) {
+                            slider.scrollTo({
+                                left: idx * slider.offsetWidth,
+                                behavior: 'smooth'
+                            });
+                        }
                     });
                 }
-            } else {
-                document.getElementById('ss-pd-main-price').innerText = 'Liên hệ';
-                document.getElementById('ss-pd-stock-status').innerText = 'Cấu hình này hiện không có sẵn';
             }
 
             updateButtonStates();
@@ -410,16 +338,10 @@
             document.querySelectorAll('.ss-pd-v-item').forEach(btn => {
                 const type = btn.dataset.type;
                 const val = String(btn.dataset.value);
-
-                if (selected[type] === val) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
+                btn.classList.toggle('active', selected[type] === val);
             });
         }
 
-        // Sự kiện click nút biến thể
         document.querySelectorAll('.ss-pd-v-item').forEach(btn => {
             btn.addEventListener('click', function() {
                 selected[this.dataset.type] = String(this.dataset.value);
@@ -427,7 +349,6 @@
             });
         });
 
-        // Chạy lần đầu
         updateUI();
     });
 </script>

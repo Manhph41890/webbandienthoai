@@ -153,7 +153,7 @@ class PhoneClientController extends Controller
             ->limit(4)
             ->get();
 
-        return view('client.desktop.phones.phone-detail', compact(
+        return view('phones.phone-detail', compact(
             'phone',
             'variants',
             'isIphone',

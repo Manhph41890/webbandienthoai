@@ -41,8 +41,9 @@
                     </div>
 
                     <div class="ss-pd-price-area">
-                        <span id="ss-pd-main-price" class="ss-pd-price-new">0đ</span>
-                        <span class="ss-pd-stock-label" id="ss-pd-stock-status">Đang kiểm tra...</span>
+                        <span id="ss-pd-main-price"
+                            class="ss-pd-price-new">{{ number_format($phone->variants->min('price')) }}đ</span>
+                        <span class="ss-pd-stock-label" id="ss-pd-stock-status">Vui lòng chọn biến thể</span>
                     </div>
 
                     <!-- BỘ CHỌN BIẾN THỂ DYNAMIC -->
@@ -102,7 +103,10 @@
                     </div>
 
                     <div class="ss-pd-actions">
-                        <button class="ss-pd-btn-buy" id="btn-add-to-cart">MUA NGAY</button>
+                        <!-- Nút chính để gửi Mess -->
+                        <button class="ss-pd-btn-buy" id="btn-buy-now">
+                            <i class="fab fa-facebook-messenger"></i> MUA NGAY QUA MESSENGER
+                        </button>
                         <button class="ss-pd-btn-cart">LIÊN HỆ TƯ VẤN</button>
                     </div>
                 </div>
@@ -117,3 +121,4 @@
     </script>
 @endsection
 @include('client.desktop.phones.lib-detail')
+@include('client.desktop.phones.phone-post')
