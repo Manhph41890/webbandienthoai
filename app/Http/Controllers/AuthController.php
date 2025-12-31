@@ -141,6 +141,7 @@ class AuthController extends Controller
             Alert::Success('Đăng nhập với facebook thành công !');
             return redirect('/');
         } catch (Exception $e) {
+            Alert::error($e->getMessage());
             return redirect('/auth/login')->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
         }
     }

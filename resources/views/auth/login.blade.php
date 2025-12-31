@@ -6,6 +6,9 @@
     <!-- Cột Form -->
     <div class="auth-form-column">
         <h2>Chào mừng trở lại!</h2>
+        @if (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
         <p class="social-prompt">Đăng nhập nhanh bằng tài khoản mạng xã hội</p>
         <div class="social-login">
             <a href="{{ route('facebook.login') }}" class="facebook">
