@@ -119,3 +119,4 @@
 @endsection
 
 @include('client.mobile.phones.lib-detail')
+@include('client.mobile.phones.phone-post')
