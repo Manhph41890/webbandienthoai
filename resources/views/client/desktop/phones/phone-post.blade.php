@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedColor = null;
     let currentVariant = null;
 
-    const pageId = "6655474491239022"; // THAY ID FANPAGE CỦA BẠN VÀO ĐÂY (Ví dụ: 123456789)
+    const pageId = "100090503628117"; // THAY ID FANPAGE CỦA BẠN VÀO ĐÂY (Ví dụ: 123456789)
     const phoneName = "{{ $phone->name }}";
     const currentUrl = window.location.href;
 
@@ -96,7 +96,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Mã hóa URL
         const encodedMessage = encodeURIComponent(message);
-        const messengerUrl = `https://m.me/${pageId}?text=${encodedMessage}`;
+        // const messengerUrl = `https://m.me/${pageId}?text=${encodedMessage}`;
+        const messengerUrl = `https://www.facebook.com/messages/t/${pageId}?text=${encodedMessage}`;
 
         // Mở tab mới
         window.open(messengerUrl, '_blank');
