@@ -104,32 +104,15 @@
         </div>
 
         <!-- Sản phẩm liên quan -->
-        @include('client.mobile.phones.relate-phone')
+        {{-- @include('client.mobile.phones.relate-phone') --}}
 
         <!-- 6. Sticky Footer Actions -->
         <div class="m-pd-sticky-actions">
             <button class="m-btn-contact"><i class="fab fa-facebook-messenger"></i> Tư vấn</button>
-            <button class="m-btn-buy" id="btn-add-to-cart">MUA NGAY</button>
+            <button class="m-btn-buy" id="btn-add-to-cart"><i class="fab fa-facebook-messenger"></i> MUA NGAY</button>
         </div>
     </div>
 
-    <script>
-        const VARIANT_DATA = @json($variants);
-    </script>
-@endsection
-
-        @include('client.mobile.phones.relate-phone')
-    </div>
-
-    <!-- DATA BRIDGE: Truyền dữ liệu sang JS -->
-    <script>
-        const VARIANT_DATA = @json($variants);
-    </script>
-@endsection
-        @include('client.mobile.phones.relate-phone')
-    </div>
-
-    <!-- DATA BRIDGE: Truyền dữ liệu sang JS -->
     <script>
         const VARIANT_DATA = @json($variants);
     </script>
