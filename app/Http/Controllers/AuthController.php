@@ -183,7 +183,7 @@ class AuthController extends Controller
                 ]);
                 Auth::login($newUser);
             }
-
+            
             Alert::success('Thành công', 'Đăng nhập Google thành công!');
             return redirect('/');
         } catch (Exception $e) {
