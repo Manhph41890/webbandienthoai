@@ -67,7 +67,8 @@
                                 <td class="align-middle">
                                     <div class="font-weight-bold text-dark mb-0">{{ $package->name }}</div>
                                     <small class="text-muted"><i class="fas fa-link fa-xs"></i>
-                                        /{{ $package->slug }}</small>
+                                        /{{ $package->slug }}</small><br>
+                                    <span> {{ $package->category->name }}</span>
                                 </td>
                                 <td class="align-middle">
                                     @if ($package->carrier)

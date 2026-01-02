@@ -30,7 +30,7 @@ class PackageController extends Controller
             });
         }
 
-        $packages = $query->latest()->paginate(10);
+        $packages = $query->with('category')->latest()->paginate(10);
 
         return view('admin.packages.index', compact('packages', 'trashedCount'));
     }
