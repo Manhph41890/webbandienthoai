@@ -78,7 +78,7 @@
 
             <!-- 4. Thông số máy cũ (Toggle) -->
             <div class="m-pd-used-card" id="ss-pd-used-info" style="display:none;">
-                <div class="m-used-item">
+                <div class="m-used-item">   
                     <i class="fas fa-battery-three-quarters"></i>
                     <span>Pin: <strong id="val-pin">N/A</strong></span>
                 </div>
@@ -119,3 +119,4 @@
 @endsection
 
 @include('client.mobile.phones.lib-detail')
+@include('client.mobile.phones.phone-post')

@@ -33,6 +33,9 @@
     <!-- Font Awesome để dùng icon search, user, heart, arrow -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     @stack('styles')
 </head>
@@ -41,7 +44,9 @@
     @include('client.desktop.partials.header') {{-- Bao gồm phần header --}}
 
     @yield('content') {{-- Đây là nơi nội dung chính của từng trang sẽ được inject vào --}}
+    <!-- Floating Messenger Button -->
 
+    @include('client.desktop.layouts.contact')
     @include('client.desktop.partials.footer') {{-- Bao gồm phần footer --}}
 
     @stack('scripts')
