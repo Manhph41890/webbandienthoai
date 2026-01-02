@@ -102,14 +102,16 @@
                         </ul>
                     </div>
 
-                    <div class="ss-pd-actions">
+                    <div class="ss-pd-actions mb-2">
                         <!-- Nút chính để gửi Mess -->
                         <button class="ss-pd-btn-buy" id="btn-buy-now">
                             <i class="fab fa-facebook-messenger"></i> MUA NGAY QUA MESSENGER
                         </button>
                         <button class="ss-pd-btn-cart">LIÊN HỆ TƯ VẤN</button>
                     </div>
+                    <span class="ms-3" style="color: rgb(193, 0, 0);">Liên hệ với shop để nhận mức giá ưu đãi</span>
                 </div>
+
             </div>
         </div>
         @include('client.desktop.phones.relate-phone')
