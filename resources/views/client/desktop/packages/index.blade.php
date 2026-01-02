@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-4">
-        <div class="row">
-
+    <div class="container mt-4 dflex justify-content"  style="max-width: 1200px;">
+        <div class="row" style="align-content: center !important;">
             <!-- Danh sách gói cước -->
             <div class="col-md-9">
                 <div class="spc-section-container">
