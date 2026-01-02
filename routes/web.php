@@ -7,6 +7,7 @@ use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PhoneController;
 use App\Http\Controllers\Admin\SimController;
+use App\Http\Controllers\Client\PackageClientController;
 use App\Http\Controllers\Client\PhoneClientController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,9 @@ Route::get('/phone/{slug}', [PhoneClientController::class, 'phoneDetail'])->name
 // 3. Danh mục sản phẩm (Để dưới cùng vì nó khớp với mọi chuỗi sau dấu /)
 Route::get('/{slug}', [PhoneClientController::class, 'listByCategory'])->name('category.show');
 
+// Dành cho gói cước
+Route::get('/goi-cuoc/{slug}', [PackageClientController::class, 'listByCategory']);
+Route::get('/chi-tiet-goi/{slug}', [PackageClientController::class, 'detail']);
 
 // Hiển thị form đăng nhập
 Route::get('auth/login', [AuthController::class, 'showLoginForm'])->name('login');
