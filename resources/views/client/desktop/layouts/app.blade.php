@@ -33,6 +33,9 @@
     <!-- Font Awesome để dùng icon search, user, heart, arrow -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     @stack('styles')
 </head>
@@ -41,52 +44,80 @@
     @include('client.desktop.partials.header') {{-- Bao gồm phần header --}}
 
     @yield('content') {{-- Đây là nơi nội dung chính của từng trang sẽ được inject vào --}}
-    <a href="https://m.me/100090503628117" class="fb-chat-anchor" target="_blank">
-        <div class="fb-chat-bubble">
+    <!-- Floating Messenger Button -->
+    <div id="messenger-widget" class="messenger-fixed">
+        <div class="messenger-tooltip">Bấm để chat với tư vấn viên!</div>
+        <a href="javascript:void(0)" id="messenger-bubble" onclick="openMessenger()">
             <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg"
                 alt="Messenger">
-            <span>Chat với Shop</span>
-        </div>
-    </a>
+        </a>
+    </div>
+
+    <style>
+        .messenger-fixed {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        #messenger-bubble {
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+        }
+
+        #messenger-bubble:hover {
+            transform: scale(1.1);
+        }
+
+        #messenger-bubble img {
+            width: 45px;
+            height: 45px;
+        }
+
+        .messenger-tooltip {
+            background: #333;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 13px;
+            margin-bottom: 10px;
+            position: relative;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-5px);
+            }
+
+            60% {
+                transform: translateY(-3px);
+            }
+        }
+    </style>
     @include('client.desktop.partials.footer') {{-- Bao gồm phần footer --}}
 
     @stack('scripts')
 </body>
 
 </html>
-
-<style>
-    .fb-chat-anchor {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 9999;
-        text-decoration: none;
-    }
-
-    .fb-chat-bubble {
-        background: #0084FF;
-        display: flex;
-        align-items: center;
-        padding: 10px 18px;
-        border-radius: 50px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        transition: all 0.3s ease;
-    }
-
-    .fb-chat-bubble img {
-        width: 25px;
-        margin-right: 8px;
-    }
-
-    .fb-chat-bubble span {
-        color: white;
-        font-weight: bold;
-        font-family: Arial, sans-serif;
-    }
-
-    .fb-chat-bubble:hover {
-        transform: translateY(-5px);
-        background: #0073e6;
-    }
-</style>

@@ -1,63 +1,25 @@
 <script>
+    // Hàm mở Messenger
+    function openMessenger() {
+        const pageId = "100090503628117";
+        window.open(`https://m.me/${pageId}`, '_blank');
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
-        // 1. Khai báo các biến
-        let selectedCondition = null;
-        let selectedSize = null;
-        let selectedColor = null;
-        let currentVariant = null;
+        let selectedCondition = null,
+            selectedSize = null,
+            selectedColor = null,
+            currentVariant = null;
 
         const pageId = "100090503628117";
         const phoneName = "{{ $phone->name }}";
-        const currentUrl = window.location.href;
 
+        // Logic chọn biến thể
         const items = document.querySelectorAll('.ss-pd-v-item');
-        const priceEl = document.getElementById('ss-pd-main-price');
-        const stockEl = document.getElementById('ss-pd-stock-status');
-        const skuEl = document.getElementById('ss-pd-sku');
-        const buyBtn = document.getElementById('btn-buy-now');
-
-        // Kiểm tra xem nút có tồn tại không để tránh lỗi null
-        if (!buyBtn) {
-            console.error("Không tìm thấy nút #btn-buy-now trong DOM");
-            return;
-        }
-
-        function updateDisplay() {
-            currentVariant = VARIANT_DATA.find(v =>
-                v.condition === selectedCondition &&
-                v.size_id == selectedSize &&
-                v.color_id == selectedColor
-            );
-
-            if (currentVariant) {
-                priceEl.innerText = new Intl.NumberFormat('vi-VN', {
-                    style: 'currency',
-                    currency: 'VND'
-                }).format(currentVariant.price);
-                skuEl.innerText = currentVariant.sku || 'N/A';
-                stockEl.innerText = currentVariant.stock > 0 ? `Còn hàng (${currentVariant.stock})` :
-                'Hết hàng';
-                stockEl.style.color = currentVariant.stock > 0 ? '#27ae60' : '#e74c3c';
-
-                const usedInfo = document.getElementById('ss-pd-used-info');
-                if (selectedCondition !== 'new' && usedInfo) {
-                    usedInfo.style.display = 'block';
-                    document.getElementById('val-pin').innerText = (currentVariant.battery_health || 'N/A') +
-                        '%';
-                    document.getElementById('val-sac').innerText = currentVariant.charging_count || 'N/A';
-                } else if (usedInfo) {
-                    usedInfo.style.display = 'none';
-                }
-            } else {
-                priceEl.innerText = "Chưa có giá";
-                stockEl.innerText = "Vui lòng chọn đủ tùy chọn";
-            }
-        }
-
         items.forEach(item => {
             item.addEventListener('click', function() {
-                const type = this.getAttribute('data-type');
-                const value = this.getAttribute('data-value');
+                const type = this.dataset.type;
+                const value = this.dataset.value;
 
                 document.querySelectorAll(`.ss-pd-v-item[data-type="${type}"]`).forEach(btn =>
                     btn.classList.remove('active'));
@@ -67,63 +29,82 @@
                 if (type === 'size') selectedSize = value;
                 if (type === 'color') selectedColor = value;
 
-                updateDisplay();
+                // Tìm variant tương ứng
+                currentVariant = VARIANT_DATA.find(v =>
+                    v.condition === selectedCondition &&
+                    v.size_id == selectedSize &&
+                    v.color_id == selectedColor
+                );
+
+                // Gọi hàm cập nhật UI của bạn ở đây (nếu có)
+                if (typeof updateDisplay === "function") updateDisplay();
             });
         });
 
-        // 2. Xử lý nút MUA NGAY (Dùng cơ chế dự phòng)
-        buyBtn.onclick = function(e) {
-            e.preventDefault();
-            console.log("Nút đã được bấm!");
-
-            if (!selectedCondition || !selectedSize || !selectedColor) {
-                alert('Vui lòng chọn đầy đủ Tình trạng, Dung lượng và Màu sắc!');
-                return;
-            }
-
-            if (!currentVariant) {
-                alert('Phiên bản này hiện không có sẵn!');
-                return;
-            }
-
-            const sizeText = document.querySelector(`.ss-pd-v-item[data-type="size"].active`).innerText
-                .trim();
-            const colorText = document.querySelector(`.ss-pd-v-item[data-type="color"].active`).innerText
-                .trim();
-            const conditionText = selectedCondition === 'new' ? 'Máy mới 100%' : 'Máy cũ/Like New';
-
-            let message =
-                `Chào Shop, mình muốn mua:\n📱 ${phoneName}\n✨ ${conditionText}\n💾 ${sizeText} - ${colorText}\n💰 Giá: ${priceEl.innerText}\n🆔 SKU: ${currentVariant.sku}\n🔗 ${currentUrl}`;
-
-            // HÀM COPY DỰ PHÒNG (Dùng được cả khi không có HTTPS/SSL)
-            function fallbackCopyTextToClipboard(text) {
-                var textArea = document.createElement("textarea");
-                textArea.value = text;
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    alert('Đã copy thông tin máy! Hãy dán (Ctrl+V) vào khung chat để shop tư vấn nhé.');
-                } catch (err) {
-                    console.error('Lỗi khi copy: ', err);
+        // XỬ LÝ NÚT MUA NGAY
+        const buyBtn = document.getElementById('btn-buy-now');
+        if (buyBtn) {
+            buyBtn.onclick = function() {
+                // Kiểm tra đã chọn đủ chưa
+                if (!selectedCondition || !selectedSize || !selectedColor || !currentVariant) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Thông báo',
+                        text: 'Vui lòng chọn đầy đủ Thông tin loại máy, Dung lượng và Màu sắc!',
+                        confirmButtonColor: '#0084FF'
+                    });
+                    return;
                 }
-                document.body.removeChild(textArea);
-                // Mở Messenger sau khi copy
-                window.open(`https://m.me/${pageId}`, '_blank');
-            }
 
-            if (!navigator.clipboard) {
-                fallbackCopyTextToClipboard(message);
-            } else {
-                navigator.clipboard.writeText(message).then(function() {
-                    alert('Đã copy thông tin máy! Hãy dán (Ctrl+V) vào khung chat nhé.');
-                    window.open(`https://m.me/${pageId}`, '_blank');
-                }, function(err) {
-                    fallbackCopyTextToClipboard(message);
+                const sizeText = document.querySelector(`.ss-pd-v-item[data-type="size"].active`).innerText
+                    .trim();
+                const colorText = document.querySelector(`.ss-pd-v-item[data-type="color"].active`)
+                    .innerText.trim();
+                const price = document.getElementById('ss-pd-main-price').innerText;
+
+                // Nội dung gửi Shop
+                let message = `Chào Shop, mình muốn mua:\n`;
+                message += `📱 Sản phẩm: ${phoneName}\n`;
+                message += `✨ Tình trạng: ${selectedCondition == 'new' ? 'used' : 'Like New'}\n`;
+                message += `💾 Cấu hình: ${sizeText} - ${colorText}\n`;
+                message += `💰 Giá: ${price}\n`;
+                message += `🔗 Link: ${window.location.href}`;
+
+                // Bước 1: Copy vào bộ nhớ đệm
+                copyToClipboard(message);
+
+                // Bước 2: Hiện dòng chữ hướng dẫn dưới nút (nếu có)
+                const guide = document.getElementById('copy-guide');
+                if (guide) {
+                    guide.style.display = 'inline-block';
+                }
+
+                // Bước 3: Hiện thông báo xịn sò (Chỉ có 1 nút duy nhất)
+                Swal.fire({
+                    title: 'Đã sao chép đơn hàng!',
+                    html: 'Thông tin sản phẩm đã được copy. <br>Bạn chỉ cần <b>Dán (Ctrl+V)</b> vào khung chat nhé!',
+                    icon: 'success',
+                    confirmButtonColor: '#0084FF',
+                    confirmButtonText: 'Mở Messenger ngay',
+                    allowOutsideClick: false, // Không cho phép click ra ngoài để tắt
+                    allowEscapeKey: false // Không cho phép nhấn nút Esc để tắt
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        openMessenger();
+                    }
                 });
-            }
-        };
+
+            };
+        }
+
+        function copyToClipboard(text) {
+            const temp = document.createElement("textarea");
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand("copy");
+            document.body.removeChild(temp);
+        }
     });
 </script>
 <style>

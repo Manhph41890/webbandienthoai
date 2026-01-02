@@ -109,7 +109,10 @@
                         </button>
                         <button class="ss-pd-btn-cart">LIÊN HỆ TƯ VẤN</button>
                     </div>
-                    <span class="ms-3" style="color: rgb(193, 0, 0);">Liên hệ với shop để nhận mức giá ưu đãi</span>
+                    <span id="copy-guide" class="ms-3" style="color: rgb(193, 0, 0); font-weight: 500; display: none;">
+                        <i class="fas fa-info-circle"></i> Hệ thống đã tự động sao chép, bạn hãy <strong>Dán
+                            (Ctrl+V)</strong> vào khung chat để nhận ưu đãi nhé!
+                    </span>
                 </div>
 
             </div>
