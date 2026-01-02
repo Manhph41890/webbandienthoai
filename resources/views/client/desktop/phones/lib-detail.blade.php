@@ -319,28 +319,6 @@
             border-color: #d70018;
             transform: scale(1.05);
         }
-
-        /* Thêm một chút CSS để nhận diện nút đang chọn */
-        .ss-pd-v-item.active {
-            border: 2px solid #ef4444 !important;
-            color: #ef4444 !important;
-            background-color: #fef2f2;
-        }
-
-        .ss-pd-btn-buy {
-            background: #0084FF;
-            /* Màu xanh Messenger */
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 8px;
-        }
-
-        .ss-pd-btn-buy:hover {
-            background: #0073e6;
-        }
     </style>
 @endpush
 <script>

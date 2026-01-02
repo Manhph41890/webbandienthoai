@@ -116,9 +116,9 @@
     </div>
 
     <!-- DATA BRIDGE: Truyền dữ liệu sang JS -->
-    {{-- <script>
+    <script>
         const VARIANT_DATA = @json($variants);
-    </script> --}}
+    </script>
 @endsection
 @include('client.desktop.phones.lib-detail')
 @include('client.desktop.phones.phone-post')
