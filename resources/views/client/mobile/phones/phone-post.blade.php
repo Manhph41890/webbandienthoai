@@ -91,28 +91,39 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Lấy text hiển thị
         const sizeText = document.querySelector(`.selector-size .ss-pd-v-item.active`).innerText.trim();
         const colorText = document.querySelector(`.selector-color .ss-pd-v-item.active`).innerText.trim();
-        const conditionText = selectedCondition === 'new' ? 'Máy mới 100%' : 'Máy cũ/Like New';
+        const conditionText = selectedCondition === 'new' ? 'Moi 100%' : 'Cu/Like New';
 
-        // Soạn nội dung tin nhắn
-        let message = `Chào Shop, mình muốn mua điện thoại (Mobile):\n`;
-        message += `📱 Sản phẩm: ${phoneName}\n`;
-        message += `✨ Tình trạng: ${conditionText}\n`;
-        message += `💾 Dung lượng: ${sizeText}\n`;
-        message += `🎨 Màu sắc: ${colorText}\n`;
-        message += `💰 Giá: ${priceEl.innerText}\n`;
-        message += `🆔 SKU: ${currentVariant.sku}\n`;
-        message += `🔗 Link: ${currentUrl}`;
+        // 1. Rút gọn tin nhắn, bỏ các ký tự đặc biệt rườm rà (icon có thể giữ nhưng hạn chế)
+        // Lưu ý: Sử dụng dấu cách thay vì xuống dòng quá nhiều nếu vẫn lỗi
+        let message = `Mua: ${phoneName}\n`;
+        message += `- ${conditionText}, ${sizeText}, ${colorText}\n`;
+        message += `- Gia: ${priceEl.innerText}\n`;
+        message += `- Link: ${currentUrl}`;
 
         const encodedMessage = encodeURIComponent(message);
         
-        // Link m.me hoạt động tốt nhất trên mobile để mở ứng dụng Messenger
-        const messengerUrl = `https://m.me/${pageId}?text=${encodedMessage}`;
+        // 2. Kiểm tra xem có phải iOS không
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-        // Mở ứng dụng Messenger
-        window.location.href = messengerUrl;
+        if (isIOS) {
+            // Giải pháp cho iOS: Mở link qua window.open và dùng link messenger.com 
+            // Link này ép iOS mở ứng dụng Messenger ổn định hơn m.me
+            const iosUrl = `https://www.messenger.com/t/${pageId}/?messaging_source=source%3Ashare%3Abutton&text=${encodedMessage}`;
+            
+            // Mở một cửa sổ mới
+            const newWindow = window.open(iosUrl, '_blank');
+            
+            // Nếu không mở được cửa sổ mới (bị chặn popup) thì quay lại dùng href
+            if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+                window.location.href = `https://m.me/${pageId}?text=${encodedMessage}`;
+            }
+        } else {
+            // Android và Desktop vẫn dùng m.me bình thường
+            const messengerUrl = `https://m.me/${pageId}?text=${encodedMessage}`;
+            window.location.href = messengerUrl;
+        }
     });
 });
 </script>
