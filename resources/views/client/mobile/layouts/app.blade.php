@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('css/client_styles_mb.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('css/desk/client_styles.css') }}"> --}}
     <script src="{{ asset('js/main.js') }}"></script>
-        {{-- <script src="{{ asset('js/main_mb.js') }}"></script> --}}
+    {{-- <script src="{{ asset('js/main_mb.js') }}"></script> --}}
     <!-- Font Awesome cho icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -43,9 +43,52 @@
 
     @yield('content') {{-- Đây là nơi nội dung chính của từng trang sẽ được inject vào --}}
 
+    <a href="https://m.me/6655474491239022" class="fb-chat-anchor" target="_blank">
+        <div class="fb-chat-bubble">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg"
+                alt="Messenger">
+            <span>Chat với Shop</span>
+        </div>
+    </a>
     @include('client.mobile.partials.footer') {{-- Bao gồm phần footer --}}
 
     @stack('scripts')
 </body>
 
 </html>
+<style>
+    .fb-chat-anchor {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+        text-decoration: none;
+    }
+
+    .fb-chat-bubble {
+        background: #0084FF;
+        display: flex;
+        align-items: center;
+        padding: 10px 18px;
+        border-radius: 50px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+    }
+
+    .fb-chat-bubble img {
+        width: 25px;
+        margin-right: 8px;
+    }
+
+    .fb-chat-bubble span {
+        color: white;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+    }
+
+    .fb-chat-bubble:hover {
+        transform: translateY(-5px);
+        background: #0073e6;
+    }
+</style>
+

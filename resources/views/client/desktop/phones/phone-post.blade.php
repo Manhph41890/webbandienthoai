@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedColor = null;
     let currentVariant = null;
 
-    const pageId = "100090503628117"; // THAY ID FANPAGE CỦA BẠN VÀO ĐÂY (Ví dụ: 123456789)
+    const pageId = "100090503628117"; // LINK PAGES CỦA TÔI LƯU Ý
     const phoneName = "{{ $phone->name }}";
     const currentUrl = window.location.href;
 
