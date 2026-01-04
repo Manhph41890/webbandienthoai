@@ -10,31 +10,53 @@
                     <h2 class="contact-title">Liên Hệ</h2>
                     <p class="contact-subtitle">Hãy để lại thông tin, chúng tôi sẽ phản hồi bạn trong vòng 24h.</p>
 
-                    <form action="#" method="POST" class="main-contact-form">
+                    <form action="{{ route('contact.store') }}" method="POST" class="main-contact-form">
+                        @csrf
                         <div class="input-group">
-                            <input type="text" name="name" placeholder="Họ và tên của bạn" required>
+                            <input type="text" name="name" value="{{ old('name') }}" placeholder="Họ và tên của bạn"
+                                required>
+                            @error('name')
+                                <span class="error-msg" style="color:red; font-size:12px">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="input-row">
                             <div class="input-group">
-                                <input type="email" name="email" placeholder="Email" required>
+                                <input type="email" name="email" value="{{ old('email') }}" placeholder="Email"
+                                    required>
+                                @error('email')
+                                    <span class="error-msg" style="color:red; font-size:12px">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="input-group">
-                                <input type="tel" name="phone" placeholder="Số điện thoại" required>
+                                <input type="tel" name="phone_number" value="{{ old('phone_number') }}"
+                                    placeholder="Số điện thoại" required>
+                                @error('phone_number')
+                                    <span class="error-msg" style="color:red; font-size:12px">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="input-group">
                             <select name="service" required>
                                 <option value="" disabled selected>Vui lòng chọn dịch vụ mà bạn quan tâm *</option>
-                                <option value="tu-van">Tư vấn mua điện thoại</option>
-                                <option value="bao-hanh">Hỗ trợ bảo hành</option>
-                                <option value="gop-y">Góp ý dịch vụ</option>
+                                @foreach ($services as $service)
+                                    <option value="{{ $service->value }}"
+                                        {{ old('service') == $service->value ? 'selected' : '' }}>
+                                        {{ $service->value }}
+                                    </option>
+                                @endforeach
                             </select>
+                            @error('service')
+                                <span class="error-msg" style="color:red; font-size:12px">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="input-group">
-                            <textarea name="message" rows="4" placeholder="Yêu cầu cụ thể (nếu có)"></textarea>
+                            <textarea name="request" rows="4" placeholder="Yêu cầu cụ thể (nếu có)">{{ old('request') }}</textarea>
+                            @error('request')
+                                <span class="error-msg" style="color:red; font-size:12px">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="form-footer">

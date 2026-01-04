@@ -8,6 +8,7 @@ use App\Http\Requests\StoreContactRequest;
 use App\Models\Contact;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ContactController extends Controller
 {
@@ -24,7 +25,8 @@ class ContactController extends Controller
             // Dữ liệu đã được validate tự động bởi StoreContactRequest
             Contact::create($request->validated());
 
-            return back()->with('success', 'Cảm ơn bạn! Yêu cầu của bạn đã được gửi thành công. Chúng tôi sẽ liên hệ lại sớm nhất.');
+            Alert::success('Cảm ơn bạn! Yêu cầu của bạn đã được gửi thành công. Chúng tôi sẽ liên hệ lại sớm nhất.');
+            return back();
         } catch (\Exception $e) {
             // Log lỗi nếu cần thiết: Log::error($e->getMessage());
             return back()->withInput()->with('error', 'Có lỗi xảy ra trong quá trình gửi. Vui lòng thử lại sau!');
