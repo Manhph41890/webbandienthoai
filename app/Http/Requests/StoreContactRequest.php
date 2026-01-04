@@ -28,7 +28,7 @@ class StoreContactRequest extends FormRequest
             'email' => ['required', 'email:rfc,dns', 'max:150'],
             'phone_number' => ['required', 'string', 'regex:/^(0)[0-9]{9,10}$/'], // Validate số điện thoại VN
             'service' => ['required', new Enum(ContactService::class)],
-            'request' => ['required', 'string', 'min:10', 'max:2000'],
+            // 'request' => ['required', 'string', 'min:10', 'max:2000'],
         ];
     }
 

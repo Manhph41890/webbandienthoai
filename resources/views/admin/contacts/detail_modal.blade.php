@@ -37,8 +37,8 @@
             </div>
             <div class="modal-footer bg-light border-0">
                 <button type="button" class="btn btn-secondary shadow-sm" data-dismiss="modal">Đóng</button>
-                <a href="#" id="reply-mail" class="btn btn-primary shadow-sm">Phản hồi qua Email</a>
-            </div>
+                <button type="button" id="btn-open-reply" class="btn btn-primary shadow-sm">Phản hồi qua Email</button>
+            </div>  
         </div>
     </div>
 </div>

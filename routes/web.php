@@ -17,7 +17,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::controller(ContactController::class)->group(function () {
     Route::get('/lien-he', 'index')->name('contact.index');
     Route::post('/lien-he', 'store')->name('contact.store');
-    Route::get('admin/lien-he', 'getContact')->name('admin.contact.index');
+    Route::get('/admin/lien-he', 'getContact')->name('admin.contact.index');
+    Route::post('/admin/lien-he/{id}/phan-hoi', 'replyMail')->name('admin.contacts.reply');
 });
 
 // 2. Chi tiết sản phẩm (Ưu tiên khớp route này trước)

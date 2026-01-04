@@ -15,44 +15,7 @@
                     </form>
                 </div>
 
-                <div class="header-user-actions">
-                    @auth
-                        <!-- Hiển thị khi ĐÃ đăng nhập -->
-                        <a href="/account" class="action-item">
-                            <i class="fa-regular fa-circle-user"></i>
-                            <span>{{ auth()->user()->name }}</span>
-                        </a>
-
-                        <a href="/wishlist" class="action-item">
-                            <i class="fa-regular fa-heart"></i>
-                            <span>Yêu thích</span>
-                        </a>
-
-                        <!-- Nút Đăng xuất (Laravel yêu cầu dùng POST để an toàn) -->
-                        <a href="{{ route('logout') }}" class="action-item"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                            <span>Đăng xuất</span>
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    @endauth
-
-                    @guest
-                        <!-- Hiển thị khi CHƯA đăng nhập -->
-                        <a href="{{ route('login') }}" class="action-item">
-                            <i class="fa-regular fa-circle-user"></i>
-                            <span>Đăng nhập</span>
-                        </a>
-
-                        <a href="/wishlist" class="action-item">
-                            <i class="fa-regular fa-heart"></i>
-                            <span>Yêu thích</span>
-                        </a>
-                    @endguest
-                </div>
+                @include('partials.user-nav')
             </div>
 
             <!-- Navigation Menu -->

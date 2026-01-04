@@ -8,6 +8,9 @@ use App\Http\Requests\StoreContactRequest;
 use App\Models\Contact;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use App\Mail\ContactReplyMail;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 class ContactController extends Controller
@@ -51,5 +54,28 @@ class ContactController extends Controller
         // $trashedCount = Contact::onlyTrashed()->count();
 
         return view('admin.contacts.index', compact('contacts'));
+    }
+
+    public function replyMail(Request $request, $id)
+    {
+        $request->validate(['message' => 'required|string']);
+
+        $contact = Contact::findOrFail($id);
+
+        try {
+            // Gửi mail
+            Mail::to($contact->email)->send(new ContactReplyMail($contact, $request->message));
+
+            $contact->update(['status' => 'processed']);
+
+            return back()->with('success', 'Đã gửi mail phản hồi thành công!');
+        } catch (\Exception $e) {
+            // Ghi chi tiết lỗi vào file storage/logs/laravel.log
+            Log::error('Lỗi gửi mail tại ContactController: ' . $e->getMessage());
+            Log::error('Chi tiết: ' . $e->getTraceAsString());
+
+            // Trả về thông báo lỗi ngắn gọn ra màn hình
+            return back()->with('error', 'Lỗi: ' . $e->getMessage());
+        }
     }
 }
