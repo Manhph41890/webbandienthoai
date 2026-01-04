@@ -12,19 +12,18 @@ return new class extends Migration {
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->id();
             $table->string('name', 100);
-            $table->string('email', 150);
-            $table->string('phone', 20); // Đổi 'number' thành 'phone' cho rõ nghĩa
-
-            // Lấy tất cả giá trị từ Enum
-            $table->enum('service', array_column(ContactService::cases(), 'value'))->default(ContactService::PHONE_CONSULT->value);
-
+            $table->string('email', 150)->index();
+            $table->string('phone_number', 20); // Đổi tên từ 'number' thành 'phone_number' cho rõ nghĩa
+            
+            // Lưu enum dưới dạng string để dễ mở rộng sau này, 
+            // hạn chế dùng $table->enum của MySQL vì khó thay đổi cấu trúc sau này
+            $table->string('service')->index(); 
+            
             $table->text('request');
-            $table->timestamps();
-
-            // Thêm index nếu cần tìm kiếm nhanh theo email/phone
-            $table->index(['email', 'phone']);
+            
+            // Quản lý trạng thái xử lý (thường các cty lớn sẽ cần cái này)
+            $table->string('status')->default('pending')->index(); 
             $table->timestamps();
         });
     }
