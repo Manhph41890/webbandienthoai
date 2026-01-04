@@ -9,7 +9,7 @@ use App\Models\Contact;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use Illuminate\Http\Request;
 class ContactController extends Controller
 {
     public function index(): View
@@ -34,9 +34,22 @@ class ContactController extends Controller
         }
     }
 
-    public function getContact() 
+    public function getContact(Request $request)
     {
-        $contacts = Contact::get();
+        $search = $request->input('search');
+
+        $contacts = Contact::query()
+            ->when($search, function ($query, $search) {
+                return $query
+                    ->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('phone_number', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(10);
+
+        // $trashedCount = Contact::onlyTrashed()->count();
+
         return view('admin.contacts.index', compact('contacts'));
     }
 }
