@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="contact-section">
-        <div class="contact-container">
+        <div class="contact-container" style="max-width: 1100px !important">
             <div class="contact-grid">
 
                 <!-- Bên trái: Form liên hệ -->
@@ -51,18 +51,18 @@
                     <div class="map-wrapper">
                         <!-- Thay src bằng link bản đồ thực tế của bạn -->
                         <iframe
-                            src=""
-                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
-                        </iframe>
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4618.629331215925!2d105.66507217594844!3d19.816552628305796!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3136fb00202ec2a5%3A0x2ef88b4e807fa3e7!2zVGjDtG4gVGjhur8gR2nhu5tpIC0gWMOjIMSQw7RuZyBOaW5oIC0gxJDDtG5nIFPGoW4!5e1!3m2!1svi!2s!4v1767490804932!5m2!1svi!2s"
+                            width="550" height="430" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <div class="contact-info-mini">
                         <div class="info-item">
                             <i class="fa-solid fa-location-dot"></i>
-                            <span></span>
+                            <span>Nhà Văn Hóa Thôn Thế Giới</span>
                         </div>
                         <div class="info-item">
                             <i class="fa-solid fa-phone"></i>
-                            <span></span>
+                            <span>010 2828 8333 - 010 8282 6868</span>
                         </div>
                     </div>
                 </div>
