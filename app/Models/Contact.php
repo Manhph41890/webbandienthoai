@@ -57,11 +57,6 @@ class Contact extends Model
         $query->where('status', 'pending');
     }
 
-    // --- Accessors & Mutators (Chuẩn hóa dữ liệu) ---
-
-    /**
-     * Đảm bảo email luôn lưu ở dạng chữ thường
-     */
     protected function setEmailAttribute($value): void
     {
         $this->attributes['email'] = strtolower($value);
