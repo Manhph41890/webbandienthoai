@@ -30,21 +30,66 @@
     @endif
 
     <!-- Bộ lọc tìm kiếm -->
+    <!-- Bộ lọc tìm kiếm -->
     <div class="card shadow-sm mb-4 border-0">
         <div class="card-body">
-            <form action="{{ route('admin.phones.index') }}" method="GET" class="row g-3">
-                <div class="col-md-10">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white border-right-0"><i
-                                    class="fas fa-search text-muted"></i></span>
+            <form action="{{ route('admin.phones.index') }}" method="GET">
+                <div class="row g-3">
+                    <!-- Tìm kiếm từ khóa -->
+                    <div class="col-md-4 mb-3">
+                        <label class="small font-weight-bold text-muted">Từ khóa</label>
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" placeholder="Tên sản phẩm..."
+                                value="{{ request('search') }}">
                         </div>
-                        <input type="text" name="search" class="form-control border-left-0"
-                            placeholder="Tìm kiếm theo tên sản phẩm hoặc danh mục..." value="{{ request('search') }}">
                     </div>
-                </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary btn-block">Tìm kiếm</button>
+
+                    <!-- Lọc theo Danh mục -->
+                    <div class="col-md-2 mb-3">
+                        <label class="small font-weight-bold text-muted">Danh mục</label>
+                        <select name="category_id" class="form-control">
+                            <option value="">Tất cả danh mục</option>
+                            @foreach ($categories as $cat)
+                                <option value="{{ $cat->id }}"
+                                    {{ request('category_id') == $cat->id ? 'selected' : '' }}>
+                                    {{ $cat->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Lọc theo Trạng thái -->
+                    <div class="col-md-2 mb-3">
+                        <label class="small font-weight-bold text-muted">Trạng thái</label>
+                        <select name="status" class="form-control">
+                            <option value="">Tất cả</option>
+                            <option value="1" {{ request('status') === '1' ? 'selected' : '' }}>Đang hiển thị</option>
+                            <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>Đang ẩn</option>
+                        </select>
+                    </div>
+
+                    <!-- Lọc theo Giá Min -->
+                    <div class="col-md-2 mb-3">
+                        <label class="small font-weight-bold text-muted">Giá từ</label>
+                        <input type="number" name="min_price" class="form-control" placeholder="w"
+                            value="{{ request('min_price') }}">
+                    </div>
+
+                    <!-- Lọc theo Giá Max -->
+                    <div class="col-md-2 mb-3">
+                        <label class="small font-weight-bold text-muted">Đến</label>
+                        <input type="number" name="max_price" class="form-control" placeholder="w"
+                            value="{{ request('max_price') }}">
+                    </div>
+
+                    <div class="col-md-12 text-right">
+                        <a href="{{ route('admin.phones.index') }}" class="btn btn-light shadow-sm border">
+                            <i class="fas fa-undo"></i> Làm mới
+                        </a>
+                        <button type="submit" class="btn btn-primary shadow-sm">
+                            <i class="fas fa-filter"></i> Lọc dữ liệu
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -93,11 +138,11 @@
                                 <td class="align-middle">
                                     @if ($phone->variants->count() > 0)
                                         <span class="text-danger font-weight-bold">
-                                            {{ number_format($phone->variants->min('price'), 0, ',', '.') }}đ
+                                            {{ number_format($phone->variants->min('price'), 0, ',', '.') }} w
                                         </span>
                                         @if ($phone->variants->min('price') != $phone->variants->max('price'))
                                             <small class="text-muted">-
-                                                {{ number_format($phone->variants->max('price'), 0, ',', '.') }}đ</small>
+                                                {{ number_format($phone->variants->max('price'), 0, ',', '.') }} w</small>
                                         @endif
                                     @else
                                         <span class="text-muted small italic">Chưa có giá</span>
@@ -133,7 +178,8 @@
                                         <input type="checkbox" class="custom-control-input change-status"
                                             id="customSwitch{{ $phone->id }}" data-id="{{ $phone->id }}"
                                             {{ $phone->is_active ? 'checked' : '' }}>
-                                        <label class="custom-control-label" for="customSwitch{{ $phone->id }}"></label>
+                                        <label class="custom-control-label"
+                                            for="customSwitch{{ $phone->id }}"></label>
                                     </div>
                                 </td>
 

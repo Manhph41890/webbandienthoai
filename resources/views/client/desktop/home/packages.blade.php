@@ -70,7 +70,8 @@
                             data-price="{{ number_format($package->price) }}đ"
                             data-duration="{{ $package->duration_days }}"
                             data-carrier="{{ strtoupper($package->carrier) }}"
-                            data-sim="{{ $package->sim_type == 'hop_phap' ? 'Hợp pháp' : 'Khác' }}">
+                            data-sim="{{ $package->sim_type == 'hop_phap' ? 'Hợp pháp' : 'Khác' }}"
+                            style="border: 1px solid white !important">
                             <i class="fa-brands fa-facebook-messenger"></i> MUA NGAY
                         </button>
                     </div>

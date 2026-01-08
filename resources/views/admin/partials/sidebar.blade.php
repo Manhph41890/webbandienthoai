@@ -103,17 +103,17 @@
 
 
     <!-- Heading -->
-    {{-- <div class="sidebar-heading">
-        Quản lý Đơn hàng
-    </div> --}}
+    <div class="sidebar-heading">
+        Quản lý Liên Hệ
+    </div>
 
-    <!-- Nav Item - Quản lý Đơn hàng -->
-    {{-- <li class="nav-item {{ Request::is('admin/bills*') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.bills.index') }}">
+    <!-- Nav Item - Quản lý Liên Hệ -->
+    <li class="nav-item {{ Request::is('admin/contact*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.contact.index') }}">
             <i class="fas fa-fw fa-file-invoice-dollar"></i>
-            <span>Đơn hàng</span>
+            <span>Yêu cầu cần phản hồi</span>
         </a>
-    </li> --}}
+    </li>
     <!-- Heading -->
 
     <!-- Divider -->

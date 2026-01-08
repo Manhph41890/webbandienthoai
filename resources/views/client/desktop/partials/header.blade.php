@@ -9,50 +9,13 @@
                 </div>
 
                 <div class="search-box">
-                    <form action="/search" method="GET">
-                        <input type="text" name="q" placeholder="Tìm kiếm...">
+                    <form action="{{ route('search') }}" method="GET">
+                        <input type="text" name="q" value="{{ request('q') }}" placeholder="Tìm kiếm...">
                         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </form>
                 </div>
 
-                <div class="header-user-actions">
-                    @auth
-                        <!-- Hiển thị khi ĐÃ đăng nhập -->
-                        <a href="/account" class="action-item">
-                            <i class="fa-regular fa-circle-user"></i>
-                            <span>{{ auth()->user()->name }}</span>
-                        </a>
-
-                        <a href="/wishlist" class="action-item">
-                            <i class="fa-regular fa-heart"></i>
-                            <span>Yêu thích</span>
-                        </a>
-
-                        <!-- Nút Đăng xuất (Laravel yêu cầu dùng POST để an toàn) -->
-                        <a href="{{ route('logout') }}" class="action-item"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                            <span>Đăng xuất</span>
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    @endauth
-
-                    @guest
-                        <!-- Hiển thị khi CHƯA đăng nhập -->
-                        <a href="{{ route('login') }}" class="action-item">
-                            <i class="fa-regular fa-circle-user"></i>
-                            <span>Đăng nhập</span>
-                        </a>
-
-                        <a href="/wishlist" class="action-item">
-                            <i class="fa-regular fa-heart"></i>
-                            <span>Yêu thích</span>
-                        </a>
-                    @endguest
-                </div>
+                @include('partials.user-nav')
             </div>
 
             <!-- Navigation Menu -->
@@ -95,9 +58,8 @@
                     @if ($menuSamsungs->isNotEmpty())
                         <li class="has-dropdown">
                             <a href="/samsung">
-                                <img src="{{ asset('logo/logo_samsung.png') }}" alt="Samsung"
-                                    class="nav-icon_samsung"> <i class="fa-solid fa-chevron-right arrow-icon"
-                                    style="margin-top: 6px"></i>
+                                <img src="{{ asset('logo/logo_samsung.png') }}" alt="Samsung" class="nav-icon_samsung">
+                                <i class="fa-solid fa-chevron-right arrow-icon" style="margin-top: 6px"></i>
                             </a>
                             <ul class="dropdown-menu">
                                 @foreach ($menuSamsungs as $series)
