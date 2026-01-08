@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Client\ContactController;
+use App\Http\Controllers\Client\FavoriteController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PhoneController;
@@ -34,6 +35,10 @@ Route::get('/goi-cuoc/{slug}', [PackageClientController::class, 'listByCategory'
 Route::get('/chi-tiet-goi/{slug}', [PackageClientController::class, 'detail'])->name('package.detail');
 
 Route::get('/search/products', [SearchController::class, 'index'])->name('search');
+
+
+Route::get('/wishlist', [FavoriteController::class, 'index'])->name('wishlist.index');
+Route::post('/wishlist/toggle', [FavoriteController::class, 'toggle'])->name('wishlist.toggle');
 
 // Hiển thị form đăng nhập
 Route::prefix('auth')
