@@ -24,7 +24,7 @@ class UpdatePhoneRequest extends FormRequest
         $phoneId = $this->route('phone')->id;
         return [
             'name' => 'required|string|max:255',
-            'categories_id' => 'required|exists:categories,id',
+            'category_id' => 'required|exists:categories,id',
             'slug' => 'required|string|max:255|unique:phones,slug,' . $phoneId,
             'short_description' => 'nullable|string|max:500',
             'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -40,7 +40,7 @@ class UpdatePhoneRequest extends FormRequest
     {
         return [
             'name.required' => 'Tên sản phẩm không được để trống.',
-            'categories_id.required' => 'Vui lòng chọn danh mục.',
+            'category_id.required' => 'Vui lòng chọn danh mục.',
             'slug.required' => 'Đường dẫn (Slug) không được để trống.',
             'slug.unique' => 'Đường dẫn này đã tồn tại.',
             'variants.required' => 'Sản phẩm phải có ít nhất một biến thể.',

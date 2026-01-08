@@ -22,9 +22,7 @@
             <nav class="main-navigation">
                 <ul class="nav-list">
                     <li><a href="/">Trang Chủ</a></li>
-
-                    <!-- Menu iPhone -->
-                    <!-- Menu iPhone -->
+                    
                     @if ($menuIphones->isNotEmpty())
                         <li class="has-dropdown">
                             <a href="/iphone"> <!-- Giữ link tổng cho iPhone -->

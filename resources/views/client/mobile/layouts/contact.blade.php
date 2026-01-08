@@ -1,7 +1,5 @@
 <div id="contact-widget" class="contact-fixed">
     <!-- Tooltip chung -->
-    {{-- <div class="contact-tooltip" id="contact-tooltip">Liên hệ với chúng tôi!</div> --}}
-
 
     <!-- Danh sách các nút con (Sẽ ẩn/hiện) -->
     <div class="contact-list" id="contact-list">

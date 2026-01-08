@@ -30,7 +30,7 @@ class Category extends Model
     // 1 category có nhiều phones
     public function phones()
     {
-        return $this->hasMany(Phone::class);
+        return $this->hasMany(Phone::class, 'category_id');
     }
 
     public function packages()

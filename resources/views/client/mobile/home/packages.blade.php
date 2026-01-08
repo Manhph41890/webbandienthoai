@@ -60,11 +60,14 @@
                         </div>
                     </div>
 
-                    <div class="hpk-card-foot">
-                        <a href="https://m.me/yourpage" target="_blank" class="hpk-btn-main">
+                    <div class="hpk-card-foot" style="margin-left: 60px;">
+                        <button style="background-color: rgb(63, 63, 229); color:white" type="button" class="btn m-btn-primary btn-buy-package" data-name="{{ $package->name }}"
+                            data-price="{{ number_format($package->price) }}đ"
+                            data-duration="{{ $package->duration_days }}"
+                            data-carrier="{{ strtoupper($package->carrier) }}"
+                            data-sim="{{ $package->sim_type == 'hop_phap' ? 'Hợp pháp' : 'Khác' }}">
                             <i class="fa-brands fa-facebook-messenger"></i> MUA NGAY
-                        </a>
-                        <a href="#" class="hpk-btn-sub">CHI TIẾT</a>
+                        </button>
                     </div>
                 </div>
             @endforeach
@@ -76,3 +79,5 @@
 </div>
 
 @include('client.mobile.home.package-lib')
+@include('packages.buy-mess')
+

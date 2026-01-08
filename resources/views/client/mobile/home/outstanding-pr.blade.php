@@ -56,11 +56,11 @@
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
-                                    <span class="rating-count">(12)</span>
+                                    <span class="rating-count">(100+)</span>
                                 </div>
 
                                 <div class="product-actions">
-                                    <a href="https://m.me/yourpage" target="_blank" class="btn-messenger">
+                                    <a href="{{ route('phone.detail', $phone->slug) }}" target="_blank" class="btn-messenger">
                                         <i class="fa-brands fa-facebook-messenger"></i> MUA NGAY
                                     </a>
                                     <a href="{{ route('phone.detail', $phone->slug) }}" class="btn-detail">CHI TIẾT</a>
@@ -82,4 +82,4 @@
     </div>
 </section>
 
-@include('client.mobile.home.product-list')
+@include('client.mobile.home.outstanding-pr-lib')

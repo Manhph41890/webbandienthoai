@@ -55,18 +55,18 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="categories_id" class="form-label">Danh mục <span class="text-danger">*</span></label>
-                    <select class="form-control @error('categories_id') is-invalid @enderror" id="categories_id"
-                        name="categories_id">
+                    <label for="category_id" class="form-label">Danh mục <span class="text-danger">*</span></label>
+                    <select class="form-control @error('category_id') is-invalid @enderror" id="category_id"
+                        name="category_id">
                         <option value="">Chọn danh mục</option>
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}"
-                                {{ old('categories_id') == $category->id ? 'selected' : '' }}>
+                                {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                 {{ $category->name }}
                             </option>
                         @endforeach
                     </select>
-                    @error('categories_id')
+                    @error('category_id')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

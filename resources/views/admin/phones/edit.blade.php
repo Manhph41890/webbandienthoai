@@ -26,9 +26,9 @@
 
             <div class="mb-3">
                 <label class="form-label">Danh mục <span class="text-danger">*</span></label>
-                <select class="form-control" name="categories_id">
+                <select class="form-control" name="category_id">
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ old('categories_id', $phone->categories_id) == $category->id ? 'selected' : '' }}>
+                        <option value="{{ $category->id }}" {{ old('category_id', $phone->category_id) == $category->id ? 'selected' : '' }}>
                             {{ $category->name }}
                         </option>
                     @endforeach

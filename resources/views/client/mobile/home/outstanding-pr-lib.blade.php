@@ -303,6 +303,7 @@
             justify-content: center;
             border-radius: 6px;
             transition: 0.3s;
+            padding-left: 18px !important;
         }
 
         .btn-detail:hover {

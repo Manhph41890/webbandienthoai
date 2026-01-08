@@ -68,7 +68,7 @@
                     <div class="m-v-list selector-color">
                         @foreach ($availableColors as $color)
                             <button class="ss-pd-v-item" data-type="color" data-value="{{ $color->id }}">
-                                <span class="color-dot" style="background: {{ $color->code }}"></span>
+                                <span class="color-dot" style="background: {{ $color->hex_code }}"></span>
                                 {{ $color->name }}
                             </button>
                         @endforeach

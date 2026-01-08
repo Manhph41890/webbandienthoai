@@ -107,7 +107,7 @@
                         <button class="ss-pd-btn-buy" id="btn-buy-now">
                             <i class="fab fa-facebook-messenger"></i> MUA NGAY QUA MESSENGER
                         </button>
-                        <button class="ss-pd-btn-cart">LIÊN HỆ TƯ VẤN</button>
+                        <button class="ss-pd-btn-cart" onclick="openMessengerPC()">LIÊN HỆ TƯ VẤN</button>
                     </div>
                     <span id="copy-guide" class="ms-3" style="color: rgb(193, 0, 0); font-weight: 500; display: none;">
                         <i class="fas fa-info-circle"></i> Hệ thống đã tự động sao chép, bạn hãy <strong>Dán
@@ -123,6 +123,10 @@
     <!-- DATA BRIDGE: Truyền dữ liệu sang JS -->
     <script>
         const VARIANT_DATA = @json($variants);
+        function openMessengerPC() {
+        const pageId = "100095174172336";
+        window.open('https://m.me/' + pageId, '_blank');
+    }
     </script>
 @endsection
 @include('client.desktop.phones.lib-detail')

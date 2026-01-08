@@ -23,7 +23,7 @@ class PhoneClientController extends Controller
         $categoryIds = $currentCategory->getAllChildIds();
 
         // 2. Khởi tạo Query lấy Phone
-        $query = Phone::whereIn('phones.categories_id', $categoryIds)
+        $query = Phone::whereIn('phones.category_id', $categoryIds)
 
             ->join('variants', 'phones.id', '=', 'variants.phone_id')
             // Tính toán các giá trị ảo để lọc/sắp xếp
@@ -34,7 +34,7 @@ class PhoneClientController extends Controller
             )
             ->groupBy(
                 'phones.id',
-                'phones.categories_id',
+                'phones.category_id',
                 'phones.name',
                 'phones.slug',
                 'phones.short_description',
@@ -146,7 +146,7 @@ class PhoneClientController extends Controller
         $availableColors = $variants->pluck('color')->unique('id')->values();
 
 
-        $relatedPhones = Phone::whereIn('categories_id', $categoryIds) // Dùng whereIn thay vì where
+        $relatedPhones = Phone::whereIn('category_id', $categoryIds) // Dùng whereIn thay vì where
             ->where('id', '!=', $phone->id) // Loại trừ sản phẩm hiện tại
             ->where('is_active', true)
             ->with(['category', 'variants'])

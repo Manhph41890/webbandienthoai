@@ -303,7 +303,7 @@
             position: absolute;
             top: -8px;
             right: -8px;
-            background: #fff;
+            background: #ff0000;
             border-radius: 50%;
             font-size: 14px;
         }

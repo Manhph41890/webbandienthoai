@@ -107,7 +107,7 @@ class PhoneController extends Controller
 
             // 3. Tạo sản phẩm cha (Phone)
             $phone = Phone::create([
-                'categories_id' => $request->categories_id,
+                'category_id' => $request->category_id,
                 'name' => $request->name,
                 'slug' => $slug,
                 'short_description' => $request->short_description,
@@ -237,7 +237,7 @@ class PhoneController extends Controller
 
             // 2. Cập nhật thông tin Phone
             $phone->update([
-                'categories_id' => $request->categories_id,
+                'category_id' => $request->category_id,
                 'name' => $request->name,
                 'slug' => $request->slug,
                 'short_description' => $request->short_description,
