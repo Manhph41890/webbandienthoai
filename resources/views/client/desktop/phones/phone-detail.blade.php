@@ -42,7 +42,7 @@
 
                     <div class="ss-pd-price-area">
                         <span id="ss-pd-main-price"
-                            class="ss-pd-price-new">{{ number_format($phone->variants->min('price')) }}đ</span>
+                            class="ss-pd-price-new">{{ number_format($phone->variants->min('price')) }}w</span>
                         <span class="ss-pd-stock-label" id="ss-pd-stock-status">Vui lòng chọn biến thể</span>
                     </div>
 
