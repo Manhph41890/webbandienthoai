@@ -10,9 +10,13 @@
 
                 <div class="ss-category-tabs">
                     <a href="#" class="ss-tab-item active">Tất cả</a>
-                    @foreach ($categories_samsung as $cat)
-                        <a href="#" class="ss-tab-item">{{ $cat->name }}</a>
-                    @endforeach
+                   @foreach ($categories_samsung as $cat)
+                            <a href="{{ route('category.show', $cat->slug) }}"
+                                class="ss-tab-item {{ request()->is('category/' . $cat->slug) ? 'active' : '' }}"
+                                data-filter="cat-{{ $cat->id }}">
+                                {{ $cat->name }}
+                            </a>
+                        @endforeach
                 </div>
             </div>
 

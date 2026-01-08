@@ -177,7 +177,7 @@
             transform: translate(-100%, -100%);
             /* Giấu ở góc trái trên */
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            pointer-events: none !important; 
+            pointer-events: none !important;
         }
 
         /* Lớp mờ 2: Góc phải dưới */
@@ -383,6 +383,30 @@
             border-color: #1E293C;
             color: #fff;
         }
+
+        .category-tabs {
+            display: flex !important;
+            gap: 10px!important;
+            overflow-x: auto!important;
+            /* Cho phép vuốt ngang trên điện thoại */
+            padding: 10px 0!important;
+            position: relative!important;
+            z-index: 10!important;
+            /* Đảm bảo nằm trên các phần tử khác */
+        }
+
+        .tab-item {
+            display: inline-block;
+            /* Quan trọng để thẻ <a> nhận padding/border tốt hơn */
+            padding: 6px 15px!important;
+            border: 1px solid #ddd!important;
+            border-radius: 4px!important;
+            white-space: nowrap!important;
+            text-decoration: none!important;
+            font-size: 14px!important;
+            cursor: pointer!important;
+            /* Hiển thị hình bàn tay khi di chuột vào */
+        }
     </style>
 @endpush
 
@@ -391,86 +415,83 @@
         // --- PHẦN 1: XỬ LÝ PHÂN TRANG (PAGINATION) ---
         const itemsPerPage = 8;
         const productContainer = document.getElementById('product-list');
-        const products = Array.from(productContainer.getElementsByClassName('product-item'));
-        const paginationContainer = document.getElementById('pagination');
-        let currentPage = 1;
+        if (productContainer) {
+            const products = Array.from(productContainer.getElementsByClassName('product-item'));
+            const paginationContainer = document.getElementById('pagination');
+            let currentPage = 1;
 
-        function displayProducts(page) {
-            const start = (page - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
+            function displayProducts(page) {
+                const start = (page - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
 
-            products.forEach((product, index) => {
-                if (index >= start && index < end) {
-                    product.style.display = 'block';
-                } else {
-                    product.style.display = 'none';
-                }
-            });
-
-            // Cuộn lên đầu section khi chuyển trang (tùy chọn)
-            // productContainer.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function setupPagination() {
-            const pageCount = Math.ceil(products.length / itemsPerPage);
-            paginationContainer.innerHTML = '';
-
-            for (let i = 1; i <= pageCount; i++) {
-                const li = document.createElement('li');
-                li.className = `page-item ${i === currentPage ? 'active' : ''}`;
-                li.innerHTML = `<a class="page-link" href="javascript:void(0)">${i}</a>`;
-
-                li.addEventListener('click', function() {
-                    currentPage = i;
-                    displayProducts(currentPage);
-
-                    // Update active class
-                    document.querySelectorAll('.custom-pagination .page-item').forEach(el => {
-                        el.classList.remove('active');
-                    });
-                    li.classList.add('active');
+                products.forEach((product, index) => {
+                    product.style.display = (index >= start && index < end) ? 'block' : 'none';
                 });
-                paginationContainer.appendChild(li);
             }
-        }
 
-        // Khởi tạo trang 1
-        if (products.length > 0) {
-            displayProducts(currentPage);
-            setupPagination();
+            function setupPagination() {
+                if (!paginationContainer) return;
+                const pageCount = Math.ceil(products.length / itemsPerPage);
+                paginationContainer.innerHTML = '';
+
+                for (let i = 1; i <= pageCount; i++) {
+                    const li = document.createElement('li');
+                    li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+                    li.innerHTML = `<a class="page-link" href="javascript:void(0)">${i}</a>`;
+
+                    li.addEventListener('click', function() {
+                        currentPage = i;
+                        displayProducts(currentPage);
+                        document.querySelectorAll('#pagination .page-item').forEach(el => el.classList.remove('active'));
+                        li.classList.add('active');
+                    });
+                    paginationContainer.appendChild(li);
+                }
+            }
+
+            if (products.length > 0) {
+                displayProducts(currentPage);
+                setupPagination();
+            }
         }
 
         // --- PHẦN 2: XỬ LÝ THANH TAG (SCROLL & CLICK) ---
         const tagContainer = document.getElementById('category-tabs');
         const btnLeft = document.querySelector('.nav-tag-btn.left');
         const btnRight = document.querySelector('.nav-tag-btn.right');
-        const tags = document.querySelectorAll('.tab-item');
+        const tabs = document.querySelectorAll('.tab-item');
 
-        // Click chuyển Active
-        tags.forEach(tag => {
-            tag.addEventListener('click', function(e) {
-                e.preventDefault();
-                tags.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
+        // Gộp chung xử lý Click Tab
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
 
-                // Ở đây bạn có thể thêm logic lọc sản phẩm theo tag nếu cần
-                console.log("Đang lọc: " + this.innerText);
+                // Chỉ chặn chuyển trang nếu link là "#" (Tab Nổi bật)
+                // Nếu link là đường dẫn thật (category.show), để trình duyệt tự chuyển trang
+                if (href === '#' || href === 'javascript:void(0)') {
+                    e.preventDefault(); 
+                    
+                    // Cập nhật giao diện active (chỉ dùng cho lọc tại chỗ)
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Thêm logic lọc sản phẩm của bạn ở đây nếu muốn
+                    console.log("Đang lọc: " + this.getAttribute('data-filter'));
+                }
             });
         });
 
-        // Nút kéo sang trái/phải
-        btnRight.addEventListener('click', () => {
-            tagContainer.scrollBy({
-                left: 200,
-                behavior: 'smooth'
+        // Nút kéo sang trái/phải (Giữ nguyên)
+        if (btnRight && tagContainer) {
+            btnRight.addEventListener('click', () => {
+                tagContainer.scrollBy({ left: 200, behavior: 'smooth' });
             });
-        });
+        }
 
-        btnLeft.addEventListener('click', () => {
-            tagContainer.scrollBy({
-                left: -200,
-                behavior: 'smooth'
+        if (btnLeft && tagContainer) {
+            btnLeft.addEventListener('click', () => {
+                tagContainer.scrollBy({ left: -200, behavior: 'smooth' });
             });
-        });
+        }
     });
 </script>

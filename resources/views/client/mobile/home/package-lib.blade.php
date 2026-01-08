@@ -113,6 +113,7 @@
 
     /* Buttons */
     .hpk-card-foot { display: flex; gap: 8px; margin-top: 15px; }
+
     .hpk-btn-main, .hpk-btn-sub {
         padding: 10px 5px;
         border-radius: 8px;
@@ -123,6 +124,7 @@
         text-transform: uppercase;
         flex: 1;
     }
+    
     .hpk-btn-main { background: var(--hpk-primary); color: #fff !important; flex: 1.8; }
     .hpk-btn-sub { background: #f0f2f5; color: var(--hpk-dark) !important; }
 

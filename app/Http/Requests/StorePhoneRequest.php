@@ -23,7 +23,7 @@ class StorePhoneRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'categories_id' => 'required|exists:categories,id',
+            'category_id' => 'required|exists:categories,id',
             'slug' => 'nullable|string|max:255|unique:phones,slug',
             'short_description' => 'nullable|string|max:500',
             'description' => 'nullable|string',
@@ -46,8 +46,8 @@ class StorePhoneRequest extends FormRequest
     {
         return [
             'name.required' => 'Tên sản phẩm không được để trống.',
-            'categories_id.required' => 'Vui lòng chọn danh mục cho sản phẩm.',
-            'categories_id.exists' => 'Danh mục đã chọn không hợp lệ.',
+            'category_id.required' => 'Vui lòng chọn danh mục cho sản phẩm.',
+            'category_id.exists' => 'Danh mục đã chọn không hợp lệ.',
             'slug.unique' => 'Đường dẫn (Slug) này đã tồn tại, vui lòng nhập slug khác hoặc để trống.',
             'main_image.image' => 'Ảnh chính phải là định dạng hình ảnh.',
             'main_image.max' => 'Ảnh chính không được vượt quá 2MB.',

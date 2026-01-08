@@ -18,7 +18,9 @@
                         <a href="#" class="tab-item active" data-filter="all">Nổi bật</a>
 
                         @foreach ($categories_iphone as $cat)
-                            <a href="#" class="tab-item" data-filter="cat-{{ $cat->id }}">
+                            <a href="{{ route('category.show', $cat->slug) }}"
+                                class="tab-item {{ request()->is('category/' . $cat->slug) ? 'active' : '' }}"
+                                data-filter="cat-{{ $cat->id }}">
                                 {{ $cat->name }}
                             </a>
                         @endforeach
@@ -48,7 +50,8 @@
                             <div class="product-content">
                                 <div class="ss-tag" style="color: #b11c44">{{ $phone->category->name }}</div>
                                 <h3 class="ss-name">
-                                    <a href="{{ route('phone.detail', $phone->slug) }}" style="text-decoration: none; color: inherit;">
+                                    <a href="{{ route('phone.detail', $phone->slug) }}"
+                                        style="text-decoration: none; color: inherit;">
                                         {{ $phone->name }}
                                     </a>
                                 </h3>
@@ -73,7 +76,8 @@
                                 </div>
 
                                 <div class="product-actions">
-                                    <a href="{{ route('phone.detail', $phone->slug) }}" target="_blank" class="btn-messenger">
+                                    <a href="{{ route('phone.detail', $phone->slug) }}" target="_blank"
+                                        class="btn-messenger">
                                         <i class="fa-brands fa-facebook-messenger"></i> MUA NGAY
                                     </a>
                                     <a href="{{ route('phone.detail', $phone->slug) }}" class="btn-detail">CHI TIẾT</a>
