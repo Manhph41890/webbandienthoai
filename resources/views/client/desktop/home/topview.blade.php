@@ -55,7 +55,7 @@
                                         {{ number_format($currentPrice, 0, ',', '.') }} won
                                     </div>
                                     <div class="card-price-sub">
-                                        <span class="old-price">{{ number_format($oldPrice, 0, ',', '.') }}đ</span>
+                                        <span class="old-price">{{ number_format($oldPrice, 0, ',', '.') }}w</span>
                                         <span class="sale-percent">-{{ $salePercent }}%</span>
                                     </div>
                                 </div>
