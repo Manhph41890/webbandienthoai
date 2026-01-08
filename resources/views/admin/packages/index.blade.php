@@ -83,7 +83,7 @@
                                         class="text-dark">{{ $package->payment_type == 'tra_truoc' ? 'Trả trước' : 'Trả sau' }}</small>
                                 </td>
                                 <td class="align-middle">
-                                    <div class="text-danger font-weight-bold">{{ number_format($package->price) }}đ</div>
+                                    <div class="text-danger font-weight-bold">{{ number_format($package->price) }}w</div>
                                     <small class="text-muted">{{ $package->duration_days }} ngày</small>
                                 </td>
                                 <td class="align-middle">
