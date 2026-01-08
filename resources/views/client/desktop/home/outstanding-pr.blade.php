@@ -73,7 +73,7 @@
                                 </div>
 
                                 <div class="product-actions">
-                                    <a href="https://m.me/yourpage" target="_blank" class="btn-messenger">
+                                    <a href="{{ route('phone.detail', $phone->slug) }}" target="_blank" class="btn-messenger">
                                         <i class="fa-brands fa-facebook-messenger"></i> MUA NGAY
                                     </a>
                                     <a href="{{ route('phone.detail', $phone->slug) }}" class="btn-detail">CHI TIẾT</a>
@@ -95,4 +95,4 @@
     </div>
 </section>
 
-@include('client.desktop.home.product-list')
+@include('client.desktop.home.outstanding-pr-lib')

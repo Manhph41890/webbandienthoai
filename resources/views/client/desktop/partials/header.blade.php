@@ -9,8 +9,8 @@
                 </div>
 
                 <div class="search-box">
-                    <form action="/search" method="GET">
-                        <input type="text" name="q" placeholder="Tìm kiếm...">
+                    <form action="{{ route('search') }}" method="GET">
+                        <input type="text" name="q" value="{{ request('q') }}" placeholder="Tìm kiếm...">
                         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </form>
                 </div>
@@ -58,9 +58,8 @@
                     @if ($menuSamsungs->isNotEmpty())
                         <li class="has-dropdown">
                             <a href="/samsung">
-                                <img src="{{ asset('logo/logo_samsung.png') }}" alt="Samsung"
-                                    class="nav-icon_samsung"> <i class="fa-solid fa-chevron-right arrow-icon"
-                                    style="margin-top: 6px"></i>
+                                <img src="{{ asset('logo/logo_samsung.png') }}" alt="Samsung" class="nav-icon_samsung">
+                                <i class="fa-solid fa-chevron-right arrow-icon" style="margin-top: 6px"></i>
                             </a>
                             <ul class="dropdown-menu">
                                 @foreach ($menuSamsungs as $series)

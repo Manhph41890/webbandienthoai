@@ -28,21 +28,44 @@ class PhoneController extends Controller
     public function index(Request $request)
     {
         $query = Phone::with('category', 'variants.size', 'variants.color');
-        $trashedCount = Phone::onlyTrashed()->count(); // Đếm số lượng điện thoại trong thùng rác
+        $trashedCount = Phone::onlyTrashed()->count();
+        $categories = Category::all(); // Lấy danh sách danh mục để hiển thị ở filter
 
-
-        // Xử lý tìm kiếm
-        if ($request->has('search') && !empty($request->search)) {
+        // 1. Tìm kiếm theo tên (giữ nguyên logic của bạn)
+        if ($request->filled('search')) {
             $search = $request->search;
-            $query->where('name', 'like', '%' . $search . '%')
-                ->orWhereHas('category', function ($q) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')->orWhereHas('category', function ($q) use ($search) {
                     $q->where('name', 'like', '%' . $search . '%');
                 });
+            });
         }
 
-        $phones = $query->latest()->paginate(10); // Phân trang và sắp xếp mới nhất
+        // 2. Lọc theo Danh mục
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
 
-        return view('admin.phones.index', compact('phones', 'trashedCount'));
+        // 3. Lọc theo Trạng thái (is_active)
+        if ($request->filled('status')) {
+            $query->where('is_active', $request->status);
+        }
+
+        // 4. Lọc theo Khoảng giá (Lọc trong bảng variants)
+        if ($request->filled('min_price')) {
+            $query->whereHas('variants', function ($q) use ($request) {
+                $q->where('price', '>=', $request->min_price);
+            });
+        }
+        if ($request->filled('max_price')) {
+            $query->whereHas('variants', function ($q) use ($request) {
+                $q->where('price', '<=', $request->max_price);
+            });
+        }
+
+        $phones = $query->latest()->paginate(10);
+
+        return view('admin.phones.index', compact('phones', 'trashedCount', 'categories'));
     }
 
     /**
@@ -85,18 +108,17 @@ class PhoneController extends Controller
             // 3. Tạo sản phẩm cha (Phone)
             $phone = Phone::create([
                 'categories_id' => $request->categories_id,
-                'name'          => $request->name,
-                'slug'          => $slug,
+                'name' => $request->name,
+                'slug' => $slug,
                 'short_description' => $request->short_description,
-                'description'   => $request->description,
-                'main_image'    => $mainImagePath,
-                'is_active'        => 1,
+                'description' => $request->description,
+                'main_image' => $mainImagePath,
+                'is_active' => 1,
             ]);
 
             // 4. Xử lý các biến thể (Variants)
             if ($request->has('variants')) {
                 foreach ($request->variants as $variantData) {
-
                     // Xử lý ảnh biến thể
                     $variantImagePath = null;
                     if (isset($variantData['image_path']) && $variantData['image_path'] instanceof \Illuminate\Http\UploadedFile) {
@@ -105,8 +127,8 @@ class PhoneController extends Controller
 
                     // Gom nhóm thông tin cấu hình chung (JSON general_specs)
                     $generalSpecs = [
-                        'storage'     => $variantData['general_specs']['storage'] ?? null,
-                        'ram'         => $variantData['general_specs']['ram'] ?? null,
+                        'storage' => $variantData['general_specs']['storage'] ?? null,
+                        'ram' => $variantData['general_specs']['ram'] ?? null,
                         'screen_size' => $variantData['general_specs']['screen_size'] ?? null,
                     ];
 
@@ -116,25 +138,25 @@ class PhoneController extends Controller
 
                     if ($condition === 'used') {
                         $usedDetails = [
-                            'battery_health'   => $variantData['used_details']['battery_health'] ?? null,
-                            'charging_cycles'  => $variantData['used_details']['charging_cycles'] ?? null,
-                            'description'      => $variantData['used_details']['description'] ?? null,
+                            'battery_health' => $variantData['used_details']['battery_health'] ?? null,
+                            'charging_cycles' => $variantData['used_details']['charging_cycles'] ?? null,
+                            'description' => $variantData['used_details']['description'] ?? null,
                         ];
                     }
 
                     // Lưu biến thể vào database
                     $phone->variants()->create([
-                        'size_id'       => $variantData['size_id'] ?? null,
-                        'color_id'      => $variantData['color_id'] ?? null,
-                        'sku'           => $variantData['sku'] ?? null,
-                        'price'         => $variantData['price'],
-                        'stock'         => $variantData['stock'],
-                        'image_path'    => $variantImagePath,
-                        'condition'     => $condition,
+                        'size_id' => $variantData['size_id'] ?? null,
+                        'color_id' => $variantData['color_id'] ?? null,
+                        'sku' => $variantData['sku'] ?? null,
+                        'price' => $variantData['price'],
+                        'stock' => $variantData['stock'],
+                        'image_path' => $variantImagePath,
+                        'condition' => $condition,
                         'general_specs' => $generalSpecs, // Laravel tự động cast sang JSON
-                        'used_details'  => $usedDetails,  // Laravel tự động cast sang JSON
-                        'is_default'    => isset($variantData['is_default']),
-                        'status'        => 'còn_hàng',
+                        'used_details' => $usedDetails, // Laravel tự động cast sang JSON
+                        'is_default' => isset($variantData['is_default']),
+                        'status' => 'còn_hàng',
                     ]);
                 }
             }
@@ -152,12 +174,13 @@ class PhoneController extends Controller
             return redirect()->route('admin.phones.index');
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error("Lỗi khi thêm sản phẩm: " . $e->getMessage());
+            Log::error('Lỗi khi thêm sản phẩm: ' . $e->getMessage());
             Alert::error('Lỗi', 'Có lỗi xảy ra: ' . $e->getMessage());
-            return back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage())->withInput();
+            return back()
+                ->with('error', 'Có lỗi xảy ra: ' . $e->getMessage())
+                ->withInput();
         }
     }
-
 
     /**
      * Display the specified resource.
@@ -201,10 +224,14 @@ class PhoneController extends Controller
             // 1. Xử lý ảnh chính (Main Image)
             $mainImagePath = $phone->main_image;
             if ($request->hasFile('main_image')) {
-                if ($phone->main_image) Storage::disk('public')->delete($phone->main_image);
+                if ($phone->main_image) {
+                    Storage::disk('public')->delete($phone->main_image);
+                }
                 $mainImagePath = $request->file('main_image')->store('phones/main', 'public');
             } elseif ($request->has('remove_main_image')) {
-                if ($phone->main_image) Storage::disk('public')->delete($phone->main_image);
+                if ($phone->main_image) {
+                    Storage::disk('public')->delete($phone->main_image);
+                }
                 $mainImagePath = null;
             }
 
@@ -222,11 +249,10 @@ class PhoneController extends Controller
             $variantsToKeep = []; // Mảng lưu ID các biến thể còn giữ lại
 
             foreach ($request->variants as $index => $variantData) {
-
                 // --- BẮT ĐẦU GOM NHÓM DỮ LIỆU JSON ---
                 $generalSpecs = [
-                    'storage'     => $variantData['general_specs']['storage'] ?? null,
-                    'ram'         => $variantData['general_specs']['ram'] ?? null,
+                    'storage' => $variantData['general_specs']['storage'] ?? null,
+                    'ram' => $variantData['general_specs']['ram'] ?? null,
                     'screen_size' => $variantData['general_specs']['screen_size'] ?? null,
                 ];
 
@@ -234,9 +260,9 @@ class PhoneController extends Controller
                 $usedDetails = null;
                 if ($condition === 'used') {
                     $usedDetails = [
-                        'battery_health'  => $variantData['used_details']['battery_health'] ?? null,
+                        'battery_health' => $variantData['used_details']['battery_health'] ?? null,
                         'charging_cycles' => $variantData['used_details']['charging_cycles'] ?? null,
-                        'description'     => $variantData['used_details']['description'] ?? null,
+                        'description' => $variantData['used_details']['description'] ?? null,
                     ];
                 }
                 // --- KẾT THÚC GOM NHÓM DỮ LIỆU JSON ---
@@ -250,21 +276,23 @@ class PhoneController extends Controller
 
                         // Cập nhật ảnh biến thể nếu có file mới
                         if ($request->hasFile("variants.$index.image_path")) {
-                            if ($variant->image_path) Storage::disk('public')->delete($variant->image_path);
+                            if ($variant->image_path) {
+                                Storage::disk('public')->delete($variant->image_path);
+                            }
                             $variantImagePath = $request->file("variants.$index.image_path")->store('phones/variants', 'public');
                         }
 
                         $variant->update([
-                            'size_id'       => $variantData['size_id'] ?? null,
-                            'color_id'      => $variantData['color_id'] ?? null,
-                            'sku'           => $variantData['sku'] ?? null,
-                            'price'         => $variantData['price'],
-                            'stock'         => $variantData['stock'],
-                            'image_path'    => $variantImagePath,
-                            'condition'     => $condition,
+                            'size_id' => $variantData['size_id'] ?? null,
+                            'color_id' => $variantData['color_id'] ?? null,
+                            'sku' => $variantData['sku'] ?? null,
+                            'price' => $variantData['price'],
+                            'stock' => $variantData['stock'],
+                            'image_path' => $variantImagePath,
+                            'condition' => $condition,
                             'general_specs' => $generalSpecs,
-                            'used_details'  => $usedDetails,
-                            'is_default'    => isset($variantData['is_default']),
+                            'used_details' => $usedDetails,
+                            'is_default' => isset($variantData['is_default']),
                         ]);
                     }
                 } else {
@@ -275,39 +303,47 @@ class PhoneController extends Controller
                     }
 
                     $newVariant = $phone->variants()->create([
-                        'size_id'       => $variantData['size_id'] ?? null,
-                        'color_id'      => $variantData['color_id'] ?? null,
-                        'sku'           => $variantData['sku'] ?? null,
-                        'price'         => $variantData['price'],
-                        'stock'         => $variantData['stock'],
-                        'image_path'    => $variantImagePath,
-                        'condition'     => $condition,
+                        'size_id' => $variantData['size_id'] ?? null,
+                        'color_id' => $variantData['color_id'] ?? null,
+                        'sku' => $variantData['sku'] ?? null,
+                        'price' => $variantData['price'],
+                        'stock' => $variantData['stock'],
+                        'image_path' => $variantImagePath,
+                        'condition' => $condition,
                         'general_specs' => $generalSpecs,
-                        'used_details'  => $usedDetails,
-                        'is_default'    => isset($variantData['is_default']),
-                        'status'        => 'còn_hàng',
+                        'used_details' => $usedDetails,
+                        'is_default' => isset($variantData['is_default']),
+                        'status' => 'còn_hàng',
                     ]);
                     $variantsToKeep[] = $newVariant->id;
                 }
             }
 
             // Xóa những biến thể không còn nằm trong danh sách gửi lên (bị bấm nút Xóa ở UI)
-            $phone->variants()->whereNotIn('id', $variantsToKeep)->each(function ($v) {
-                if ($v->image_path) Storage::disk('public')->delete($v->image_path);
-                $v->delete();
-            });
+            $phone
+                ->variants()
+                ->whereNotIn('id', $variantsToKeep)
+                ->each(function ($v) {
+                    if ($v->image_path) {
+                        Storage::disk('public')->delete($v->image_path);
+                    }
+                    $v->delete();
+                });
 
             // 4. Xử lý ảnh phụ (Gallery)
             $existingImageIds = $request->input('existing_other_images', []);
-            $phone->images()->whereNotIn('id', $existingImageIds)->each(function ($img) {
-                Storage::disk('public')->delete($img->image_path);
-                $img->delete();
-            });
+            $phone
+                ->images()
+                ->whereNotIn('id', $existingImageIds)
+                ->each(function ($img) {
+                    Storage::disk('public')->delete($img->image_path);
+                    $img->delete();
+                });
 
             if ($request->hasFile('other_images')) {
                 foreach ($request->file('other_images') as $file) {
                     $phone->images()->create([
-                        'image_path' => $file->store('phones/gallery', 'public')
+                        'image_path' => $file->store('phones/gallery', 'public'),
                     ]);
                 }
             }
@@ -318,8 +354,10 @@ class PhoneController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             Alert::error($e->getMessage());
-            Log::error("Lỗi cập nhật: " . $e->getMessage());
-            return back()->with('error', 'Lỗi cập nhật: ' . $e->getMessage())->withInput();
+            Log::error('Lỗi cập nhật: ' . $e->getMessage());
+            return back()
+                ->with('error', 'Lỗi cập nhật: ' . $e->getMessage())
+                ->withInput();
         }
     }
 
@@ -332,13 +370,16 @@ class PhoneController extends Controller
             return response()->json([
                 'success' => true,
                 'is_active' => $phone->is_active,
-                'message' => 'Cập nhật trạng thái thành công!'
+                'message' => 'Cập nhật trạng thái thành công!',
             ]);
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Có lỗi xảy ra!'
-            ], 500);
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Có lỗi xảy ra!',
+                ],
+                500,
+            );
         }
     }
 
@@ -356,7 +397,6 @@ class PhoneController extends Controller
 
         return view('admin.phones.trash', compact('trashPhones'));
     }
-
 
     public function destroy(Phone $phone)
     {
@@ -379,7 +419,7 @@ class PhoneController extends Controller
             return redirect()->route('admin.phones.index');
         } catch (\Exception $e) {
             DB::rollBack();
-            Alert::error('Xóa thất bại'. $e->getMessage());
+            Alert::error('Xóa thất bại' . $e->getMessage());
             return redirect()->back();
         }
     }
@@ -397,13 +437,17 @@ class PhoneController extends Controller
             Alert::success('Khôi phục điện thoại thành công');
             return redirect()->back();
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Lỗi khôi phục: ' . $e->getMessage());
+            return redirect()
+                ->back()
+                ->with('error', 'Lỗi khôi phục: ' . $e->getMessage());
         }
     }
 
     public function forceDelete($id)
     {
-        $phone = Phone::onlyTrashed()->with(['variants', 'images'])->findOrFail($id);
+        $phone = Phone::onlyTrashed()
+            ->with(['variants', 'images'])
+            ->findOrFail($id);
 
         DB::beginTransaction();
         try {
@@ -433,7 +477,9 @@ class PhoneController extends Controller
             return redirect()->back()->with('success', 'Sản phẩm đã được xóa vĩnh viễn khỏi hệ thống!');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Lỗi xóa vĩnh viễn: ' . $e->getMessage());
+            return redirect()
+                ->back()
+                ->with('error', 'Lỗi xóa vĩnh viễn: ' . $e->getMessage());
         }
     }
 }

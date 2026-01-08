@@ -21,7 +21,7 @@
                     </a>
 
                     @if (auth()->user()->role_id == 1)
-                        <a href="/admin" class="menu-item admin-btn">
+                        <a href="{{ route('admin.dashboard') }}" class="menu-item admin-btn">
                             <i class="fa-solid fa-gauge-high"></i> Trang quản trị
                         </a>
                     @endif

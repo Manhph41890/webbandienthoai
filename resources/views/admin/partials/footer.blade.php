@@ -3,7 +3,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span><span>Copyright © Mạnh Dev - Lake Technology {{ date('Y') }}</span></span>
+                        <span><span>Copyright © Mạnh Dev - Toàn Hồng Korean {{ date('Y') }}</span></span>
                     </div>
                 </div>
             </footer>

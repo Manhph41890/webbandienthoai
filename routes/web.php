@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Client\ContactController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PhoneController;
 use App\Http\Controllers\Client\PackageClientController;
 use App\Http\Controllers\Client\PhoneClientController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 // 1. Trang chủ
@@ -30,6 +32,8 @@ Route::get('/{slug}', [PhoneClientController::class, 'listByCategory'])->name('c
 // Dành cho gói cước
 Route::get('/goi-cuoc/{slug}', [PackageClientController::class, 'listByCategory'])->name('package.category');
 Route::get('/chi-tiet-goi/{slug}', [PackageClientController::class, 'detail'])->name('package.detail');
+
+Route::get('/search/products', [SearchController::class, 'index'])->name('search');
 
 // Hiển thị form đăng nhập
 Route::prefix('auth')
@@ -57,6 +61,7 @@ Route::get('/test/page', function () {
 Route::prefix('admin')
     ->name('admin.')
     ->group(function () {
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
         // Thùng rác và khôi phục Category
         Route::get('categories/trash', [CategoryController::class, 'trash'])->name('categories.trash');
         Route::post('categories/{id}/restore', [CategoryController::class, 'restore'])->name('categories.restore');
