@@ -31,8 +31,7 @@
             {{-- PHẦN 1: THIẾT BỊ ĐIỆN THOẠI --}}
             @if ($phones->isNotEmpty())
                 <div class="wishlist-section mb-5">
-                    <h4 class="section-title mb-3"><i class="fa-solid fa-mobile-screen-button me-2"></i> Điện thoại & Thiết
-                        bị</h4>
+                    <h4 class="section-title mb-3"><i class="fa-solid fa-mobile-screen-button me-2"></i> Điện thoại </h4>
                     <div class="row g-3">
                         @foreach ($phones as $item)
                             <div class="col-md-3 product-item">
@@ -41,9 +40,9 @@
                                     <button class="btn-favorite btn-remove" data-id="{{ $item->id }}" data-type="phone">
                                         <i class="fa-solid fa-circle-xmark"></i>
                                     </button>
-
-                                    <img src="{{ asset('storage/' . $item->main_image) }}" class="card-img p-3"
-                                        alt="{{ $item->name }}" style="object-fit: contain; height: 200px;">
+                                    <a href="{{ route('phone.detail', $item->slug) }}">
+                                        <img src="{{ asset('storage/' . $item->main_image) }}" class="card-img p-3"
+                                            alt="{{ $item->name }}" style="object-fit: contain; height: 200px;"></a>
 
                                     <div class="card-body">
                                         <h6 class="card-title fw-bold text-truncate">{{ $item->name }}</h6>
@@ -65,7 +64,7 @@
             {{-- PHẦN 2: GÓI CƯỚC DI ĐỘNG --}}
             @if ($packages->isNotEmpty())
                 <div class="wishlist-section mt-5">
-                    <h4 class="section-title mb-3"><i class="fa-solid fa-sim-card me-2"></i> Gói cước khuyến mãi</h4>
+                    <h4 class="section-title mb-3"><i class="fa-solid fa-sim-card me-2"></i> Gói cước</h4>
                     <div class="row g-3">
                         @foreach ($packages as $item)
                             <div class="col-md-4 product-item">
