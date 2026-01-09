@@ -28,7 +28,7 @@
                                 <div class="ss-tag" style="color: #b11c44">{{ $phone->category->name }}</div>
                                 <h3 class="ss-name">
                                     <a href="{{ route('phone.detail', $phone->slug) }}"
-                                        style="text-decoration: none; color: inherit; font-size: 20px !important;">
+                                        style="text-decoration: none; color: inherit; font-size: 18px !important;">
                                         {{ $phone->name }}
                                     </a>
                                 </h3>
@@ -57,7 +57,6 @@
                                         class="btn-messenger">
                                         <i class="fa-brands fa-facebook-messenger"></i> MUA NGAY
                                     </a>
-                                    <a href={{ route('phone.detail', $phone->slug) }} class="btn-detail">CHI TIẾT</a>
                                 </div>
                             </div>
                         </div>
@@ -128,13 +127,16 @@
                         </div>
 
                         <div class="hpk-card-foot">
-                            <a href="https://m.me/yourpage" target="_blank" class="hpk-btn-main">
+                            <button type="button" class="m-btn-primary btn-buy-package" data-name="{{ $package->name }}"
+                                data-price="{{ number_format($package->price) }}đ"
+                                data-duration="{{ $package->duration_days }}"
+                                data-carrier="{{ strtoupper($package->carrier) }}"
+                                data-sim="{{ $package->sim_type == 'hop_phap' ? 'Hợp pháp' : 'Khác' }}">
                                 <i class="fa-brands fa-facebook-messenger"></i> MUA NGAY
-                            </a>
-                            <a href="#" class="hpk-btn-sub">CHI TIẾT</a>
+                            </button>
                         </div>
                     </div>
-                    
+
                 @empty
                     <p>Không tìm thấy gói cước nào.</p>
                 @endforelse
@@ -144,3 +146,4 @@
 @endsection
 @include('client.mobile.home.outstanding-pr-lib')
 @include('client.mobile.home.package-lib')
+@include('pages.search-lib')

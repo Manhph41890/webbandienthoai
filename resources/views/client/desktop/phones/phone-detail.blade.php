@@ -130,7 +130,7 @@
         const VARIANT_DATA = @json($variants);
 
         function openMessengerPC() {
-            const pageId = "100095174172336";
+            const pageId = "100063769254777";
             window.open('https://m.me/' + pageId, '_blank');
         }
     </script>

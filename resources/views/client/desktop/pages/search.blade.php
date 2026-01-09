@@ -28,7 +28,7 @@
                                 <div class="ss-tag" style="color: #b11c44">{{ $phone->category->name }}</div>
                                 <h3 class="ss-name">
                                     <a href="{{ route('phone.detail', $phone->slug) }}"
-                                        style="text-decoration: none; color: inherit; font-size: 20px !important;">
+                                        style="text-decoration: none; color: inherit; font-size: 18px !important;">
                                         {{ $phone->name }}
                                     </a>
                                 </h3>

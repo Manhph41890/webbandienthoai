@@ -1,7 +1,7 @@
 <script>
 (function() {
     // --- CẤU HÌNH ---
-    const pageUsername = "hanofarmer"; // Username Fanpage của bạn
+    const pageUsername = "anhtoan270189"; // Username Fanpage của bạn
     const isIphone = navigator.userAgent.match(/iPhone|iPad|iPod/i);
 
     // Lắng nghe sự kiện click trên toàn trang

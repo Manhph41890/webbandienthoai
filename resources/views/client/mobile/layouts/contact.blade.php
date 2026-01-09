@@ -216,7 +216,7 @@
     // Hàm xử lý Messenger riêng cho iPhone
     function openMessenger() {
         // Luôn dùng Username để tránh lỗi "Guest Session" trên iOS
-        const pageUsername = "hanofarmer";
+        const pageUsername = "anhtoan270189";
         const messengerUrl = "https://m.me/" + pageUsername;
 
         // Trên iPhone dùng href là mượt nhất để mở thẳng App

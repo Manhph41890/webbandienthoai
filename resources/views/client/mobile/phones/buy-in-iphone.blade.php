@@ -6,7 +6,7 @@
         let selectedColor = null;
         let currentVariant = null;
 
-        const pageUsername = "hanofarmer";
+        const pageUsername = "anhtoan270189";
         const phoneName = "{{ $phone->name }}";
         const currentUrl = window.location.href;
 
@@ -134,7 +134,7 @@
                     "Đặt hàng theo yêu cầu";
 
                 // Tạo nội dung tin nhắn chuyên nghiệp
-                let message = `Chào Hanofarmer, mình muốn tư vấn mua máy:\n`;
+                let message = `ToanHong Korean, mình muốn tư vấn mua máy:\n`;
                 message += `📱 Model: ${phoneName}\n`;
                 message += `✨ Tình trạng: ${conditionLabel}\n`;
                 message += `💾 Cấu hình: ${sizeText} - ${colorText}\n`;

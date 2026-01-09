@@ -27,7 +27,7 @@
                         </a>
                     @endif
 
-                    <a href="/wishlist" class="menu-item">
+                    <a href="{{ route('wishlist.index') }}" class="menu-item">
                         <i class="fa-regular fa-heart"></i> Danh sách yêu thích
                     </a>
 

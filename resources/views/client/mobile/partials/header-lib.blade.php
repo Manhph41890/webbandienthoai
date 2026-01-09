@@ -62,6 +62,7 @@
     .mh-logo img {
         height: 35px;
         object-fit: contain;
+        margin-left: 50px;
     }
 
     .mh-icon-btn {

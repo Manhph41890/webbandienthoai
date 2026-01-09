@@ -63,7 +63,6 @@
                                     <a href="{{ route('phone.detail', $phone->slug) }}" target="_blank" class="btn-messenger">
                                         <i class="fa-brands fa-facebook-messenger"></i> MUA NGAY
                                     </a>
-                                    <a href="{{ route('phone.detail', $phone->slug) }}" class="btn-detail">CHI TIẾT</a>
                                 </div>
                             </div>
                         </div>

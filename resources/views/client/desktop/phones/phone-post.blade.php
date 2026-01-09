@@ -119,7 +119,7 @@
                 message += `💰 Giá dự kiến: ${finalPrice}\n`;
                 message += `🔗 Link: ${window.location.href}`;
 
-                const messengerUrl = `https://m.me/100090503628117?text=${encodeURIComponent(message)}`;
+                const messengerUrl = `https://m.me/100063769254777?text=${encodeURIComponent(message)}`;
 
                 Swal.fire({
                     title: 'Gửi yêu cầu tư vấn',
