@@ -189,7 +189,7 @@ body {
 .nav-icon_samsung {
     height: 14px;
     object-fit: contain;
-    margin-top: 8px;
+    margin-top: 9px !important;
 }
 
 .arrow-icon {

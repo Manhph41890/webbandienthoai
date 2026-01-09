@@ -22,11 +22,18 @@
         <!-- 2. Thông tin chính -->
         <div class="m-pd-info-container">
             <nav class="m-pd-breadcrumb">Trang chủ / {{ $phone->category->name }}</nav>
-            <h1 class="m-pd-title">{{ $phone->name }}</h1>
+            <div class="d-flex justify-content-between">
+                <h1 class="m-pd-title">{{ $phone->name }}</h1>
+                <button class="spc-heart-btn {{ $phone->isFavorited() ? 'active' : '' }}" data-id="{{ $phone->id }}"
+                    data-type="phone">
+                    <i class="{{ $phone->isFavorited() ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
+                </button>
+            </div>
+
 
             <div class="m-pd-meta-row">
                 <div class="m-pd-rating">
-                    <i class="fas fa-star"></i> 5.0 <span>(100+ đánh giá)</span>
+                    <i class="fas fa-star"></i> 5.0 <span>(99+ đánh giá)</span>
                 </div>
                 <div class="m-pd-sku">SKU: <span id="ss-pd-sku">N/A</span></div>
             </div>
