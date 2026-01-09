@@ -36,7 +36,6 @@ Route::get('/chi-tiet-goi/{slug}', [PackageClientController::class, 'detail'])->
 
 Route::get('/search/products', [SearchController::class, 'index'])->name('search');
 
-
 Route::get('/wishlist/list', [FavoriteController::class, 'index'])->name('wishlist.index');
 Route::post('/wishlist/toggle', [FavoriteController::class, 'toggle'])->name('wishlist.toggle');
 
@@ -58,10 +57,6 @@ Route::prefix('auth')
         Route::get('google', [AuthController::class, 'redirectToGoogle'])->name('google.login');
         Route::get('google/callback', [AuthController::class, 'handleGoogleCallback']);
     });
-
-Route::get('/test/page', function () {
-    return view('client.desktop.partials.header');
-});
 
 Route::prefix('admin')
     ->name('admin.')
