@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PhoneController;
 use App\Http\Controllers\Client\PackageClientController;
 use App\Http\Controllers\Client\PhoneClientController;
+use App\Http\Controllers\Client\ProfileController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,9 @@ Route::get('/search/products', [SearchController::class, 'index'])->name('search
 
 Route::get('/wishlist/list', [FavoriteController::class, 'index'])->name('wishlist.index');
 Route::post('/wishlist/toggle', [FavoriteController::class, 'toggle'])->name('wishlist.toggle');
+
+Route::get('/profile/user', [ProfileController::class, 'index'])->name('profile.index');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
 // Hiển thị form đăng nhập
 Route::prefix('auth')

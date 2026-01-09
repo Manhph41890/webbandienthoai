@@ -34,7 +34,7 @@
             </div>
 
             <div class="menu-list">
-                <a href="/profile" class="menu-link">
+                <a href="{{ route('profile.index') }}" class="menu-link">
                     <i class="fa-solid fa-user-gear"></i> Hồ sơ cá nhân
                 </a>
 

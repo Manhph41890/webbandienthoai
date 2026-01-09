@@ -83,6 +83,10 @@
                         <div class="m-text">
                             <strong>Hotline:</strong>
                             <p>010 2828 8333 - 010 8282 6868</p>
+                        </div><br>
+                        <div class="info-item">
+                            <i class="fa-brands fa-facebook"></i>
+                            <a href="https://www.facebook.com/anhtoan270189/" target="_blank" style="text-decoration: none; color: blacks;">Toàn Hồng Korea</a>
                         </div>
                     </div>
                 </div>
