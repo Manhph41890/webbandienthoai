@@ -52,7 +52,7 @@
 
             if (currentVariant) {
                 // Trường hợp CÓ hàng trong dữ liệu
-                const formattedPrice = new Intl.NumberFormat('vi-VN').format(currentVariant.price) + 'đ';
+                const formattedPrice = new Intl.NumberFormat('vi-VN').format(currentVariant.price) + 'w';
                 if (priceEl) priceEl.innerText = formattedPrice;
                 if (skuEl) skuEl.innerText = currentVariant.sku || 'N/A';
                 if (stockEl) {
@@ -135,12 +135,12 @@
 
                 // Tạo nội dung tin nhắn chuyên nghiệp
                 let message = `ToanHong Korean, mình muốn tư vấn mua máy:\n`;
-                message += `📱 Model: ${phoneName}\n`;
-                message += `✨ Tình trạng: ${conditionLabel}\n`;
-                message += `💾 Cấu hình: ${sizeText} - ${colorText}\n`;
-                message += `💰 Giá hiện tại: ${priceText}\n`;
-                message += `📦 Loại đơn: ${orderType}\n`;
-                message += `🔗 Link: ${currentUrl}`;
+                message += `Model: ${phoneName}\n`;
+                message += `Tình trạng: ${conditionLabel}\n`;
+                message += `Cấu hình: ${sizeText} - ${colorText}\n`;
+                message += `Giá hiện tại: ${priceText}\n`;
+                message += `Loại đơn: ${orderType}\n`;
+                message += `Link: ${currentUrl}`;
 
                 const messengerUrl = `https://m.me/${pageUsername}?text=${encodeURIComponent(message)}`;
 
@@ -191,8 +191,8 @@
 
     /* Hiệu ứng active rõ ràng hơn */
     .ss-pd-v-item.active {
-        border: 2px solid #0084FF !important;
-        background-color: #f0f7ff !important;
+        border: 2px solid #d70018 !important;
+        background-color: #fff4f5 !important;
         font-weight: bold;
     }
 </style>

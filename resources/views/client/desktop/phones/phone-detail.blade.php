@@ -112,7 +112,7 @@
                         <button class="ss-pd-btn-buy" id="btn-buy-now">
                             <i class="fab fa-facebook-messenger"></i> MUA NGAY QUA MESSENGER
                         </button>
-                        <button class="ss-pd-btn-cart" onclick="openMessengerPC()">LIÊN HỆ TƯ VẤN</button>
+                        <button class="ss-pd-btn-cart" onclick="openMessenger()">LIÊN HỆ TƯ VẤN</button>
                     </div>
                     <span id="copy-guide" class="ms-3" style="color: rgb(193, 0, 0); font-weight: 500; display: none;">
                         <i class="fas fa-info-circle"></i> Hệ thống đã tự động sao chép, bạn hãy <strong>Dán
@@ -125,13 +125,20 @@
         @include('client.desktop.phones.relate-phone')
     </div>
 
-    <!-- DATA BRIDGE: Truyền dữ liệu sang JS -->
+    <!-- DATA BRIDGE -->
     <script>
-        const VARIANT_DATA = @json($variants);
+        // Kiểm tra nếu chưa có thì mới khai báo để tránh lỗi "already been declared"
+        if (typeof window.VARIANT_DATA === 'undefined') {
+            window.VARIANT_DATA = @json($variants);
+        } else {
+            window.VARIANT_DATA = @json($variants); // Ghi đè lại dữ liệu nếu cần
+        }
 
-        function openMessengerPC() {
-            const pageId = "100063769254777";
-            window.open('https://m.me/' + pageId, '_blank');
+        function openMessenger() {
+            // Sử dụng Username từ ảnh bạn cung cấp để link ổn định nhất
+            const pageUsername = "anhtoan270189";
+            const messengerUrl = "https://m.me/" + pageUsername;
+            window.open(messengerUrl, '_blank');
         }
     </script>
 @endsection

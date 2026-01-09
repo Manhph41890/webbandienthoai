@@ -159,7 +159,7 @@
 
         .ss-pd-v-item.active {
             border: 1.5px solid var(--primary-red);
-            color: var(--primary-red);
+            color:  #d70018;
             background: #fff5f5;
             font-weight: 600;
         }
@@ -296,7 +296,7 @@
 
             if (match) {
                 document.getElementById('ss-pd-main-price').innerText = new Intl.NumberFormat('vi-VN').format(
-                    match.price) + 'đ';
+                    match.price) + 'w';
                 document.getElementById('ss-pd-sku').innerText = match.sku || 'N/A';
 
                 const stockLabel = document.getElementById('ss-pd-stock-status');
