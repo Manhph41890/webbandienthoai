@@ -1,4 +1,44 @@
 <style>
+    .up-avatar-section {
+        position: relative;
+    }
+
+    .up-avatar-wrapper {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 15px;
+    }
+
+    .up-avatar-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* .up-avatar-section2 {
+        position: relative;
+    }
+
+    .up-avatar-wrapper2 {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        margin: 0 auto 15px;
+    }
+
+    .up-avatar-wrapper2 img {
+        width: 70%;
+        height: 70%;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 1px solid rgb(255 255 255 / 20%);
+        margin-top: 13px;
+    } */
+
+
     /* Reset & Base */
     .mobile-user-actions {
         display: flex;
