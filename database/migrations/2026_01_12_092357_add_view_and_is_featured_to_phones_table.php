@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::table('phones', function (Blueprint $table) {
             // Thêm cột view sau cột main_image (hoặc cột nào bạn muốn)
-            $table->unsignedInteger('views_count')->default(0)->after('main_image');
+            // $table->unsignedInteger('views_count')->default(0)->after('main_image');
 
             // Thêm cột is_featured sau cột view
-            $table->boolean('is_featured')->default(false)->after('views_count');
+            // $table->boolean('is_featured')->default(false)->after('views_count');
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('phones', function (Blueprint $table) {
-            $table->dropColumn(['view', 'is_featured']);
+            // $table->dropColumn(['view', 'is_featured']);
         });
     }
 };

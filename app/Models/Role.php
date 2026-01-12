@@ -16,6 +16,11 @@ class Role extends Model
     /**
      * Quan hệ: Một Role có nhiều Users
      */
+    const ADMIN = 'admin';
+    const STAFF = 'staff';
+    const USER = 'user';
+
+    
     public function users()
     {
         return $this->hasMany(User::class);

@@ -10,14 +10,19 @@
                     <div class="swiper-wrapper">
                         <!-- Slides -->
                         <div class="swiper-slide">
-                            <img src="{{ asset('images/banner_1.png') }}" alt="Banner 1">
+                            <a href="phone/iphone-16-pro-max">
+                                <img src="{{ asset('images/banner_1.png') }}" alt="Banner 1">
+                            </a>
                         </div>
                         <div class="swiper-slide">
-                            <img src="{{ asset('images/banner_2.png') }}" alt="Banner 2">
+                            <a href="phone/samsung-galaxy-s24-ultra">
+                                <img src="{{ asset('images/banner_2.png') }}" alt="Banner 2">
+                            </a>
                         </div>
                         <div class="swiper-slide">
-                            <img src="{{ asset('images/banner_3.png') }}" alt="Banner 3">
-
+                            <a href="phone/samsung-galaxy-z-flip-6">
+                                <img src="{{ asset('images/banner_3.png') }}" alt="Banner 3">
+                            </a>
                         </div>
                     </div>
 

@@ -5,19 +5,19 @@
             <div class="swiper-wrapper">
                 <!-- Slide 1 -->
                 <div class="swiper-slide">
-                    <a href="#">
+                    <a href="phone/iphone-16-pro-max">
                         <img src="{{ asset('images/banner_1mb.png') }}" alt="Sale 1" class="mb-hero-img">
                     </a>
                 </div>
                 <!-- Slide 2 -->
                 <div class="swiper-slide">
-                    <a href="#">
+                    <a href="phone/samsung-galaxy-s24-ultra">
                         <img src="{{ asset('images/banner_2mb.png') }}" alt="Sale 2" class="mb-hero-img">
                     </a>
                 </div>
                 <!-- Slide 3 -->
                 <div class="swiper-slide">
-                    <a href="#">
+                    <a href="phone/samsung-galaxy-z-flip-6">
                         <img src="{{ asset('images/banner_3mb.png') }}" alt="Sale 3" class="mb-hero-img">
                     </a>
                 </div>
