@@ -12,8 +12,9 @@
                     <div class="col-6 col-md-4 col-lg-3 product-item">
                         <div class="product-card">
                             <div class="product-badge">
-                                <button class="spc-heart-btn" title="Thêm vào yêu thích">
-                                    <i class="fa-regular fa-heart"></i>
+                                <button class="spc-heart-btn {{ $phone->isFavorited() ? 'active' : '' }}"
+                                    data-id="{{ $phone->id }}" data-type="phone">
+                                    <i class="{{ $phone->isFavorited() ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
                                 </button>
                             </div>
 
@@ -28,7 +29,7 @@
                                 <div class="ss-tag" style="color: #b11c44">{{ $phone->category->name }}</div>
                                 <h3 class="ss-name">
                                     <a href="{{ route('phone.detail', $phone->slug) }}"
-                                        style="text-decoration: none; color: inherit; font-size: 20px !important;">
+                                        style="text-decoration: none; color: inherit; font-size: 18px !important;">
                                         {{ $phone->name }}
                                     </a>
                                 </h3>
@@ -49,11 +50,12 @@
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
-                                    <span class="rating-count">(100+)</span>
+                                    <span class="rating-count">(99+)</span>
                                 </div>
 
                                 <div class="product-actions">
-                                    <a href="{{ route('phone.detail', $phone->slug) }}" target="_blank" class="btn-messenger">
+                                    <a href="{{ route('phone.detail', $phone->slug) }}" target="_blank"
+                                        class="btn-messenger">
                                         <i class="fa-brands fa-facebook-messenger"></i> MUA NGAY
                                     </a>
                                     <a href={{ route('phone.detail', $phone->slug) }} class="btn-detail">CHI TIẾT</a>
@@ -84,7 +86,7 @@
                                         @for ($i = 1; $i <= 5; $i++)
                                             <i class="fa-solid fa-star"></i>
                                         @endfor
-                                        <span class="spc-rating-text">(100+)</span>
+                                        <span class="spc-rating-text">(99+)</span>
                                     </div>
                                     <button class="spc-heart-btn"><i class="fa-regular fa-heart"></i></button>
                                 </div>
@@ -129,10 +131,11 @@
 
                             <div class="spc-card-foot">
                                 <button type="button" class="spc-btn-buy btn-buy-package" data-name="{{ $package->name }}"
-                                    data-price="{{ number_format($package->price) }}đ"
+                                    data-price="{{ number_format($package->price) }}w"
                                     data-duration="{{ $package->duration_days }}"
                                     data-carrier="{{ strtoupper($package->carrier) }}"
-                                    data-sim="{{ $package->sim_type == 'hop_phap' ? 'Hợp pháp' : 'Khác' }}" style="border: 1px solid white !important">
+                                    data-sim="{{ $package->sim_type == 'hop_phap' ? 'Hợp pháp' : 'Khác' }}"
+                                    style="border: 1px solid white !important">
                                     <i class="fa-brands fa-facebook-messenger"></i> MUA NGAY
                                 </button>
                             </div>

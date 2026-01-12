@@ -14,8 +14,9 @@
         @forelse ($relatedPhones as $relPhone)
             <div class="m-rel-p-card">
                 <!-- Nút yêu thích -->
-                <button class="m-rel-p-heart-btn">
-                    <i class="fa-regular fa-heart"></i>
+                <button class="m-rel-p-heart-btn spc-heart-btn {{ $relPhone->isFavorited() ? 'active' : '' }}"
+                    data-id="{{ $relPhone->id }}" data-type="phone">
+                    <i class="{{ $relPhone->isFavorited() ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
                 </button>
 
                 <!-- Ảnh sản phẩm -->

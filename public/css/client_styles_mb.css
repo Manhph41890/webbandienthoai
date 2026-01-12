@@ -22,6 +22,19 @@
     height: 30px;
 }
 
+.spc-heart-btn {
+    background: none;
+    border: none;
+    color: #ff4d4f;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: transform 0.2s;
+}
+
+.spc-heart-btn:hover {
+    transform: scale(1.2);
+}
+
 .search-container input {
     flex: 1;
     border: none;
@@ -191,13 +204,22 @@
     padding: 18px 20px;
     color: #333;
     text-decoration: none;
-    font-size: 18px; /* Font lớn */
+    font-size: 18px;
+    /* Font lớn */
     font-weight: 600;
 }
 
 /* Icon Apple/Samsung trong menu */
-.nav-icon_apple { height: 28px; width: auto; }
-.nav-icon_samsung { height: 22px; width: auto; margin-top: 5px; }
+.nav-icon_apple {
+    height: 28px;
+    width: auto;
+}
+
+.nav-icon_samsung {
+    height: 22px;
+    width: auto;
+    margin-top: 5px;
+}
 
 /* Nút mũi tên mở rộng (Touch target lớn 50x50px) */
 .arrow-toggle {
@@ -221,11 +243,13 @@
     list-style: none;
     padding: 0;
     background: #f9f9f9;
-    display: none; /* Mặc định ẩn */
+    display: none;
+    /* Mặc định ẩn */
 }
 
 .dropdown-menu .nav-link-wrapper a {
-    padding: 15px 20px 15px 40px; /* Thụt lề vào trong */
+    padding: 15px 20px 15px 40px;
+    /* Thụt lề vào trong */
     font-size: 16px;
     color: #444;
     text-decoration: none;
@@ -242,7 +266,8 @@
 
 .submenu li a {
     display: block;
-    padding: 12px 20px 12px 60px; /* Thụt lề sâu hơn */
+    padding: 12px 20px 12px 60px;
+    /* Thụt lề sâu hơn */
     font-size: 15px;
     color: #666;
     text-decoration: none;
@@ -250,14 +275,15 @@
 }
 
 /* Khi mở menu (Class active sẽ do JS thêm vào) */
-.has-dropdown.open > .dropdown-menu,
-.has-submenu.open > .submenu {
+.has-dropdown.open>.dropdown-menu,
+.has-submenu.open>.submenu {
     display: block !important;
 }
 
-.has-dropdown.open > .nav-link-wrapper .arrow-toggle,
-.has-submenu.open > .nav-link-wrapper .arrow-toggle {
-    transform: rotate(90deg); /* Xoay mũi tên xuống */
+.has-dropdown.open>.nav-link-wrapper .arrow-toggle,
+.has-submenu.open>.nav-link-wrapper .arrow-toggle {
+    transform: rotate(90deg);
+    /* Xoay mũi tên xuống */
 }
 
 /* Để icon xoay mượt */
@@ -271,7 +297,8 @@
     color: #ffffff;
     padding: 40px 15px 20px;
     font-family: sans-serif;
-    text-align: center; /* Căn giữa toàn bộ trên mobile */
+    text-align: center;
+    /* Căn giữa toàn bộ trên mobile */
 }
 
 .m-footer-container {
@@ -420,13 +447,15 @@
 
 /* Khi active thì mở ra */
 .m-footer-accordion.active .m-accordion-content {
-    max-height: 500px; /* Đủ lớn để chứa nội dung */
+    max-height: 500px;
+    /* Đủ lớn để chứa nội dung */
     padding-bottom: 20px;
 }
 
 .m-footer-accordion.active .m-accordion-header i {
     transform: rotate(180deg);
 }
-.iconfy{
+
+.iconfy {
     margin-top: 10px;
 }

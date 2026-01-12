@@ -1,113 +1,100 @@
-<!-- Topbar -->
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+<!-- Admin Header Bar Container -->
+<header class="adm-hb-navbar">
+    <!-- Nút Toggle Sidebar cho Mobile -->
+    <div class="adm-hb-left">
+        <button id="admSidebarToggle" class="adm-hb-toggle-btn">
+            <i class="fa-solid fa-bars-staggered"></i>
+        </button>
+        <div class="adm-hb-welcome d-none d-md-block">
+            Xin chào, <span>{{ Auth::user()->name }}</span>!
+        </div>
+    </div>
 
-    <!-- Sidebar Toggle (Topbar) -->
-    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-        <i class="fa fa-bars"></i>
-    </button>
+    <!-- Right Side Actions -->
+    <div class="adm-hb-right">
+        
+        <!-- Nút quay về trang chủ (Rất hữu ích cho Admin) -->
+        <a href="/" class="adm-hb-icon-link" title="Xem trang chủ">
+            <i class="fa-solid fa-house-chimney"></i>
+        </a>
 
-    <!-- Topbar Navbar -->
-    <ul class="navbar-nav ml-auto">
-
-        {{-- Phần này có thể giữ lại nếu bạn muốn phát triển chức năng thông báo sau này --}}
-        <!-- Nav Item - Alerts -->
-        <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                {{-- Counter - Alerts (có thể làm động sau) --}}
-                <span class="badge badge-danger badge-counter">1</span>
-            </a>
-            <!-- Dropdown - Alerts -->
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                    Trung tâm thông báo
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                        <div class="icon-circle bg-warning">
-                            <i class="fas fa-exclamation-triangle text-white"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="small text-gray-500">{{ date('d/m/Y') }}</div>
-                        Chào mừng đến với trang quản trị MobiTech!
-                    </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Xem tất cả</a>
+        <!-- Thông báo (Alerts) -->
+        <div class="adm-hb-dropdown">
+            <div class="adm-hb-icon-link adm-hb-trigger" id="alertTrigger">
+                <i class="fa-solid fa-bell"></i>
+                <span class="adm-hb-badge">1</span>
             </div>
-        </li>
-
-        <div class="topbar-divider d-none d-sm-block"></div>
-
-        {{-- ======================================================= --}}
-        {{-- === PHẦN KIỂM TRA ĐĂNG NHẬP BẮT ĐẦU TỪ ĐÂY === --}}
-        {{-- ======================================================= --}}
-        {{-- @auth --}}
-         {{-- Nếu người dùng đã đăng nhập --}}
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    {{-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span> --}}
-
-                    {{-- Hiển thị avatar hoặc ảnh mặc định --}}
-                    {{-- @if (Auth::user()->avatar)
-                        <img class="img-profile rounded-circle" src="{{ asset('storage/' . Auth::user()->avatar) }}">
-                    @else
-                        <img class="img-profile rounded-circle" src="{{ asset('sb-admin/img/undraw_profile.svg') }}">
-                    @endif --}}
-                </a>
-                <!-- Dropdown - User Information -->
-                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">
-                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Thông tin cá nhân
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Đăng xuất
+            
+            <div class="adm-hb-dropdown-menu adm-hb-menu-right" id="alertMenu">
+                <div class="adm-hb-menu-header">Thông báo</div>
+                <div class="adm-hb-menu-body">
+                    <a href="#" class="adm-hb-menu-item unread">
+                        <div class="adm-hb-item-icon warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="adm-hb-item-content">
+                            <p class="adm-hb-item-text">Chào mừng đến với trang quản trị <b>Toàn Hồng Korea</b>!</p>
+                            <span class="adm-hb-item-time">{{ date('d/m/Y') }}</span>
+                        </div>
                     </a>
                 </div>
-            </li>
-        {{-- @else --}}
-            {{-- Nếu là khách (chưa đăng nhập) --}}
-            {{-- <li class="nav-item">
-                <a class="nav-link text-gray-600" href="{{ route('login') }}">
-                    <i class="fas fa-sign-in-alt fa-sm fa-fw mr-1"></i>
-                    Đăng nhập
-                </a>
-            </li> --}}
-        {{-- @endguest --}}
-    </ul>
+            </div>
+        </div>
 
-</nav>
-<!-- End of Topbar -->
+        <div class="adm-hb-divider"></div>
 
-{{-- Modal Đăng xuất (cần có ở đâu đó trong layout chính, ví dụ file scripts.blade.php) --}}
-{{-- Đảm bảo rằng file admin/partials/scripts.blade.php có đoạn modal này --}}
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Sẵn sàng rời đi?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
+        <!-- Thông tin User -->
+        @auth
+        <div class="adm-hb-dropdown">
+            <div class="adm-hb-user-trigger adm-hb-trigger" id="userTrigger">
+                <div class="adm-hb-user-info d-none d-lg-block">
+                    <span class="adm-hb-user-name">{{ Auth::user()->name }}</span>
+                    <span class="adm-hb-user-role">Quản trị viên</span>
+                </div>
+                <div class="adm-hb-user-avatar">
+                    @if (Auth::user()->avatar)
+                        <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="Avatar">
+                    @else
+                        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=1a222d&color=fff" alt="Default">
+                    @endif
+                </div>
             </div>
-            <div class="modal-body">Chọn "Đăng xuất" bên dưới nếu bạn đã sẵn sàng kết thúc phiên làm việc hiện tại.
+
+            <div class="adm-hb-dropdown-menu adm-hb-menu-right" id="userMenu">
+                <div class="adm-hb-menu-inner">
+                    <a href="{{ route('profile.index') }}" class="adm-hb-menu-link">
+                        <i class="fa-solid fa-user-circle"></i> Hồ sơ cá nhân
+                    </a>
+                    <a href="#" class="adm-hb-menu-link">
+                        <i class="fa-solid fa-gear"></i> Cài đặt hệ thống
+                    </a>
+                    <div class="adm-hb-menu-divider"></div>
+                    <a href="#" class="adm-hb-menu-link logout" id="admLogoutTrigger">
+                        <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                    </a>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
-                {{-- Form đăng xuất --}}
-                {{-- <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-primary">Đăng xuất</button>
-                </form> --}}
-            </div>
+        </div>
+        @endauth
+    </div>
+</header>
+
+<!-- Modal Đăng xuất (Custom Design) -->
+<div class="adm-hb-modal-overlay" id="admLogoutModal">
+    <div class="adm-hb-modal">
+        <div class="adm-hb-modal-icon">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </div>
+        <h3>Bạn muốn đăng xuất?</h3>
+        <p>Phiên làm việc của bạn sẽ kết thúc. Hãy đảm bảo các thay đổi đã được lưu.</p>
+        <div class="adm-hb-modal-actions">
+            <button class="adm-hb-btn-cancel" id="admCancelLogout">Hủy bỏ</button>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="adm-hb-btn-confirm">Đăng xuất ngay</button>
+            </form>
         </div>
     </div>
 </div>
+@include('admin.partials.lib.header-lib')
+<div class="mb-4"></div>

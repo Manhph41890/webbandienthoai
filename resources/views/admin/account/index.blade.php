@@ -58,7 +58,7 @@
                                 </td>
                                 <td>{{ $account->name }}</td>
                                 <td>{{ $account->email }}</td>
-                                <td>{{ $account->role->display_name ?? 'N/A' }}</td>
+                                <td>{{ $account->role->name ?? 'N/A' }}</td>
                                 <td>
                                     @if ($account->is_active)
                                         <span class="badge badge-success">Hoạt động</span>
@@ -76,7 +76,7 @@
                                         data-avatar-text="{{ strtoupper(substr($account->name, 0, 1)) }}"
                                         data-phone="{{ $account->phone ?? 'Chưa cập nhật' }}"
                                         data-bio="{{ $account->bio ?? 'Chưa có tiểu sử.' }}"
-                                        data-role="{{ $account->role->display_name ?? 'N/A' }}"
+                                        data-role="{{ $account->role->name ?? 'N/A' }}"
                                         data-status="{{ $account->is_active }}"
                                         data-created="{{ $account->created_at->format('H:i:s d/m/Y') }}">
                                         <i class="fas fa-eye"></i>

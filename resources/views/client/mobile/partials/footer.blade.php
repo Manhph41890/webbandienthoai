@@ -1,80 +1,99 @@
-<link rel="stylesheet" href="{{ asset('css/client_styles_mb.css') }}">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<footer class="mobile-footer">
-    <div class="m-footer-container">
-        <!-- Phần 1: Logo & Giới thiệu -->
-        <div class="m-footer-section m-footer-brand">
-            <div class="m-footer-logo">
-                <a href="/">
-                    <img src="{{ asset('logo/logo_remove.png') }}" alt="Toanhong Korea">
+<footer class="mf-wrapper">
+    <div class="mf-container">
+        <!-- Brand Section -->
+        <div class="mf-section mf-brand">
+            <a href="/" class="mf-logo">
+                <img src="{{ asset('logo/logo_remove.png') }}" alt="Toanhong Korea">
+            </a>
+            <p class="mf-description">
+                <strong>TOANHONG KOREA</strong> - Hệ thống phân phối iPhone, Samsung và giải pháp Viễn thông hàng đầu
+                cho cộng đồng người Việt tại Hàn Quốc.
+            </p>
+            <div class="mf-socials">
+                <a href="#" class="mf-social-btn fb"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="mf-social-btn tt"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="mf-social-btn yt"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="mf-social-btn ig"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+
+        <!-- Links Sections (Accordion Style) -->
+        <div class="mf-accordion">
+            <div class="mf-acc-item">
+                <div class="mf-acc-header" onclick="toggleMfAccordion(this)">
+                    <span>DỊCH VỤ KHÁCH HÀNG</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <ul class="mf-acc-content">
+                    <li><a href="#">Đăng ký Sim trả sau</a></li>
+                    <li><a href="#">Gia hạn gói cước data</a></li>
+                    <li><a href="#">Nạp tiền thẻ quốc tế</a></li>
+                    <li><a href="#">Hỗ trợ trả góp 0%</a></li>
+                </ul>
+            </div>
+
+            <div class="mf-acc-item">
+                <div class="mf-acc-header" onclick="toggleMfAccordion(this)">
+                    <span>CHÍNH SÁCH CHUNG</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <ul class="mf-acc-content">
+                    <li><a href="#">Chính sách bảo hành vàng</a></li>
+                    <li><a href="#">Quy định đổi trả máy cũ</a></li>
+                    <li><a href="#">Chính sách bảo mật thông tin</a></li>
+                    <li><a href="#">Vận chuyển hỏa tốc toàn Hàn</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contact Section (High-Touch Card) -->
+        <div class="mf-section mf-contact-card">
+            <h4 class="mf-card-title">KẾT NỐI VỚI CHÚNG TÔI</h4>
+
+            <div class="mf-contact-row">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Seoul, Republic of Korea</span>
+            </div>
+
+            <div class="mf-phone-grid">
+                <a href="tel:01028288333" class="mf-phone-btn">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>010 2828 8333</span>
+                </a>
+                <a href="tel:01082826886" class="mf-phone-btn">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>010 8282 6886</span>
                 </a>
             </div>
-            <p class="m-footer-desc">
-                <strong>TOANHONG KOREA</strong> - Chuyên điện thoại mới nhất, sim thẻ và gói cước ưu đãi tại Hàn Quốc. Kết nối cộng đồng, nâng tầm cuộc sống.
-            </p>
-            <div class="m-social-links">
-                <a href="#"><i class="fab fa-facebook-f iconfy"></i></a>
-                <a href="#"><i class="fab fa-instagram iconfy"></i></a>
-                <a href="#"><i class="fab fa-youtube iconfy"></i></a>
-                <a href="#"><i class="fab fa-tiktok iconfy"></i></a>
+
+            <a href="mailto:support@toanhongkorea.com" class="mf-contact-row">
+                <i class="fa-solid fa-envelope"></i>
+                <span>support@toanhongkorea.com</span>
+            </a>
+
+            <div class="mf-contact-row">
+                <i class="fa-solid fa-clock"></i>
+                <span>Hỗ trợ khách hàng: 24/7 (T2-CN)</span>
             </div>
         </div>
 
-        <!-- Phần 2: Dịch vụ & Chính sách (Chia 2 cột nhỏ hoặc xếp chồng) -->
-        <div class="m-footer-grid">
-            <div class="m-footer-section">
-                <h4 class="m-footer-title">DỊCH VỤ</h4>
-                <ul class="m-footer-links">
-                    <li><a href="#">Đăng ký Sim</a></li>
-                    <li><a href="#">Kiểm tra gói cước</a></li>
-                    <li><a href="#">Nạp tiền điện thoại</a></li>
-                    <li><a href="#">Câu hỏi thường gặp</a></li>
-                </ul>
-            </div>
-            <div class="m-footer-section">
-                <h4 class="m-footer-title">CHÍNH SÁCH</h4>
-                <ul class="m-footer-links">
-                    <li><a href="#">Bảo hành</a></li>
-                    <li><a href="#">Đổi trả máy</a></li>
-                    <li><a href="#">Bảo mật</a></li>
-                    <li><a href="#">Vận chuyển</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Phần 3: Liên hệ (Tối ưu để chạm là gọi) -->
-        <div class="m-footer-section m-footer-contact">
-            <h4 class="m-footer-title">LIÊN HỆ</h4>
-            <div class="m-contact-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Seoul, Hàn Quốc</span>
-            </div>
-            <div class="m-contact-item highlight">
-                <i class="fas fa-phone-alt"></i>
-                <div class="m-phones">
-                    <a href="tel:01028288333">010 2828 8333</a>
-                    <span class="divider">|</span>
-                    <a href="tel:01082826886">010 8282 6886</a>
-                </div>
-            </div>
-            <div class="m-contact-item">
-                <i class="fas fa-envelope"></i>
-                <a href="mailto:support@toanhongkorea.com">support@toanhongkorea.com</a>
-            </div>
-            <div class="m-contact-item">
-                <i class="fas fa-clock"></i>
-                <span>Giờ làm việc: 24/7 (T2 - CN)</span>
-            </div>
-            
-            <div class="m-payment-methods">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal">
+        <!-- Payment & Trust -->
+        <div class="mf-trust-section">
+            <div class="mf-payment-icons">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal">
             </div>
         </div>
     </div>
 
-    <div class="m-footer-bottom">
-        <p>&copy; 2025 Toanhong Korea. All rights reserved.</p>
+    <div class="mf-bottom">
+        <p>© 2025 <span>Toanhong Korea</span>. Thiết kế bởi MobiTech</p>
     </div>
+
+    <!-- Nút quay lại đầu trang mượt mà -->
+    <button id="backToTop" class="mf-back-to-top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
 </footer>
+@include('client.mobile.partials.footer-lib')

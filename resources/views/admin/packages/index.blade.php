@@ -113,7 +113,7 @@
                                             data-target="#packageDetailModal" data-name="{{ $package->name }}"
                                             data-slug="{{ $package->slug }}"
                                             data-carrier="{{ strtoupper($package->carrier) }}"
-                                            data-price="{{ number_format($package->price) }}đ"
+                                            data-price="{{ number_format($package->price) }}w"
                                             data-duration="{{ $package->duration_days }} ngày"
                                             data-payment="{{ $package->payment_type == 'tra_truoc' ? 'Trả trước' : 'Trả sau' }}"
                                             data-sim="{{ $package->sim_type == 'hop_phap' ? 'Hợp pháp' : 'Bất hợp pháp' }}"

@@ -13,7 +13,10 @@
             @foreach ($packages as $package)
                 <div class="m-spc-card">
                     <!-- Heart Button (Top Right) -->
-                    <button class="m-spc-heart"><i class="fa-regular fa-heart"></i></button>
+                    <button class="m-spc-heart spc-heart-btn {{ $package->isFavorited() ? 'active' : '' }}" data-id="{{ $package->id }}"
+                        data-type="package">
+                        <i class="{{ $package->isFavorited() ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
+                    </button>
 
                     <div class="m-spc-card-body">
                         <!-- Package Name & Rating -->
@@ -21,14 +24,14 @@
                             <h3 class="m-spc-package-name">{{ $package->name }}</h3>
                             <div class="m-spc-rating">
                                 <i class="fa-solid fa-star"></i>
-                                <span>(100+)</span>
+                                <span>(99+)</span>
                             </div>
                         </div>
 
                         <!-- Price & Duration -->
                         <div class="m-spc-price-box">
                             <div class="m-spc-price-val">
-                                {{ number_format($package->price) }}<span class="m-spc-currency">đ</span>
+                                {{ number_format($package->price) }}<span class="m-spc-currency">w</span>
                             </div>
                             <div class="m-spc-duration">/ {{ $package->duration_days }} ngày</div>
                         </div>
@@ -61,7 +64,7 @@
                     <!-- Action Buttons -->
                     <div class="m-spc-actions">
                         <button type="button" class="m-btn-primary btn-buy-package" data-name="{{ $package->name }}"
-                            data-price="{{ number_format($package->price) }}đ"
+                            data-price="{{ number_format($package->price) }}w"
                             data-duration="{{ $package->duration_days }}"
                             data-carrier="{{ strtoupper($package->carrier) }}"
                             data-sim="{{ $package->sim_type == 'hop_phap' ? 'Hợp pháp' : 'Khác' }}">

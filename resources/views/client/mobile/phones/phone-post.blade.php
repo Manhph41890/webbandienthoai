@@ -6,7 +6,7 @@
             selectedColor = null,
             currentVariant = null;
 
-        const pageId = "100095174172336";
+        const pageId = "100063769254777";
         const phoneName = "{{ $phone->name }}";
         const currentUrl = window.location.href;
 
@@ -51,7 +51,7 @@
 
             if (currentVariant) {
                 // TRƯỜNG HỢP: CÓ HÀNG TRONG HỆ THỐNG
-                priceEl.innerText = new Intl.NumberFormat('vi-VN').format(currentVariant.price) + 'đ';
+                priceEl.innerText = new Intl.NumberFormat('vi-VN').format(currentVariant.price) + 'w';
                 if (skuEl) skuEl.innerText = currentVariant.sku || 'N/A';
                 if (stockEl) {
                     stockEl.innerText = currentVariant.stock > 0 ? "Còn hàng (Sẵn sàng giao)" :
@@ -128,17 +128,17 @@
 
                 // Lấy giá từ Variant nếu có, nếu không thì ghi Liên hệ
                 const finalPrice = currentVariant ? new Intl.NumberFormat('vi-VN').format(currentVariant
-                    .price) + 'đ' : "Liên hệ";
+                    .price) + 'w' : "Liên hệ";
                 const orderStatus = currentVariant ? (currentVariant.stock > 0 ? "Sẵn hàng" :
                     "Đặt hàng") : "Đặt hàng (Theo yêu cầu)";
 
                 let message = `Chào Shop, mình muốn tư vấn điện thoại này:\n`;
-                message += `📱 Sản phẩm: ${phoneName}\n`;
-                message += `✨ Tình trạng: ${conditionLabel}\n`;
-                message += `💾 Cấu hình: ${sizeText} - ${colorText}\n`;
-                message += `💰 Giá: ${finalPrice}\n`;
-                message += `🚚 Trạng thái: ${orderStatus}\n`;
-                message += `🔗 Link: ${currentUrl}`;
+                message += `Sản phẩm: ${phoneName}\n`;
+                message += `Tình trạng: ${conditionLabel}\n`;
+                message += `Cấu hình: ${sizeText} - ${colorText}\n`;
+                message += `Giá: ${finalPrice}\n`;
+                message += `Trạng thái: ${orderStatus}\n`;
+                message += `Link: ${currentUrl}`;
 
                 const messengerUrl = `https://m.me/${pageId}?text=${encodeURIComponent(message)}`;
 

@@ -12,8 +12,9 @@
                     <div class="col-6 col-md-4 col-lg-3 product-item">
                         <div class="product-card">
                             <div class="product-badge">
-                                <button class="spc-heart-btn" title="Thêm vào yêu thích">
-                                    <i class="fa-regular fa-heart"></i>
+                                <button class="spc-heart-btn {{ $phone->isFavorited() ? 'active' : '' }}"
+                                    data-id="{{ $phone->id }}" data-type="phone">
+                                    <i class="{{ $phone->isFavorited() ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
                                 </button>
                             </div>
 
@@ -28,7 +29,7 @@
                                 <div class="ss-tag" style="color: #b11c44">{{ $phone->category->name }}</div>
                                 <h3 class="ss-name">
                                     <a href="{{ route('phone.detail', $phone->slug) }}"
-                                        style="text-decoration: none; color: inherit; font-size: 20px !important;">
+                                        style="text-decoration: none; color: inherit; font-size: 18px !important;">
                                         {{ $phone->name }}
                                     </a>
                                 </h3>
@@ -49,7 +50,7 @@
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
-                                    <span class="rating-count">(100+)</span>
+                                    <span class="rating-count">(99+)</span>
                                 </div>
 
                                 <div class="product-actions">
@@ -57,7 +58,6 @@
                                         class="btn-messenger">
                                         <i class="fa-brands fa-facebook-messenger"></i> MUA NGAY
                                     </a>
-                                    <a href={{ route('phone.detail', $phone->slug) }} class="btn-detail">CHI TIẾT</a>
                                 </div>
                             </div>
                         </div>
@@ -85,10 +85,11 @@
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
-                                    <span class="hpk-rating-count">(100+)</span>
+                                    <span class="hpk-rating-count">(99+)</span>
                                 </div>
-                                <button class="hpk-wishlist" title="Yêu thích">
-                                    <i class="fa-regular fa-heart"></i>
+                                <button class="spc-heart-btn {{ $package->isFavorited() ? 'active' : '' }}"
+                                    data-id="{{ $package->id }}" data-type="package">
+                                    <i class="{{ $package->isFavorited() ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
                                 </button>
                             </div>
                         </div>
@@ -128,13 +129,16 @@
                         </div>
 
                         <div class="hpk-card-foot">
-                            <a href="https://m.me/yourpage" target="_blank" class="hpk-btn-main">
+                            <button type="button" class="m-btn-primary btn-buy-package" data-name="{{ $package->name }}"
+                                data-price="{{ number_format($package->price) }}w"
+                                data-duration="{{ $package->duration_days }}"
+                                data-carrier="{{ strtoupper($package->carrier) }}"
+                                data-sim="{{ $package->sim_type == 'hop_phap' ? 'Hợp pháp' : 'Khác' }}">
                                 <i class="fa-brands fa-facebook-messenger"></i> MUA NGAY
-                            </a>
-                            <a href="#" class="hpk-btn-sub">CHI TIẾT</a>
+                            </button>
                         </div>
                     </div>
-                    
+
                 @empty
                     <p>Không tìm thấy gói cước nào.</p>
                 @endforelse
@@ -144,3 +148,4 @@
 @endsection
 @include('client.mobile.home.outstanding-pr-lib')
 @include('client.mobile.home.package-lib')
+@include('pages.search-lib')

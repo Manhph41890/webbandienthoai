@@ -29,219 +29,119 @@
             </div>
 
             <!-- Banner phải cố định -->
+            <!-- Banner phải cố định (Premium Version) -->
             <div class="x-hero-static-aside">
-                <a href="{{ url('phone/iphone-17-pro-max') }}">
-                    <img src="{{ asset('images/banner_right.png') }}" alt="Banner Right">
+                <a href="{{ url('phone/iphone-17-pro-max') }}" class="x-aside-premium">
+                    <!-- Lớp chữ nền (Watermark) -->
+                    <div class="x-aside-bg-text">IPHONE</div>
+
+                    <!-- Khối chứa ảnh -->
+                    <div class="x-aside-img-box" style="border-radius: 5px !important;">
+                        <img src="{{ asset('images/banner_right.png') }}" alt="iPhone 17 Pro Max"
+                            style="border-radius: 5px !important;">
+                        <!-- Lớp phủ ánh sáng (Shine Effect) -->
+                        <div class="x-aside-glint"></div>
+                    </div>
+
+                    <!-- Lớp nội dung bổ trợ (Glassmorphism) -->
+                    <div class="x-aside-overlay">
+                        <div class="x-aside-info">
+                            <span class="badge-new">NEW GENERATION</span>
+                            <h3>TITANIUM ORANGE</h3>
+                            <p>Khám phá sức mạnh chip A19 Pro</p>
+                        </div>
+                    </div>
                 </a>
+
+                <a href="{{ url('phone/samsung-galaxy-s25-ultra') }}" class="x-aside-premium1">
+
+                    <!-- Khối chứa ảnh -->
+                    <div class="x-aside-img-box" style="width: 310px; height: 146px; margin-top: 7px;">
+                        <img src="{{ asset('images/maxresdefault 10.png') }}" alt="iPhone 17 Pro Max"
+                            style="border-radius: 5px !important;">
+                    </div>
+
+                    <!-- Lớp nội dung bổ trợ (Glassmorphism) -->
+                    <div class="x-aside-overlay">
+                        <div class="x-aside-info">
+                            <span class="badge-new">NEW GENERATION</span>
+                            <h3>TITANIUM BLACK</h3>
+                            <p>Khám phá sức mạnh chip Snapdragon 8 Gen 4</p>
+                        </div>
+                    </div>
+                </a>
+
             </div>
         </div>
 
-        <!-- Khối Sản phẩm Hot phía dưới -->
-        <div class="x-hero-hot-grid">
-            <!-- Sản phẩm 1 -->
-            <div class="x-hero-hot-card">
-                <div class="x-hero-hot-tag">HOT</div>
-                <div class="x-hero-card-inner">
-                    <a href="{{ url('/phone/samsung-galaxy-s24-ultra') }}">
-                        <div class="x-hero-card-thumb">
-                            <img src="{{ asset('images/s24_ultra.png') }}" alt="S24 Ultra">
+        <section class="dx-hot-section">
+            <div class="dx-container">
+                <div class="dx-hot-grid">
+                    <!-- Sản phẩm 1 -->
+                    <div class="dx-hot-card">
+                        <div class="dx-card-badge">HOT</div>
+                        <div class="dx-card-inner">
+                            <div class="dx-card-thumb">
+                                <a href="{{ url('/phone/samsung-galaxy-s24-ultra') }}">
+                                    <img src="{{ asset('images/s24_ultra.png') }}" alt="S24 Ultra">
+                                </a>
+                            </div>
+                            <div class="dx-card-desc">
+                                <a href="{{ url('/phone/samsung-galaxy-s24-ultra') }}" class="dx-item-title">
+                                    Galaxy <span>S24 Ultra</span>
+                                </a>
+                                <p class="dx-item-price">930.000 <span>won</span></p>
+                                <a href="{{ url('/phone/samsung-galaxy-s24-ultra') }}" class="dx-btn-view">
+                                    Chi tiết <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
                         </div>
-                    </a>
-                    <a href="{{ url('/phone/samsung-galaxy-s24-ultra') }}" style="text-decoration: none">
-                        <div class="x-hero-card-desc">
-                            <h3>Galaxy <br> S24 Ultra</h3>
-                            <p class="x-hero-card-price">930.000 won</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Sản phẩm 2 -->
-            <div class="x-hero-hot-card">
-                <div class="x-hero-hot-tag">HOT</div>
-                <div class="x-hero-card-inner">
-                    <a href="{{ url('/phone/iphone-17-pro-max') }}">
-                        <div class="x-hero-card-thumb">
-                            <img src="{{ asset('images/iphone_17.png') }}" alt="Iphone 17">
-                        </div>
-                    </a>
-                    <a href="{{ url('/phone/iphone-17-pro-max') }}" style="text-decoration: none">
-                        <div class="x-hero-card-desc">
-                            <h3>Iphone <br>  17Pro Max</h3>
-                            <p class="x-hero-card-price">930.000 won</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Sản phẩm 3 -->
-            <div class="x-hero-hot-card">
-                <div class="x-hero-hot-tag">HOT</div>
-                <div class="x-hero-card-inner">
-                     <a href="{{ url('/phone/samsung-galaxy-z-flip-7') }}">
-                    <div class="x-hero-card-thumb">
-                        <img src="{{ asset('images/galaxyflip7.png') }}" alt="S24 Ultra" style="width: 160px;">
                     </div>
-                </a>
-                <a href="{{ url('/phone/samsung-galaxy-z-flip-7') }}" style="text-decoration: none">
-                    <div class="x-hero-card-desc">
-                        <h3>Galaxy <br>Z Flip 7</h3>
-                        <p class="x-hero-card-price">930.000 won</p>
+
+                    <!-- Sản phẩm 2 -->
+                    <div class="dx-hot-card">
+                        <div class="dx-card-badge">HOT</div>
+                        <div class="dx-card-inner">
+                            <div class="dx-card-thumb">
+                                <a href="{{ url('/phone/iphone-17-pro-max') }}">
+                                    <img src="{{ asset('images/iphone_17.png') }}" alt="Iphone 17">
+                                </a>
+                            </div>
+                            <div class="dx-card-desc">
+                                <a href="{{ url('/phone/iphone-17-pro-max') }}" class="dx-item-title">
+                                    iPhone <span>17 Pro Max</span>
+                                </a>
+                                <p class="dx-item-price">930.000 <span>won</span></p>
+                                <a href="{{ url('/phone/iphone-17-pro-max') }}" class="dx-btn-view">
+                                    Chi tiết <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </a>
+
+                    <!-- Sản phẩm 3 -->
+                    <div class="dx-hot-card">
+                        <div class="dx-card-badge">HOT</div>
+                        <div class="dx-card-inner">
+                            <div class="dx-card-thumb">
+                                <a href="{{ url('/phone/samsung-galaxy-z-flip-7') }}">
+                                    <img src="{{ asset('images/galaxyflip7.png') }}" alt="Z Flip 7">
+                                </a>
+                            </div>
+                            <div class="dx-card-desc">
+                                <a href="{{ url('/phone/samsung-galaxy-z-flip-7') }}" class="dx-item-title">
+                                    Galaxy <span>Z Flip 7</span>
+                                </a>
+                                <p class="dx-item-price">930.000 <span>won</span></p>
+                                <a href="{{ url('/phone/samsung-galaxy-z-flip-7') }}" class="dx-btn-view">
+                                    Chi tiết <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 </section>
-@push('styles')
-    <style>
-        /* Tùy chỉnh thêm để các nút điều hướng hiển thị đẹp hơn */
-        .x-hero-main-carousel {
-            position: relative;
-            /* Quan trọng để định vị nút điều hướng */
-        }
-
-        .x-hero-prev,
-        .x-hero-next {
-            color: #fff;
-            /* Màu nút */
-            background: rgba(0, 0, 0, 0.2);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-
-        .x-hero-prev::after,
-        .x-hero-next::after {
-            font-size: 18px;
-            /* Chỉnh kích thước mũi tên */
-        }
-
-        .x-hero-dots .swiper-pagination-bullet-active {
-            background: #C10000;
-            /* Màu của dấu chấm khi đang hoạt động */
-        }
-
-        /* =================================================== x-hero-section =============================================== */
-
-        /* Container chung */
-        .x-hero-container {
-            max-width: 1240px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        .x-hero-section-wrapper {
-            padding: 20px 0;
-            background-color: #fff;
-        }
-
-        /* Layout Banner Top */
-        .x-hero-top-layout {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .x-hero-main-carousel {
-            flex: 3;
-            /* Chiếm 75% */
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .x-hero-main-carousel img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .x-hero-static-aside {
-            flex: 1;
-            /* Chiếm 25% */
-        }
-
-        .x-hero-static-aside img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        /* Layout Hot Products Grid */
-        .x-hero-hot-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .x-hero-hot-card {
-            position: relative;
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            padding: 20px;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-
-        .x-hero-hot-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Nhãn HOT màu đỏ chéo góc */
-        .x-hero-hot-tag {
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-color: #C10000;
-            color: white;
-            padding: 5px 25px;
-            font-size: 12px;
-            font-weight: bold;
-            transform: rotate(-45deg) translate(-20px, -5px);
-            z-index: 1;
-        }
-
-        /* Nội dung sản phẩm bên trong card */
-        .x-hero-card-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-        }
-
-        .x-hero-card-thumb {
-            flex: 1;
-        }
-
-        .x-hero-card-thumb img {
-            max-width: 100%;
-            height: auto;
-            object-fit: contain;
-        }
-
-        .x-hero-card-desc {
-            flex: 1;
-            text-align: right;
-        }
-
-        .x-hero-card-desc h3 {
-            font-size: 22px;
-            font-weight: 800;
-            margin: 0 0 10px 0;
-            line-height: 1.2;
-            color: #000;
-        }
-
-        .x-hero-card-price {
-            font-size: 20px;
-            color: #C10000;
-            font-weight: bold;
-            margin: 0;
-        }
-    </style>
-@endpush
+@include('client.desktop.home.banner-lib')

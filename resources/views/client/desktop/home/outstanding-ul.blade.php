@@ -69,7 +69,7 @@
                                             class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
                                             class="fa-solid fa-star"></i>
                                     </div>
-                                    <span class="count">(100+)</span>
+                                    <span class="count">(99+)</span>
                                 </div>
 
                                 <div class="product-actions">

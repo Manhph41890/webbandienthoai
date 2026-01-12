@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -12,19 +14,25 @@ class Handler extends ExceptionHandler
      *
      * @var array<int, string>
      */
-    protected $dontFlash = [
-        'current_password',
-        'password',
-        'password_confirmation',
-    ];
+    protected $dontFlash = ['current_password', 'password', 'password_confirmation'];
 
     /**
      * Register the exception handling callbacks for the application.
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            if ($request->is('api/*')) {
+                // Nếu là API thì trả về JSON (tùy chọn)
+                return response()->json(['message' => 'Not Found'], 404);
+            }
+            // Điều hướng về route có tên là '404'
+            return redirect()->route('404');
+        });
+
+        // Xử lý lỗi 403
+        $this->renderable(function (AccessDeniedHttpException $e, $request) {
+            return redirect()->route('403');
         });
     }
 }

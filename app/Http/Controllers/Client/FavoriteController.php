@@ -95,6 +95,6 @@ class FavoriteController extends Controller
             }
         }
 
-        return view('client.desktop.pages.favorite', compact('items'));
+        return view('pages.favorite', compact('items'));
     }
 }

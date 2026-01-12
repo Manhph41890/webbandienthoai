@@ -11,94 +11,116 @@ use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PhoneController;
 use App\Http\Controllers\Client\PackageClientController;
 use App\Http\Controllers\Client\PhoneClientController;
+use App\Http\Controllers\Client\ProfileController;
+use App\Http\Controllers\HTTPStatusController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
-// 1. Trang chủ
+/*
+|--------------------------------------------------------------------------
+| 1. GUEST ROUTES (Ai cũng có thể truy cập)
+|--------------------------------------------------------------------------
+*/
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/search/products', [SearchController::class, 'index'])->name('search');
 
-Route::controller(ContactController::class)->group(function () {
-    Route::get('/lien-he', 'index')->name('contact.index');
-    Route::post('/lien-he', 'store')->name('contact.store');
-    Route::get('/admin/lien-he', 'getContact')->name('admin.contact.index');
-    Route::post('/admin/lien-he/{id}/phan-hoi', 'replyMail')->name('admin.contacts.reply');
-});
+// Route liên hệ cho khách
+Route::get('/lien-he', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/lien-he', [ContactController::class, 'store'])->name('contact.store');
 
-// 2. Chi tiết sản phẩm (Ưu tiên khớp route này trước)
-Route::get('/phone/{slug}', [PhoneClientController::class, 'phoneDetail'])->name('phone.detail');
-
-// 3. Danh mục sản phẩm (Để dưới cùng vì nó khớp với mọi chuỗi sau dấu /)
-Route::get('/{slug}', [PhoneClientController::class, 'listByCategory'])->name('category.show');
-
-// Dành cho gói cước
+// Route Gói cước (Client)
 Route::get('/goi-cuoc/{slug}', [PackageClientController::class, 'listByCategory'])->name('package.category');
 Route::get('/chi-tiet-goi/{slug}', [PackageClientController::class, 'detail'])->name('package.detail');
 
-Route::get('/search/products', [SearchController::class, 'index'])->name('search');
+// Route Sản phẩm & Danh mục (Để cuối để tránh đè route khác)
+Route::get('/phone/{slug}', [PhoneClientController::class, 'phoneDetail'])->name('phone.detail');
+Route::get('/{slug}', [PhoneClientController::class, 'listByCategory'])->name('category.show');
 
+Route::get('toanhongkorea/404', [HTTPStatusController::class, 'http404'])->name('404');
+Route::get('toanhongkorea/403', [HTTPStatusController::class, 'http403'])->name('403');
 
+// Wishlist web ưu tiên không cần đăng nhập
 Route::get('/wishlist/list', [FavoriteController::class, 'index'])->name('wishlist.index');
 Route::post('/wishlist/toggle', [FavoriteController::class, 'toggle'])->name('wishlist.toggle');
 
-// Hiển thị form đăng nhập
+/*
+|--------------------------------------------------------------------------
+| 2. AUTH ROUTES (Đăng nhập, đăng ký, social)
+|--------------------------------------------------------------------------
+*/
 Route::prefix('auth')
     ->controller(AuthController::class)
     ->group(function () {
-        Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
-        Route::post('login', [AuthController::class, 'login']);
-        Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register');
-        Route::post('register', [AuthController::class, 'register']);
-        Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+        Route::get('login', 'showLoginForm')->name('login');
+        Route::post('login', 'login');
+        Route::get('register', 'showRegistrationForm')->name('register');
+        Route::post('register', 'register');
+        Route::post('logout', 'logout')->name('logout')->middleware('auth');
 
-        // Facebook Login
-        Route::get('facebook', [AuthController::class, 'redirectToFacebook'])->name('facebook.login');
-        Route::get('facebook/callback', [AuthController::class, 'handleFacebookCallback']);
-        // Github Login
-        // Google Login
-        Route::get('google', [AuthController::class, 'redirectToGoogle'])->name('google.login');
-        Route::get('google/callback', [AuthController::class, 'handleGoogleCallback']);
+        // Social Login
+        Route::get('facebook', 'redirectToFacebook')->name('facebook.login');
+        Route::get('facebook/callback', 'handleFacebookCallback');
+        Route::get('google', 'redirectToGoogle')->name('google.login');
+        Route::get('google/callback', 'handleGoogleCallback');
     });
 
-Route::get('/test/page', function () {
-    return view('client.desktop.partials.header');
+/*
+|--------------------------------------------------------------------------
+| 3. USER PROTECTED ROUTES (Cần đăng nhập - Cho cả 3 Roles)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth'])->group(function () {
+    // Profile cá nhân
+    Route::get('/profile/user', [ProfileController::class, 'index'])->name('profile.index');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
 
+/*
+|--------------------------------------------------------------------------
+| 4. ADMIN & STAFF ROUTES (Roles 1 & 2)
+|--------------------------------------------------------------------------
+| Nhóm này dành cho Quản trị viên và Nhân viên cùng quản lý nội dung
+*/
 Route::prefix('admin')
     ->name('admin.')
+    ->middleware(['auth', 'role:1,2']) // Chỉ Role 1 (Quản trị) và 2 (Nhân viên)
     ->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        // Thùng rác và khôi phục Category
+
+        // Quản lý Liên hệ (Admin side)
+        Route::get('/lien-he', [ContactController::class, 'getContact'])->name('contact.index');
+        Route::post('/lien-he/{id}/phan-hoi', [ContactController::class, 'replyMail'])->name('contacts.reply');
+
+        // --- Quản lý Danh mục (Categories) ---
         Route::get('categories/trash', [CategoryController::class, 'trash'])->name('categories.trash');
         Route::post('categories/{id}/restore', [CategoryController::class, 'restore'])->name('categories.restore');
         Route::delete('categories/{id}/force-delete', [CategoryController::class, 'forceDelete'])->name('categories.forceDelete');
-
-        // Route resource chuẩn
         Route::resource('categories', CategoryController::class);
 
+        // --- Quản lý Điện thoại (Phones) ---
         Route::get('phones/trash', [PhoneController::class, 'trash'])->name('phones.trash');
-
-        // Khôi phục
-        Route::patch('/{id}/restore', [PhoneController::class, 'restore'])->name('phones.restore');
-
-        // Xóa vĩnh viễn
-        Route::delete('/{id}/force-delete', [PhoneController::class, 'forceDelete'])->name('phones.forceDelete');
-        Route::get('/phones/get-variant-form-fields', [PhoneController::class, 'getVariantFormFields'])->name('phones.getVariantFormFields');
-
+        Route::patch('phones/{id}/restore', [PhoneController::class, 'restore'])->name('phones.restore');
+        Route::delete('phones/{id}/force-delete', [PhoneController::class, 'forceDelete'])->name('phones.forceDelete');
+        Route::get('phones/get-variant-form-fields', [PhoneController::class, 'getVariantFormFields'])->name('phones.getVariantFormFields');
         Route::patch('phones/{phone}/change-status', [PhoneController::class, 'changeStatus'])->name('phones.changeStatus');
+        Route::resource('phones', PhoneController::class);
 
-        Route::resource('phones', PhoneController::class)->names('phones');
-
-        Route::patch('packages/{package}/toggle-active', [PackageController::class, 'toggleActive'])->name('packages.toggleActive');
-
-        // Các route cho thùng rác phải đặt TRƯỚC resource
+        // --- Quản lý Gói cước (Packages) ---
         Route::get('packages/trash', [PackageController::class, 'trash'])->name('packages.trash');
         Route::post('packages/{id}/restore', [PackageController::class, 'restore'])->name('packages.restore');
         Route::delete('packages/{id}/force-delete', [PackageController::class, 'forceDelete'])->name('packages.forceDelete');
-
-        // Route Resource chuẩn
+        Route::patch('packages/{package}/toggle-active', [PackageController::class, 'toggleActive'])->name('packages.toggleActive');
         Route::resource('packages', PackageController::class);
 
-        Route::get('users', [AccountController::class, 'indexUsers'])->name('accounts.users.index');
-        Route::patch('accounts/{account}/toggle-status', [AccountController::class, 'toggleStatus'])->name('accounts.toggleStatus');
-        Route::resource('accounts', AccountController::class);
+        /*
+        |--------------------------------------------------------------------------
+        | 5. ONLY ADMIN ROUTES (Role 1 Only)
+        |--------------------------------------------------------------------------
+        | Chỉ Quản trị viên tối cao mới có quyền quản lý Tài khoản/Nhân viên
+        */
+        Route::middleware(['role:1'])->group(function () {
+            Route::get('users', [AccountController::class, 'indexUsers'])->name('accounts.users.index');
+            Route::patch('accounts/{account}/toggle-status', [AccountController::class, 'toggleStatus'])->name('accounts.toggleStatus');
+            Route::resource('accounts', AccountController::class);
+        });
     });

@@ -17,28 +17,14 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'role_id',
-        'facebook_id',
-        'google_id',
-        'name',
-        'email',
-        'password',
-        'avatar',
-        'address',
-        'phone_number',
-        'is_active',
-    ];
+    protected $fillable = ['role_id', 'facebook_id', 'google_id', 'name', 'email', 'password', 'avatar', 'address', 'phone_number', 'is_active'];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
     /**
      * The attributes that should be cast.
@@ -55,13 +41,17 @@ class User extends Authenticatable
         'password' => 'hashed', // Tự động hash pass khi lưu (Laravel 10+)
     ];
 
-
     /**
      * Quan hệ: User thuộc về một Role
      */
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+    public function isRole($roleIds)
+    {
+        // $roleIds có thể là 1 số (ví dụ: 1) hoặc 1 mảng (ví dụ: [1, 2])
+        return in_array($this->role_id, (array) $roleIds);
     }
 
     /**

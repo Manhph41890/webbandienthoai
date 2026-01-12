@@ -30,71 +30,7 @@
     @endif
 
     <!-- Bộ lọc tìm kiếm -->
-    <!-- Bộ lọc tìm kiếm -->
-    <div class="card shadow-sm mb-4 border-0">
-        <div class="card-body">
-            <form action="{{ route('admin.phones.index') }}" method="GET">
-                <div class="row g-3">
-                    <!-- Tìm kiếm từ khóa -->
-                    <div class="col-md-4 mb-3">
-                        <label class="small font-weight-bold text-muted">Từ khóa</label>
-                        <div class="input-group">
-                            <input type="text" name="search" class="form-control" placeholder="Tên sản phẩm..."
-                                value="{{ request('search') }}">
-                        </div>
-                    </div>
-
-                    <!-- Lọc theo Danh mục -->
-                    <div class="col-md-2 mb-3">
-                        <label class="small font-weight-bold text-muted">Danh mục</label>
-                        <select name="category_id" class="form-control">
-                            <option value="">Tất cả danh mục</option>
-                            @foreach ($categories as $cat)
-                                <option value="{{ $cat->id }}"
-                                    {{ request('category_id') == $cat->id ? 'selected' : '' }}>
-                                    {{ $cat->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <!-- Lọc theo Trạng thái -->
-                    <div class="col-md-2 mb-3">
-                        <label class="small font-weight-bold text-muted">Trạng thái</label>
-                        <select name="status" class="form-control">
-                            <option value="">Tất cả</option>
-                            <option value="1" {{ request('status') === '1' ? 'selected' : '' }}>Đang hiển thị</option>
-                            <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>Đang ẩn</option>
-                        </select>
-                    </div>
-
-                    <!-- Lọc theo Giá Min -->
-                    <div class="col-md-2 mb-3">
-                        <label class="small font-weight-bold text-muted">Giá từ</label>
-                        <input type="number" name="min_price" class="form-control" placeholder="w"
-                            value="{{ request('min_price') }}">
-                    </div>
-
-                    <!-- Lọc theo Giá Max -->
-                    <div class="col-md-2 mb-3">
-                        <label class="small font-weight-bold text-muted">Đến</label>
-                        <input type="number" name="max_price" class="form-control" placeholder="w"
-                            value="{{ request('max_price') }}">
-                    </div>
-
-                    <div class="col-md-12 text-right">
-                        <a href="{{ route('admin.phones.index') }}" class="btn btn-light shadow-sm border">
-                            <i class="fas fa-undo"></i> Làm mới
-                        </a>
-                        <button type="submit" class="btn btn-primary shadow-sm">
-                            <i class="fas fa-filter"></i> Lọc dữ liệu
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
+    @include('admin.phones.filter')
     <!-- Bảng danh sách -->
     <div class="card shadow-sm mb-4 border-0">
         <div class="card-header py-3 bg-white border-bottom">
@@ -149,8 +85,10 @@
                                     @endif
                                 </td>
                                 <td class="align-middle">
-                                    @php $totalStock = $phone->variants->sum('stock'); @endphp
+                                    {{-- Sử dụng biến total_stock đã tính từ query --}}
+                                    @php $totalStock = $phone->total_stock ?? 0; @endphp
                                     <div class="mb-1">Tổng: <strong>{{ $totalStock }}</strong></div>
+
                                     @if ($totalStock <= 0)
                                         <span class="badge badge-danger">Hết hàng</span>
                                     @elseif($totalStock <= 5)
@@ -178,8 +116,7 @@
                                         <input type="checkbox" class="custom-control-input change-status"
                                             id="customSwitch{{ $phone->id }}" data-id="{{ $phone->id }}"
                                             {{ $phone->is_active ? 'checked' : '' }}>
-                                        <label class="custom-control-label"
-                                            for="customSwitch{{ $phone->id }}"></label>
+                                        <label class="custom-control-label" for="customSwitch{{ $phone->id }}"></label>
                                     </div>
                                 </td>
 
@@ -190,8 +127,8 @@
                                             data-target="#phoneDetailModal">
                                             <i class="fas fa-eye text-info"></i>
                                         </button>
-                                        <a href="{{ route('admin.phones.edit', $phone->id) }}"
-                                            class="btn btn-white btn-sm" title="Chỉnh sửa">
+                                        <a href="{{ route('admin.phones.edit', $phone->id) }}" class="btn btn-white btn-sm"
+                                            title="Chỉnh sửa">
                                             <i class="fas fa-edit text-warning"></i>
                                         </a>
                                         <form action="{{ route('admin.phones.destroy', $phone->id) }}" method="POST"

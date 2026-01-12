@@ -1,78 +1,99 @@
-
-<footer class="footer">
-    <div class="footer-container">
-        <!-- Cột 1: Giới thiệu & Social -->
-        <div class="footer-col">
-            <div class="footer-logo">
-                <a href="/">
+<footer class="df-wrapper">
+    <div class="df-container">
+        <div class="df-grid">
+            <!-- Cột 1: Thương hiệu -->
+            <div class="df-col df-brand">
+                <a href="/" class="df-logo">
                     <img src="{{ asset('logo/logo_remove.png') }}" alt="Toanhong Korea">
                 </a>
+                <p class="df-desc">
+                    <strong>TOANHONG KOREA</strong> tự hào là cầu nối công nghệ tin cậy cho cộng đồng người Việt tại Hàn
+                    Quốc. Chúng tôi cam kết mang đến giá trị thực, dịch vụ tận tâm và trải nghiệm mua sắm hoàn hảo nhất.
+                </p>
+                <div class="df-socials">
+                    <a href="#" class="df-social-link fb"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="df-social-link tt"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="df-social-link yt"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="df-social-link ig"><i class="fab fa-instagram"></i></a>
+                </div>
             </div>
-            <p class="footer-desc">
-                <strong>TOANHONG KOREA</strong> chuyên cung cấp các dòng điện thoại mới nhất, sim thẻ chính chủ và các gói cước viễn thông ưu đãi tại Hàn Quốc. Kết nối cộng đồng, nâng tầm cuộc sống.
-            </p>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-facebook-f iconfy"></i></a>
-                <a href="#"><i class="fab fa-instagram iconfy"></i></a>
-                <a href="#"><i class="fab fa-youtube iconfy"></i></a>
-                <a href="#"><i class="fab fa-tiktok iconfy"></i></a>
+
+            <!-- Cột 2: Hỗ trợ khách hàng -->
+            <div class="df-col">
+                <h4 class="df-title">DỊCH VỤ KHÁCH HÀNG</h4>
+                <ul class="df-links">
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Hướng dẫn đăng ký Sim</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Kiểm tra gói cước Data</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Nạp tiền điện thoại</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Hỗ trợ trả trước</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Câu hỏi thường gặp</a></li>
+                </ul>
             </div>
-        </div>
 
-        <!-- Cột 2: Dịch vụ -->
-        <div class="footer-col">
-            <h4 class="footer-title">DỊCH VỤ KHÁCH HÀNG</h4>
-            <ul class="footer-links">
-                <li><a href="#">Hướng dẫn đăng ký Sim</a></li>
-                <li><a href="#">Kiểm tra gói cước</a></li>
-                <li><a href="#">Nạp tiền điện thoại</a></li>
-                <li><a href="#">Hỗ trợ kỹ thuật phần mềm</a></li>
-                <li><a href="#">Câu hỏi thường gặp</a></li>
-            </ul>
-        </div>
+            <!-- Cột 3: Thông tin chính sách -->
+            <div class="df-col">
+                <h4 class="df-title">CHÍNH SÁCH CHUNG</h4>
+                <ul class="df-links">
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Chính sách bảo hành</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Quy định đổi trả máy</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Bảo mật thông tin</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Điều khoản sử dụng</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Giao hàng toàn Hàn Quốc</a></li>
+                </ul>
+            </div>
 
-        <!-- Cột 3: Chính sách -->
-        <div class="footer-col">
-            <h4 class="footer-title">CHÍNH SÁCH</h4>
-            <ul class="footer-links">
-                <li><a href="#">Chính sách bảo hành</a></li>
-                <li><a href="#">Quy định đổi trả máy</a></li>
-                <li><a href="#">Bảo mật thông tin khách hàng</a></li>
-                <li><a href="#">Điều khoản sử dụng dịch vụ</a></li>
-                <li><a href="#">Vận chuyển & Giao hàng</a></li>
-            </ul>
-        </div>
-
-        <!-- Cột 4: Liên hệ -->
-        <div class="footer-col">
-            <h4 class="footer-title">LIÊN HỆ</h4>
-            <ul class="footer-contact">
-                <li>
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Địa chỉ: Seoul, Hàn Quốc </span>
-                </li>
-                <li>
-                    <i class="fas fa-phone-alt"></i>
-                    <span>Hotline: 010 2828 8333 & 010 8282 6886</span>
-                </li>
-                <li>
-                    <i class="fas fa-envelope"></i>
-                    <span>Email: support@toanhongkorea.com</span>
-                </li>
-                <li>
-                    <i class="fas fa-clock"></i>
-                    <span>Giờ làm việc: 24/7 (T2 - CN)</span>
-                </li>
-            </ul>
-            <div class="payment-methods">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" style="width: 50px; filter: grayscale(1) invert(1);">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" style="width: 40px; margin-left: 10px; filter: grayscale(1) invert(1);">
+            <!-- Cột 4: Thông tin liên hệ -->
+            <div class="df-col">
+                <h4 class="df-title">THÔNG TIN LIÊN HỆ</h4>
+                <div class="df-contact">
+                    <div class="df-contact-item">
+                        <div class="df-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="df-text">
+                            <strong>Địa chỉ:</strong>
+                            <p>Seoul, Republic of Korea</p>
+                        </div>
+                    </div>
+                    <div class="df-contact-item">
+                        <div class="df-icon"><i class="fa-solid fa-phone-volume"></i></div>
+                        <div class="df-text">
+                            <strong>Hotline 24/7:</strong>
+                            <p>010 2828 8333 — 010 8282 6886</p>
+                        </div>
+                    </div>
+                    <div class="df-contact-item">
+                        <div class="df-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+                        <div class="df-text">
+                            <strong>Email:</strong>
+                            <p>hongtoan0509@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="df-payment">
+                    <p>PHƯƠNG THỨC THANH TOÁN</p>
+                    <div class="df-payment-icons">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg"
+                            alt="Visa">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
+                            alt="Master">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="Paypal">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="footer-bottom">
-        <p>&copy; 2025 Toanhong Korea. All rights reserved.</p>
+
+    <!-- Bottom Footer -->
+    <div class="df-bottom">
+        <div class="df-container">
+            <div class="df-bottom-inner">
+                <div class="df-copy">
+                    © 2025 <span>Toanhong Korea</span>. All rights reserved.
+                </div>
+                <div class="df-author">
+                    Designed by <a href="#">ManhDev</a>
+                </div>
+            </div>
+        </div>
     </div>
 </footer>
-
-<!-- Thêm FontAwesome nếu web bạn chưa có để hiện icon -->
+@include('client.desktop.partials.footer-lib')

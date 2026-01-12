@@ -63,8 +63,8 @@
                                 </td>
                                 <td>
                                     @if($phone->variants->count() > 0)
-                                        {{ number_format($phone->variants->min('price')) }}đ - 
-                                        {{ number_format($phone->variants->max('price')) }}đ
+                                        {{ number_format($phone->variants->min('price')) }}w - 
+                                        {{ number_format($phone->variants->max('price')) }}w
                                     @else
                                         Liên hệ
                                     @endif

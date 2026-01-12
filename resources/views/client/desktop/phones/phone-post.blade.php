@@ -1,6 +1,8 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Lưu trữ các DOM elements
+        const data = window.VARIANT_DATA;
+        if (!data) return;
+
         const priceEl = document.getElementById('ss-pd-main-price');
         const skuEl = document.getElementById('ss-pd-sku');
         const stockStatusEl = document.getElementById('ss-pd-stock-status');
@@ -11,122 +13,122 @@
             selectedColor = null,
             currentVariant = null;
 
-        // --- 1. HÀM TỰ ĐỘNG CHỌN BIẾN THỂ RẺ NHẤT KHI LOAD TRANG ---
-        function selectDefaultVariant() {
-            if (VARIANT_DATA.length > 0) {
-                // Tìm biến thể có giá thấp nhất
-                const cheapest = VARIANT_DATA.reduce((min, v) => v.price < min.price ? v : min, VARIANT_DATA[
-                    0]);
-
-                // Kích hoạt click giả lập
-                document.querySelector(
-                    `.ss-pd-v-item[data-type="condition"][data-value="${cheapest.condition}"]`)?.click();
-                document.querySelector(`.ss-pd-v-item[data-type="size"][data-value="${cheapest.size_id}"]`)
-                    ?.click();
-                document.querySelector(`.ss-pd-v-item[data-type="color"][data-value="${cheapest.color_id}"]`)
-                    ?.click();
-            }
+        // 1. Hàm tạo mã REF chuyên nghiệp
+        function generateRefCode(variant) {
+            // Định dạng: MUA_[ID]_[Tên không dấu]_[Dung lượng]
+            const nameSlug = "{{ Str::slug($phone->name, '_') }}";
+            const sizeName = document.querySelector(`.ss-pd-v-item[data-type="size"].active`)?.innerText.trim()
+                .replace(/\s+/g, '') || '0';
+            return `MUA_${variant.id}_${nameSlug}_${sizeName}`.toUpperCase();
         }
 
-        // --- 2. CẬP NHẬT GIAO DIỆN ---
         function updateDisplay() {
-            // Tìm biến thể khớp trong DATA
-            currentVariant = VARIANT_DATA.find(v =>
+            currentVariant = data.find(v =>
                 v.condition === selectedCondition &&
                 v.size_id == selectedSize &&
                 v.color_id == selectedColor
             );
 
             if (currentVariant) {
-                // Trường hợp có sẵn hàng/có trong database
                 priceEl.innerText = new Intl.NumberFormat('vi-VN').format(currentVariant.price) + 'w';
-                skuEl.innerText = currentVariant.sku || 'N/A';
-                stockStatusEl.innerText = "Còn hàng";
+                if (skuEl) skuEl.innerText = currentVariant.sku || 'N/A';
+                stockStatusEl.innerText = "Sẵn hàng tại Toàn Hồng Korea";
                 stockStatusEl.style.color = "#16a34a";
-                // Hiển thị thêm thông tin máy cũ nếu có
-                if (selectedCondition !== 'new') {
-                    document.getElementById('ss-pd-used-info').style.display = 'block';
-                    document.getElementById('val-pin').innerText = currentVariant.pin || '9x%';
-                    document.getElementById('val-sac').innerText = currentVariant.sac_lan || 'Ít';
-                } else {
-                    document.getElementById('ss-pd-used-info').style.display = 'none';
+
+                const usedInfo = document.getElementById('ss-pd-used-info');
+                if (selectedCondition !== 'new' && usedInfo) {
+                    usedInfo.style.display = 'flex';
+                    document.getElementById('val-pin').innerText = (currentVariant.battery_health || '98') +
+                    '%';
+                    document.getElementById('val-sac').innerText = (currentVariant.charging_count || 'Ít') +
+                        ' lần';
+                } else if (usedInfo) {
+                    usedInfo.style.display = 'none';
                 }
-            } else {
-                // TRƯỜNG HỢP KHÔNG CÓ SẴN (Cải thiện theo ý bạn)
-                priceEl.innerText = "Giá: Liên hệ";
-                skuEl.innerText = "Đặt hàng";
-                stockStatusEl.innerText = "Hàng đặt trước (Liên hệ)";
-                stockStatusEl.style.color = "#ea580c";
-                document.getElementById('ss-pd-used-info').style.display = 'none';
             }
-
-            // Logic làm mờ (Optionally) - Bạn có thể thêm class để báo hiệu các option không có sẵn
-            updateAvailableUI();
         }
 
-        // --- 3. LOGIC LÀM MỜ CÁC OPTION KHÔNG CÓ TRONG KHO (NHƯNG VẪN CHO CHỌN) ---
-        function updateAvailableUI() {
-            // Hàm này có thể mở rộng để thêm class 'opacity-50' vào các nút màu sắc/dung lượng 
-            // mà sự kết hợp đó không tồn tại trong VARIANT_DATA để khách biết là hàng cần đặt trước.
+        // 2. Hàm sao chép hiện đại hơn
+        async function copyToClipboard(text) {
+            try {
+                await navigator.clipboard.writeText(text);
+            } catch (err) {
+                // Fallback cho trình duyệt cũ
+                const el = document.createElement('textarea');
+                el.value = text;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+            }
         }
 
-        // --- 4. SỰ KIỆN CLICK CHỌN ---
-        const items = document.querySelectorAll('.ss-pd-v-item');
-        items.forEach(item => {
+        document.querySelectorAll('.ss-pd-v-item').forEach(item => {
             item.addEventListener('click', function() {
                 const type = this.dataset.type;
-                const value = this.dataset.value;
-
                 document.querySelectorAll(`.ss-pd-v-item[data-type="${type}"]`).forEach(btn =>
                     btn.classList.remove('active'));
                 this.classList.add('active');
-
-                if (type === 'condition') selectedCondition = value;
-                if (type === 'size') selectedSize = value;
-                if (type === 'color') selectedColor = value;
-
+                if (type === 'condition') selectedCondition = this.dataset.value;
+                if (type === 'size') selectedSize = this.dataset.value;
+                if (type === 'color') selectedColor = this.dataset.value;
                 updateDisplay();
             });
         });
 
-        // --- 5. XỬ LÝ NÚT MUA NGAY ---
         if (buyBtn) {
-            buyBtn.onclick = function(e) {
+            buyBtn.onclick = async function(e) {
                 e.preventDefault();
 
-                if (!selectedCondition || !selectedSize || !selectedColor) {
+                if (!currentVariant) {
                     Swal.fire({
                         icon: 'warning',
-                        title: 'Chú ý',
-                        text: 'Vui lòng chọn đầy đủ tùy chọn!'
+                        title: 'Chọn cấu hình',
+                        text: 'Vui lòng chọn đủ Tình trạng, Dung lượng và Màu sắc!'
                     });
                     return;
                 }
 
-                const sizeText = document.querySelector(`.ss-pd-v-item[data-type="size"].active`).innerText
-                    .trim();
+                const sizeText = document.querySelector(`.ss-pd-v-item[data-type="size"].active`)
+                    .innerText.trim();
                 const colorText = document.querySelector(`.ss-pd-v-item[data-type="color"].active`)
                     .innerText.trim();
+                const refCode = generateRefCode(currentVariant);
 
-                // Lấy giá an toàn (từ object nếu có, nếu không thì ghi Liên hệ)
-                const finalPrice = currentVariant ? new Intl.NumberFormat('vi-VN').format(currentVariant
-                    .price) + 'đ' : "Liên hệ";
+                // Nội dung tin nhắn để khách Paste (Dự phòng cho Desktop)
+                let message = `🛒 ĐƠN ĐẶT HÀNG:\n`;
+                message += `Sản phẩm: {{ $phone->name }}\n`;
+                message += `Cấu hình: ${sizeText} - ${colorText}\n`;
+                message += `Tình trạng: ${selectedCondition == 'new' ? 'Mới 100%' : 'Like New'}\n`;
+                message += `Giá: ${priceEl.innerText}\n`;
+                message += `Mã SP: ${currentVariant.sku}\n`;
+                message += `Link: ${window.location.href}`;
 
-                let message = `Chào Shop, mình muốn tư vấn sản phẩm này:\n`;
-                message += `📱 Sản phẩm: {{ $phone->name }}\n`;
-                message += `✨ Tình trạng: ${selectedCondition == 'new' ? 'Mới 100%' : 'Like New'}\n`;
-                message += `💾 Cấu hình: ${sizeText} - ${colorText}\n`;
-                message += `💰 Giá dự kiến: ${finalPrice}\n`;
-                message += `🔗 Link: ${window.location.href}`;
+                // Link Messenger kết hợp cả REF và TEXT
+                const pageUsername = "anhtoan270189";
+                const messengerUrl =
+                    `https://m.me/${pageUsername}?ref=${refCode}&text=${encodeURIComponent(message)}`;
 
-                const messengerUrl = `https://m.me/100090503628117?text=${encodeURIComponent(message)}`;
+                // Thực hiện sao chép
+                await copyToClipboard(message);
 
+                // Thông báo chuyên nghiệp
                 Swal.fire({
-                    title: 'Gửi yêu cầu tư vấn',
-                    html: `Bạn đang chọn bản: <b>${sizeText} - ${colorText}</b><br>Giá: <b>${finalPrice}</b>`,
-                    icon: 'info',
+                    title: 'Đang mở Messenger...',
+                    html: `
+                        <div style="text-align: left; background: #f4f4f4; padding: 10px; border-radius: 8px; font-size: 0.9em;">
+                            ${message.replace(/\n/g, '<br>')}
+                        </div>
+                        <p style="margin-top:15px; color: #d33; font-weight: bold;">
+                           <i class="fas fa-copy"></i> Đã tự động sao chép thông tin!
+                        </p>
+                        <small>Nếu ô chat trống, bạn chỉ cần <b>Dán (Ctrl+V)</b> và gửi nhé.</small>
+                    `,
+                    icon: 'success',
                     showCancelButton: true,
-                    confirmButtonText: 'Mở Messenger'
+                    confirmButtonText: 'Mở Chat & Gửi đơn',
+                    cancelButtonText: 'Ở lại trang',
+                    confirmButtonColor: '#0084FF'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         window.open(messengerUrl, '_blank');
@@ -135,8 +137,16 @@
             };
         }
 
-        // Chạy mặc định khi load
-        selectDefaultVariant();
+        // Chọn mặc định
+        if (data.length > 0) {
+            const cheapest = data.reduce((min, v) => v.price < min.price ? v : min, data[0]);
+            document.querySelector(`.ss-pd-v-item[data-type="condition"][data-value="${cheapest.condition}"]`)
+                ?.click();
+            document.querySelector(`.ss-pd-v-item[data-type="size"][data-value="${cheapest.size_id}"]`)
+        ?.click();
+            document.querySelector(`.ss-pd-v-item[data-type="color"][data-value="${cheapest.color_id}"]`)
+                ?.click();
+        }
     });
 </script>
 
@@ -154,7 +164,7 @@
         position: absolute;
         top: -8px;
         right: -5px;
-        background: #0084FF;
+        background: #ff0000;
         color: white;
         font-size: 10px;
         width: 15px;

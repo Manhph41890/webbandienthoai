@@ -27,43 +27,81 @@ class PhoneController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Phone::with('category', 'variants.size', 'variants.color');
-        $trashedCount = Phone::onlyTrashed()->count();
-        $categories = Category::all(); // Lấy danh sách danh mục để hiển thị ở filter
+        // 1. Khởi tạo query với tổng kho và giá nhỏ nhất để sắp xếp
+        $query = Phone::with('category', 'variants.size', 'variants.color')->withSum('variants as total_stock', 'stock')->withMin('variants as min_price', 'price');
 
-        // 1. Tìm kiếm theo tên (giữ nguyên logic của bạn)
+        $trashedCount = Phone::onlyTrashed()->count();
+        $categories = Category::all();
+
+        // 2. Tìm kiếm theo tên/danh mục
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', '%' . $search . '%')->orWhereHas('category', function ($q) use ($search) {
-                    $q->where('name', 'like', '%' . $search . '%');
+                $q->where('name', 'like', "%$search%")->orWhereHas('category', function ($q) use ($search) {
+                    $q->where('name', 'like', "%$search%");
                 });
             });
         }
 
-        // 2. Lọc theo Danh mục
+        // 3. Lọc theo Danh mục & Trạng thái
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
         }
-
-        // 3. Lọc theo Trạng thái (is_active)
         if ($request->filled('status')) {
             $query->where('is_active', $request->status);
         }
 
-        // 4. Lọc theo Khoảng giá (Lọc trong bảng variants)
+        // 4. Lọc theo Khoảng giá
         if ($request->filled('min_price')) {
-            $query->whereHas('variants', function ($q) use ($request) {
-                $q->where('price', '>=', $request->min_price);
-            });
+            $query->whereHas('variants', fn($q) => $q->where('price', '>=', $request->min_price));
         }
         if ($request->filled('max_price')) {
-            $query->whereHas('variants', function ($q) use ($request) {
-                $q->where('price', '<=', $request->max_price);
-            });
+            $query->whereHas('variants', fn($q) => $q->where('price', '<=', $request->max_price));
         }
 
-        $phones = $query->latest()->paginate(10);
+        // 5. Lọc theo Tình trạng máy (Mới/Cũ) - MỚI
+        if ($request->filled('condition')) {
+            $query->whereHas('variants', fn($q) => $q->where('condition', $request->condition));
+        }
+
+        // 6. Lọc theo Kho hàng
+        if ($request->filled('stock_status')) {
+            $status = $request->stock_status;
+            if ($status == 'out_of_stock') {
+                $query->having('total_stock', '=', 0);
+            } elseif ($status == 'low_stock') {
+                $query->having('total_stock', '>', 0)->having('total_stock', '<=', 5);
+            } elseif ($status == 'in_stock') {
+                $query->having('total_stock', '>', 5);
+            }
+        }
+
+        // 7. Sắp xếp (Sorting) - MỚI
+        $sort = $request->get('sort', 'latest');
+        switch ($sort) {
+            case 'price_asc':
+                $query->orderBy('min_price', 'asc');
+                break;
+            case 'price_desc':
+                $query->orderBy('min_price', 'desc');
+                break;
+            case 'stock_asc':
+                $query->orderBy('total_stock', 'asc');
+                break;
+            case 'stock_desc':
+                $query->orderBy('total_stock', 'desc');
+                break;
+            case 'oldest':
+                $query->orderBy('created_at', 'asc');
+                break;
+            default:
+                $query->latest();
+                break;
+        }
+
+        // 8. Phân trang tùy chỉnh số lượng - MỚI
+        $perPage = $request->get('per_page', 10);
+        $phones = $query->paginate($perPage)->withQueryString();
 
         return view('admin.phones.index', compact('phones', 'trashedCount', 'categories'));
     }

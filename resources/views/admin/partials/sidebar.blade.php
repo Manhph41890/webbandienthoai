@@ -5,18 +5,16 @@
     <a class="sidebar-brand d-flex align-items-center justify-content-center">
             <img src="{{asset('logo/logo_remove.png')}}" alt="Logo" width="90%">
     </a>
-
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    {{-- Sử dụng Request::is() để kiểm tra route hiện tại và thêm class 'active' --}}
-    {{-- <li class="nav-item {{ Request::is('admin/dashboard*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('admin/dashboard*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Thống kê (Dashboard)</span>
         </a>
-    </li> --}}
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -97,32 +95,22 @@
         </div>
     </li>
 
-    {{-- Menu đơn hàng --}}
-    <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
-
-    <!-- Heading -->
     <div class="sidebar-heading">
         Quản lý Liên Hệ
     </div>
 
-    <!-- Nav Item - Quản lý Liên Hệ -->
     <li class="nav-item {{ Request::is('admin/contact*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.contact.index') }}">
             <i class="fas fa-fw fa-file-invoice-dollar"></i>
             <span>Yêu cầu cần phản hồi</span>
         </a>
     </li>
-    <!-- Heading -->
-
-    <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
-    <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
 
 </ul>
-<!-- End of Sidebar -->

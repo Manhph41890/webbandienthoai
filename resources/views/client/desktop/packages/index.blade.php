@@ -24,10 +24,10 @@
                                                     @for ($i = 1; $i <= 5; $i++)
                                                         <i class="fa-solid fa-star"></i>
                                                     @endfor
-                                                    <span class="spc-rating-text">(100+)</span>
+                                                    <span class="spc-rating-text">(99+)</span>
                                                 </div>
                                                 <button class="spc-heart-btn {{ $package->isFavorited() ? 'active' : '' }}"
-                                                    data-id="{{ $package->id }}" data-type="phone">
+                                                    data-id="{{ $package->id }}" data-type="package">
                                                     <i
                                                         class="{{ $package->isFavorited() ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
                                                 </button>
@@ -75,7 +75,7 @@
                                         <div class="spc-card-foot">
                                             <button type="button" class="spc-btn-buy btn-buy-package"
                                                 data-name="{{ $package->name }}"
-                                                data-price="{{ number_format($package->price) }}đ"
+                                                data-price="{{ number_format($package->price) }}w"
                                                 data-duration="{{ $package->duration_days }}"
                                                 data-carrier="{{ strtoupper($package->carrier) }}"
                                                 data-sim="{{ $package->sim_type == 'hop_phap' ? 'Hợp pháp' : 'Khác' }}"

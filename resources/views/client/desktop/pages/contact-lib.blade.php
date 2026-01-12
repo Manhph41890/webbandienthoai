@@ -153,3 +153,45 @@
         }
     }
 </style>
+<style>
+    .contact-container {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+    }
+
+    .store-name {
+        font-weight: bold;
+        font-size: 24px;
+        margin-bottom: 15px;
+        color: #000;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    .info-item i {
+        width: 25px;
+        /* Giúp các icon có độ rộng bằng nhau để chữ thẳng hàng */
+        margin-right: 10px;
+        color: #333;
+    }
+
+    /* Màu riêng cho icon Facebook */
+    .fa-facebook {
+        color: #1877F2;
+    }
+
+    .info-item a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .info-item a:hover {
+        text-decoration: underline;
+        color: #1877F2;
+    }
+</style>

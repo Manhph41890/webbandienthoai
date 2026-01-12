@@ -21,7 +21,7 @@
                             // Lấy giá
                             $price = $defaultVariant ? $defaultVariant->price : 0;
                             // Giả định giá cũ bằng giá hiện tại + 20% (vì DB bạn chưa có giá cũ)
-                            $oldPrice = $price * 1.2; 
+                            $oldPrice = $price * 1.2;
                         @endphp
 
                         <div class="product-items swiper-slide">
@@ -31,15 +31,14 @@
                             </div>
 
                             <a href="{{ route('phone.detail', $phone->slug) }}" class="product-img">
-                                <img src="{{ asset('storage/' . $phone->main_image) }}"
-                                    alt="{{ $phone->name }}"
+                                <img src="{{ asset('storage/' . $phone->main_image) }}" alt="{{ $phone->name }}"
                                     onerror="this.src='#'">
                             </a>
 
                             <div class="product-info">
                                 <h3 class="product-name">
                                     <a href="{{ route('phone.detail', $phone->slug) }}">
-                                        {{ $phone->name }} 
+                                        {{ $phone->name }}
                                         {{ $defaultVariant && $defaultVariant->size ? ' ' . $defaultVariant->size->name : '' }}
                                     </a>
                                 </h3>
@@ -50,8 +49,10 @@
                                 <div class="product-footer">
                                     <!-- Phần rating bạn có thể làm động sau nếu có bảng reviews -->
                                     <span class="rating"><i class="fas fa-star"></i> 5.0</span>
-                                    <button class="btn-favorite" data-id="{{ $phone->id }}">
-                                        <i class="far fa-heart"></i> Yêu thích
+                                    <button class="spc-heart-btn {{ $phone->isFavorited() ? 'active' : '' }}"
+                                        data-id="{{ $phone->id }}" data-type="phone">
+                                        <i
+                                            class="{{ $phone->isFavorited() ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
                                     </button>
                                 </div>
                             </div>

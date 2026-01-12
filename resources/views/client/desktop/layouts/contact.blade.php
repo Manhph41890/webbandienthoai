@@ -1,7 +1,7 @@
 <div id="contact-widget-desktop" class="contact-fixed-pc">
     <!-- Danh sách nút con -->
     <div class="contact-list-pc">
-        <a href="javascript:void(0)" class="contact-bubble-pc messenger-color" onclick="openMessengerPC()">
+        <a href="javascript:void(0)" class="contact-bubble-pc messenger-color" onclick="openMessenger()">
             <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg"
                 alt="Messenger">
             <span class="label-text">Nhắn tin cho shop</span>
@@ -182,6 +182,14 @@
 </style>
 
 <script>
+    function openMessenger() {
+        // Luôn dùng Username để tránh lỗi "Guest Session" trên iOS
+        const pageUsername = "anhtoan270189";
+        const messengerUrl = "https://m.me/" + pageUsername;
+
+        // Trên iPhone dùng href là mượt nhất để mở thẳng App
+        window.location.href = messengerUrl;
+    }
     function toggleContactPC() {
         const widget = document.getElementById('contact-widget-desktop');
         const iconOpen = document.querySelector('.icon-open-pc');

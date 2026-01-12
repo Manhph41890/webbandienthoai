@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Toàn Hồng Korea')</title> {{-- Cho phép các trang con định nghĩa title riêng --}}
+    <title>@yield('title', 'Toàn Hồng Korea')</title>
 
     <!-- Thêm Favicon (Biểu tượng trên tab trình duyệt) -->
     <link rel="icon" type="image/png" href="{{ asset('logo/logo.png') }}">
@@ -36,68 +36,25 @@
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
 
     @stack('styles')
 </head>
 
 <body>
-    @include('client.desktop.partials.header') {{-- Bao gồm phần header --}}
+    @include('client.desktop.partials.header')
 
-    @yield('content') {{-- Đây là nơi nội dung chính của từng trang sẽ được inject vào --}}
-    <!-- Floating Messenger Button -->
+    @yield('content')
 
     @include('client.desktop.layouts.contact')
-    @include('client.desktop.partials.footer') {{-- Bao gồm phần footer --}}
 
+    @include('client.desktop.partials.footer')
+    @include('layouts.lib.wishlist')
     @stack('scripts')
+    @include('sweetalert::alert')
 </body>
 
 </html>
-<style>
-    .spc-heart-btn.active i { color: #ff4757; animation: heartPop 0.3s linear; }
-    @keyframes heartPop {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.4); }
-        100% { transform: scale(1); }
-    }
-</style>
-
-<script>
-document.addEventListener('click', function (e) {
-    // Kiểm tra nếu click vào nút heart hoặc icon bên trong nó
-    const btn = e.target.closest('.spc-heart-btn');
-    if (!btn) return;
-
-    e.preventDefault();
-    const id = btn.dataset.id;
-    const type = btn.dataset.type;
-    const icon = btn.querySelector('i');
-
-    fetch('{{ route("wishlist.toggle") }}', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        body: JSON.stringify({ id, type })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.status === 'added') {
-            btn.classList.add('active');
-            icon.classList.replace('fa-regular', 'fa-solid');
-        } else {
-            btn.classList.remove('active');
-            icon.classList.replace('fa-solid', 'fa-regular');
-            // Nếu đang đứng ở trang wishlist thì có thể ẩn item đó đi
-            if (window.location.pathname === '/wishlist') {
-                btn.closest('.product-item').remove();
-            }
-        }
-        // Cập nhật số lượng trên icon trái tim menu
-        const badge = document.querySelector('.wishlist-count');
-        if (badge) badge.innerText = data.count;
-    })
-    .catch(err => console.error('Error:', err));
-});
-</script>

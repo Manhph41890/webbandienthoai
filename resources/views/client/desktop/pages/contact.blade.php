@@ -77,14 +77,24 @@
                             width="550" height="430" style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
-                    <div class="contact-info-mini">
+                    <div class="contact-container">
+                        <!-- Tên cửa hàng từ hình ảnh -->
+                        <h2 class="store-name">Điện Thoại Sim thẻ Toàn Hồng Korea</h2>
+
                         <div class="info-item">
                             <i class="fa-solid fa-location-dot"></i>
                             <span>Nhà Văn Hóa Thôn Thế Giới</span>
                         </div>
+
                         <div class="info-item">
                             <i class="fa-solid fa-phone"></i>
                             <span>010 2828 8333 - 010 8282 6868</span>
+                        </div>
+
+                        <!-- Mục Facebook mới thêm -->
+                        <div class="info-item">
+                            <i class="fa-brands fa-facebook"></i>
+                            <a href="https://www.facebook.com/anhtoan270189/" target="_blank">Toàn Hồng Korea</a>
                         </div>
                     </div>
                 </div>

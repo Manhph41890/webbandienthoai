@@ -29,10 +29,8 @@
     <script src="{{ asset('sb-admin/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('sb-admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-    <!-- Core plugin JavaScript -->
     <script src="{{ asset('sb-admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
-    <!-- Custom scripts for all pages-->
     <script src="{{ asset('sb-admin/js/sb-admin-2.min.js') }}"></script>
 
     @stack('styles')
@@ -43,41 +41,31 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        {{-- Sidebar --}}
         @include('admin.partials.sidebar')
 
-        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
             <div id="content">
 
-                {{-- Topbar/Header --}}
                 @include('admin.partials.header')
 
-                <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    @yield('content') {{-- Đây là nơi nội dung của từng trang sẽ được nạp vào --}}
+                    @yield('content') 
 
                 </div>
-                <!-- /.container-fluid -->
 
             </div>
-            <!-- End of Main Content -->
 
-            {{-- Footer --}}
             @include('admin.partials.footer')
 
         </div>
-        <!-- End of Content Wrapper -->
 
     </div>
-    <!-- End of Page Wrapper -->
 
-    {{-- Scripts chung và modal --}}
     @include('admin.partials.scripts')
-    @stack('scripts') {{-- Đây là nơi nội dung các modal sẽ được nạp vào --}}
+    @stack('scripts')
     @include('sweetalert::alert')
 </body>
 

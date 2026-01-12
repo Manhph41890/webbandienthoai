@@ -14,70 +14,72 @@
             </div>
         </div>
 
-            <!-- Danh sách sản phẩm -->
-            <div class="row g-4" id="product-list">
-                @foreach ($iphones as $phone)
-                    <div class="col-6 col-md-4 col-lg-3 product-item">
-                        <div class="product-card">
-                            <div class="product-badge">
-                                <button class="spc-heart-btn" title="Thêm vào yêu thích">
-                                    <i class="fa-regular fa-heart"></i>
-                                </button>
-                            </div>
+        <!-- Danh sách sản phẩm -->
+        <div class="row g-4" id="product-list">
+            @foreach ($iphones as $phone)
+                <div class="col-6 col-md-4 col-lg-3 product-item">
+                    <div class="product-card">
+                        <div class="product-badge">
+                            <button class="spc-heart-btn {{ $phone->isFavorited() ? 'active' : '' }}"
+                                data-id="{{ $phone->id }}" data-type="phone">
+                                <i class="{{ $phone->isFavorited() ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
+                            </button>
+                        </div>
 
-                            <div class="product-image">
-                                <a href="{{ route('phone.detail', $phone->slug) }}"> {{-- Giả sử bạn có route này --}}
-                                    <img src="{{ asset('storage/' . $phone->main_image) }}" alt="{{ $phone->name }}"
-                                        onerror="this.src=#">
+                        <div class="product-image">
+                            <a href="{{ route('phone.detail', $phone->slug) }}"> {{-- Giả sử bạn có route này --}}
+                                <img src="{{ asset('storage/' . $phone->main_image) }}" alt="{{ $phone->name }}"
+                                    onerror="this.src=#">
+                            </a>
+                        </div>
+
+                        <div class="product-content">
+                            <div class="ss-tag" style="color: #b11c44">{{ $phone->category->name }}</div>
+                            <h3 class="ss-name">
+                                <a href="{{ route('phone.detail', $phone->slug) }}"
+                                    style="text-decoration: none; color: inherit;">
+                                    {{ $phone->name }}
                                 </a>
+                            </h3>
+
+                            <div class="product-price">
+                                {{-- Lấy giá của biến thể đầu tiên (vì đã sắp xếp asc trong controller) --}}
+                                @if ($phone->variants->isNotEmpty())
+                                    {{ number_format($phone->variants->first()->price, 0, ',', '.') }}
+                                    <span class="currency">won</span>
+                                @else
+                                    Liên hệ
+                                @endif
                             </div>
 
-                            <div class="product-content">
-                                <div class="ss-tag" style="color: #b11c44">{{ $phone->category->name }}</div>
-                                <h3 class="ss-name">
-                                    <a href="{{ route('phone.detail', $phone->slug) }}" style="text-decoration: none; color: inherit;">
-                                        {{ $phone->name }}
-                                    </a>
-                                </h3>
+                            <div class="product-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span class="rating-count">(99+)</span>
+                            </div>
 
-                                <div class="product-price">
-                                    {{-- Lấy giá của biến thể đầu tiên (vì đã sắp xếp asc trong controller) --}}
-                                    @if ($phone->variants->isNotEmpty())
-                                        {{ number_format($phone->variants->first()->price, 0, ',', '.') }}
-                                        <span class="currency">won</span>
-                                    @else
-                                        Liên hệ
-                                    @endif
-                                </div>
-
-                                <div class="product-rating">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <span class="rating-count">(100+)</span>
-                                </div>
-
-                                <div class="product-actions">
-                                    <a href="{{ route('phone.detail', $phone->slug) }}" target="_blank" class="btn-messenger">
-                                        <i class="fa-brands fa-facebook-messenger"></i> MUA NGAY
-                                    </a>
-                                    <a href="{{ route('phone.detail', $phone->slug) }}" class="btn-detail">CHI TIẾT</a>
-                                </div>
+                            <div class="product-actions">
+                                <a href="{{ route('phone.detail', $phone->slug) }}" target="_blank"
+                                    class="btn-messenger">
+                                    <i class="fa-brands fa-facebook-messenger"></i> MUA NGAY
+                                </a>
                             </div>
                         </div>
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
+        </div>
 
-            <div class="pagination-wrapper d-flex justify-content-center mt-5">
-                <nav>
-                    <ul class="pagination custom-pagination" id="pagination">
-                        <!-- JS sẽ tự đổ nút vào đây -->
-                    </ul>
-                </nav>
-            </div>
+        <div class="pagination-wrapper d-flex justify-content-center mt-5">
+            <nav>
+                <ul class="pagination custom-pagination" id="pagination">
+                    <!-- JS sẽ tự đổ nút vào đây -->
+                </ul>
+            </nav>
+        </div>
 
     </div>
 </section>

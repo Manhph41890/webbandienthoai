@@ -1,7 +1,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // ID Fanpage của bạn
-    const PAGE_ID = "100090503628117"; 
+    const PAGE_ID = "100063769254777"; 
 
     // Bắt sự kiện click trên toàn bộ container (Event Delegation)
     const productList = document.getElementById('product-list');

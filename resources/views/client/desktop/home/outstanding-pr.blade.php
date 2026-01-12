@@ -73,7 +73,7 @@
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
-                                    <span class="rating-count">(100+)</span>
+                                    <span class="rating-count">(99+)</span>
                                 </div>
 
                                 <div class="product-actions">

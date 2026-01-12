@@ -353,18 +353,7 @@
             position: relative;
         }
 
-        /* Thêm icon check nhỏ ở góc nút active (tùy chọn) */
-        .ss-pd-v-item.active::after {
-            content: "\f058";
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #ff0000;
-            border-radius: 50%;
-            font-size: 14px;
-        }
+
 
         /* Hiệu ứng cho Thumbnail */
         .ss-pd-thumb-list img {

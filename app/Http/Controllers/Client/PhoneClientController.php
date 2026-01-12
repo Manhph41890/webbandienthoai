@@ -23,7 +23,7 @@ class PhoneClientController extends Controller
         $categoryIds = $currentCategory->getAllChildIds();
 
         // 2. Khởi tạo Query lấy Phone
-        $query = Phone::whereIn('phones.category_id', $categoryIds)
+        $query = Phone::where('is_active', true)->whereIn('phones.category_id', $categoryIds)
 
             ->join('variants', 'phones.id', '=', 'variants.phone_id')
             // Tính toán các giá trị ảo để lọc/sắp xếp

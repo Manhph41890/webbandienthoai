@@ -3,7 +3,7 @@
         <div class="ss-content-wrapper shadow-sm mb-4">
             <!-- Header Samsung Style -->
             <div class="ss-header d-flex flex-column flex-lg-row justify-content-between align-items-lg-center">
-                <div class="ss-title-group" >
+                <div class="ss-title-group">
                     <h2 class="ss-title">SAMSUNG GALAXY</h2>
                     <p class="ss-subtitle">Trải nghiệm công nghệ đỉnh cao</p>
                 </div>
@@ -21,8 +21,9 @@
                         @endif
 
                         <div class="product-badge">
-                            <button class="spc-heart-btn" title="Thêm vào yêu thích">
-                                <i class="fa-regular fa-heart"></i>
+                            <button class="spc-heart-btn {{ $samsung->isFavorited() ? 'active' : '' }}"
+                                data-id="{{ $samsung->id }}" data-type="phone">
+                                <i class="{{ $samsung->isFavorited() ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
                             </button>
                         </div>
 
@@ -59,15 +60,14 @@
                                         class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
                                         class="fa-solid fa-star"></i>
                                 </div>
-                                <span class="count">(100+)</span>
+                                <span class="count">(99+)</span>
                             </div>
 
                             <div class="product-actions">
-                                <a href="{{ route('phone.detail', $samsung->slug) }}" target="_blank" class="btn-messenger">
+                                <a href="{{ route('phone.detail', $samsung->slug) }}" target="_blank"
+                                    class="btn-messenger">
                                     <i class="fa-brands fa-facebook-messenger"></i> MUA NGAY
                                 </a>
-                                <a href="{{ route('phone.detail', $samsung->slug) }}" class="btn-detail">CHI
-                                    TIẾT</a>
                             </div>
                         </div>
                     </div>

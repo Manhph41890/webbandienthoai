@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Toàn Hồng Korea')</title> {{-- Cho phép các trang con định nghĩa title riêng --}}
+    <title>@yield('title', 'Toàn Hồng Korea')</title>
 
     <!-- Thêm Favicon (Biểu tượng trên tab trình duyệt) -->
     <link rel="icon" type="image/png" href="{{ asset('logo/logo.png') }}">
@@ -13,7 +13,7 @@
 
 
     <link rel="stylesheet" href="{{ asset('css/client_styles_mb.css') }}">
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/main_mb.js') }}"></script>
 
     <!-- Font Awesome cho icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -38,15 +38,16 @@
 </head>
 
 <body>
-    @include('client.mobile.partials.header') {{-- Bao gồm phần header --}}
+    @include('client.mobile.partials.header')
 
-    @yield('content') {{-- Đây là nơi nội dung chính của từng trang sẽ được inject vào --}}
+    @yield('content')
 
     @include('client.mobile.layouts.contact')
 
-    @include('client.mobile.partials.footer') {{-- Bao gồm phần footer --}}
-
+    @include('client.mobile.partials.footer')
+    @include('layouts.lib.wishlist')
     @stack('scripts')
+    @include('sweetalert::alert')
 </body>
 
 </html>

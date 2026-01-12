@@ -105,7 +105,7 @@
                                         data-avatar-text="{{ strtoupper(substr($user->name, 0, 1)) }}"
                                         data-phone="{{ $user->phone ?? 'Chưa cập nhật' }}"
                                         data-bio="{{ $user->bio ?? 'Chưa có tiểu sử.' }}"
-                                        data-role="{{ $user->role->display_name ?? 'N/A' }}"
+                                        data-role="{{ $user->role->name ?? 'N/A' }}"
                                         data-status="{{ $user->is_active }}"
                                         data-created="{{ $user->created_at->format('H:i:s d/m/Y') }}">
                                         <i class="fas fa-eye"></i>

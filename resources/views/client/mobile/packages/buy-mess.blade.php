@@ -1,7 +1,7 @@
 <script>
     (function() {
         // --- CẤU HÌNH ---
-        const pageUsername = "hanofarmer"; // USERNAME FANPAGE (Tránh dùng ID số để iPhone ko lỗi)
+        const pageUsername = "anhtoan270189"; // USERNAME FANPAGE (Tránh dùng ID số để iPhone ko lỗi)
         const isIphone = navigator.userAgent.match(/iPhone|iPad|iPod/i);
 
         // Sử dụng Event Delegation để bắt sự kiện click cho tất cả nút MUA NGAY

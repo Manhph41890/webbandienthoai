@@ -1,42 +1,47 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // 1. Xử lý đóng mở Accordion Menu (Đa cấp)
-    const toggles = document.querySelectorAll('.arrow-toggle');
-
-    toggles.forEach(btn => {
-        btn.addEventListener('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation(); // Ngăn sự kiện nổi bọt lên link chính
-
-            const parentLi = this.closest('li');
-            
-            // Nếu muốn chỉ mở 1 cái, đóng các cái khác cùng cấp (tùy chọn)
-            /*
-            const siblings = parentLi.parentElement.children;
-            for (let sibling of siblings) {
-                if (sibling !== parentLi) sibling.classList.remove('open');
+    
+    const subSwipers = new Swiper('.banner-sub-swiper', {
+        loop: true,
+        autoplay: {
+            delay: 4000, // 4 giây đổi ảnh một lần
+            disableOnInteraction: false,
+        },
+        speed: 800,
+        effect: 'slide',
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        // Nếu muốn ảnh hiện ra mượt mà hơn
+        fadeEffect: {
+            crossFade: true
+        }
+    });
+    // 2. Swiper cho Sản phẩm nổi bật (MỚI)
+    const productSwiper = new Swiper('.product-swiper', {
+        slidesPerView: 2,      // Mặc định cho mobile
+        spaceBetween: 10,      // Khoảng cách giữa các sp
+        slidesPerGroup: 2,     // Mỗi lần bấm nhảy 2 cái
+        loop: false,           // Tắt loop để tránh lỗi hiển thị khi ít sp
+        navigation: {
+            nextEl: '.slider-nav.next',
+            prevEl: '.slider-nav.prev',
+        },
+        // Điểm dừng responsive
+        breakpoints: {
+            768: {             // Máy tính bảng
+                slidesPerView: 3,
+                spaceBetween: 12,
+                slidesPerGroup: 3,
+            },
+            1024: {            // Desktop
+                slidesPerView: 5,
+                spaceBetween: 12,
+                slidesPerGroup: 5,
             }
-            */
-
-            // Toggle class 'open' cho li hiện tại
-            parentLi.classList.toggle('open');
-        });
+        },
+        // Thêm hiệu ứng di chuyển mượt mà
+        speed: 600,
     });
 
-    // 2. Xử lý đóng mở Drawer (Side Menu)
-    const openBtn = document.getElementById('openMenu');
-    const closeBtn = document.getElementById('closeMenu');
-    const drawer = document.getElementById('sideDrawer');
-    const overlay = document.getElementById('menuOverlay');
-
-    if (openBtn && closeBtn && drawer && overlay) {
-        function toggleMenu() {
-            drawer.classList.toggle('active');
-            overlay.classList.toggle('active');
-            document.body.style.overflow = drawer.classList.contains('active') ? 'hidden' : '';
-        }
-
-        openBtn.addEventListener('click', toggleMenu);
-        closeBtn.addEventListener('click', toggleMenu);
-        overlay.addEventListener('click', toggleMenu);
-    }
 });
