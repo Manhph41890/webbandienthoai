@@ -18,11 +18,14 @@ use App\Http\Controllers\MessengerTrackingController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | 1. GUEST ROUTES (Ai cũng có thể truy cập)
 |--------------------------------------------------------------------------
 */
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search/products', [SearchController::class, 'index'])->name('search');
 
@@ -81,6 +84,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/chat/send', [ChatController::class, 'sendMessage']);
     Route::post('/chat/read/{userId}', [ChatController::class, 'markAsRead']);
 });
+
 /*
 |--------------------------------------------------------------------------
 | 4. ADMIN & STAFF ROUTES (Roles 1 & 2)
