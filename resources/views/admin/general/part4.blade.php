@@ -1,239 +1,253 @@
-<style>
-    .stat-card {
-        border: none;
-        border-radius: 15px;
-        transition: all 0.3s ease;
-        overflow: hidden;
-        color: white;
-    }
-    .stat-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
-    }
-    .card-gradient-1 { background: linear-gradient(45deg, #4e73df, #224abe); }
-    .card-gradient-2 { background: linear-gradient(45deg, #1cc88a, #13855c); }
-    .card-gradient-3 { background: linear-gradient(45deg, #f6c23e, #dda20a); }
-    .card-gradient-4 { background: linear-gradient(45deg, #36b9cc, #258391); }
-    .card-gradient-5 { background: linear-gradient(45deg, #6610f2, #4e08bc); }
-    .card-gradient-6 { background: linear-gradient(45deg, #e74a3b, #be2617); }
-    .card-gradient-7 { background: linear-gradient(45deg, #fd7e14, #e66a05); }
-    .card-gradient-8 { background: linear-gradient(45deg, #5a5c69, #373840); }
-
-    .detail-btn {
-        background: rgba(255, 255, 255, 0.2);
-        border: none;
-        color: white;
-        padding: 2px 10px;
-        border-radius: 20px;
-        font-size: 0.7rem;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-    .detail-btn:hover { background: rgba(255, 255, 255, 0.4); }
-    .collapse-content {
-        background: rgba(0, 0, 0, 0.1);
-        font-size: 0.85rem;
-        padding: 10px;
-        border-top: 1px solid rgba(255,255,255,0.1);
-    }
-</style>
-
 <div class="row">
-    <!-- Cột 1: Kho hàng (Variant) -->
+    <!-- Cột 1: Kho hàng -->
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card stat-card card-gradient-1 shadow-sm h-100">
-            <div class="card-body">
+        <div class="st-card st-grad-1 shadow-sm h-100">
+            <div class="st-card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-white-50 text-xs font-weight-bold text-uppercase mb-1">Thiết bị trong kho</div>
-                        <div class="h3 mb-0 font-weight-bold">{{ number_format($totalVariants) }} <small style="font-size:12px">mẫu</small></div>
+                        <div class="st-label">Thiết bị trong kho</div>
+                        <div class="st-value">{{ number_format($totalVariants) }} <small>mẫu</small></div>
                     </div>
-                    <i class="fas fa-boxes fa-2x text-white-50"></i>
+                    <i class="fas fa-boxes st-icon-bg"></i>
                 </div>
                 <div class="mt-3">
-                    <button class="detail-btn" type="button" data-toggle="collapse" data-target="#detail1">
-                        Xem chi tiết <i class="fas fa-chevron-down ml-1"></i>
+                    <!-- Dùng data-custom-target thay vì data-target của BS -->
+                    <button class="st-detail-btn" type="button" data-custom-target="#st-dt-1">
+                        Xem chi tiết <i class="fas fa-chevron-down ml-1 st-chevron"></i>
                     </button>
                 </div>
             </div>
-            <div class="collapse collapse-content" id="detail1">
-                <div>Tổng tồn kho: <strong>{{ number_format($totalStock) }}</strong> sản phẩm</div>
-                <div>Trạng thái: Đang cập nhật...</div>
+            <div class="st-collapse-content" id="st-dt-1">
+                <div class="st-padding">
+                    <div><i class="fas fa-warehouse mr-2"></i> Tổng tồn kho:
+                        <strong>{{ number_format($totalStock) }}</strong>
+                    </div>
+                    <div><i class="fas fa-sync-alt mr-2"></i> Trạng thái: <strong>Đang cập nhật</strong></div>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Cột 2: Gói cước -->
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card stat-card card-gradient-2 shadow-sm h-100">
-            <div class="card-body">
+        <div class="st-card st-grad-2 shadow-sm h-100">
+            <div class="st-card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-white-50 text-xs font-weight-bold text-uppercase mb-1">Gói cước hoạt động</div>
-                        <div class="h3 mb-0 font-weight-bold">{{ $packagesCount }}</div>
+                        <div class="st-label">Gói cước hoạt động</div>
+                        <div class="st-value">{{ $packagesCount }}</div>
                     </div>
-                    <i class="fas fa-sim-card fa-2x text-white-50"></i>
+                    <i class="fas fa-sim-card st-icon-bg"></i>
                 </div>
                 <div class="mt-3">
-                    <button class="detail-btn" type="button" data-toggle="collapse" data-target="#detail2">
-                        Chi tiết nhà mạng <i class="fas fa-chevron-down ml-1"></i>
+                    <button class="st-detail-btn" type="button" data-custom-target="#st-dt-2">
+                        Chi tiết nhà mạng <i class="fas fa-chevron-down ml-1 st-chevron"></i>
                     </button>
                 </div>
             </div>
-            <div class="collapse collapse-content" id="detail2">
-                @php $carriers = ['SK' => 'sk', 'KT' => 'kt', 'LG' => 'lgu']; @endphp
-                @foreach($carriers as $name => $code)
-                    <div class="d-flex justify-content-between">
-                        <span>{{ $name }}:</span> 
-                        <strong>{{ \App\Models\Package::where('carrier', $code)->count() }}</strong>
-                    </div>
-                @endforeach
+            <div class="st-collapse-content" id="st-dt-2">
+                <div class="st-padding">
+                    @php $carriers = ['SK' => 'sk', 'KT' => 'kt', 'LG' => 'lgu']; @endphp
+                    @foreach ($carriers as $name => $code)
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span><i class="fas fa-signal mr-2"></i> {{ $name }}:</span>
+                            <strong>{{ \App\Models\Package::where('carrier', $code)->count() }}</strong>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Cột 3: Nhân sự & User -->
+    <!-- Cột 3: Nhân sự -->
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card stat-card card-gradient-3 shadow-sm h-100">
-            <div class="card-body">
+        <div class="st-card st-grad-3 shadow-sm h-100">
+            <div class="st-card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-white-50 text-xs font-weight-bold text-uppercase mb-1">Nhân sự & Khách</div>
-                        <div class="h4 mb-0 font-weight-bold">{{ $employeesCount }} NV / {{ $usersCount }} User</div>
+                        <div class="st-label">Nhân sự & Khách</div>
+                        <div class="st-value-sm">{{ $employeesCount }} NV / {{ $usersCount }} User</div>
                     </div>
-                    <i class="fas fa-users fa-2x text-white-50"></i>
+                    <i class="fas fa-users st-icon-bg"></i>
                 </div>
                 <div class="mt-3">
-                    <button class="detail-btn" type="button" data-toggle="collapse" data-target="#detail3">
-                        Trạng thái Online <i class="fas fa-chevron-down ml-1"></i>
+                    <button class="st-detail-btn" type="button" data-custom-target="#st-dt-3">
+                        Trạng thái Online <i class="fas fa-chevron-down ml-1 st-chevron"></i>
                     </button>
                 </div>
             </div>
-            <div class="collapse collapse-content" id="detail3">
-                <div>Đang Online: <strong>{{ $employees->count() }}</strong> nhân viên</div>
-                <a href="{{ route('admin.accounts.index') }}" class="text-white border-bottom" style="font-size: 11px">Quản lý người dùng</a>
+            <div class="st-collapse-content" id="st-dt-3">
+                <div class="st-padding">
+                    <div class="d-flex align-items-center text-success"><i class="fas fa-circle mr-2 st-blink"></i> Đang
+                        Online: <strong class="ml-1">{{ $employees->count() }}</strong></div>
+                    <div class="d-flex align-items-center mt-2"><i class="fas fa-user-cog mr-2"></i> <a
+                            href="{{ route('admin.accounts.index') }}" class="text-white border-bottom">Quản lý</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Cột 4: Lượt tương tác SP -->
+    <!-- Cột 4: Lượt xem -->
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card stat-card card-gradient-4 shadow-sm h-100">
-            <div class="card-body">
+        <div class="st-card st-grad-4 shadow-sm h-100">
+            <div class="st-card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-white-50 text-xs font-weight-bold text-uppercase mb-1">Lượt xem sản phẩm</div>
-                        <div class="h3 mb-0 font-weight-bold">{{ number_format($totalProductViews) }}</div>
+                        <div class="st-label">Lượt xem sản phẩm</div>
+                        <div class="st-value">{{ number_format($totalProductViews) }}</div>
                     </div>
-                    <i class="fas fa-eye fa-2x text-white-50"></i>
+                    <i class="fas fa-eye st-icon-bg"></i>
                 </div>
                 <div class="mt-3">
-                    <button class="detail-btn" type="button" data-toggle="collapse" data-target="#detail4">
-                        Xem Top SP <i class="fas fa-chevron-down ml-1"></i>
+                    <button class="st-detail-btn" type="button" data-custom-target="#st-dt-4">
+                        Xem Top SP <i class="fas fa-chevron-down ml-1 st-chevron"></i>
                     </button>
                 </div>
             </div>
-            <div class="collapse collapse-content" id="detail4">
-                @foreach($topPhones as $tp)
-                    <div class="text-truncate" style="max-width: 180px;">• {{ $tp->name }} ({{ $tp->views_count }})</div>
-                @endforeach
+            <div class="st-collapse-content" id="st-dt-4">
+                <div class="st-padding">
+                    @foreach ($topPhones as $tp)
+                        <div class="text-truncate mb-1"><i class="fas fa-star mr-2 text-warning"></i>
+                            {{ $tp->name }} ({{ $tp->views_count }})</div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <div class="row">
-    <!-- Cột 5: Đơn hàng & Doanh thu -->
+    <!-- Cột 5: Đơn hàng -->
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card stat-card card-gradient-5 shadow-sm h-100">
-            <div class="card-body">
+        <div class="st-card st-grad-5 shadow-sm h-100">
+            <div class="st-card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-white-50 text-xs font-weight-bold text-uppercase mb-1">Đơn hàng mới</div>
-                        <div class="h3 mb-0 font-weight-bold">5</div>
+                        <div class="st-label">ĐƠN MESSENGER</div>
+                        <div class="st-value">{{ number_format($totalMessengerOrders) }}</div>
                     </div>
-                    <i class="fas fa-shopping-cart fa-2x text-white-50"></i>
+                    <!-- Đổi sang icon Messenger cho đúng ngữ cảnh -->
+                    <i class="fab fa-facebook-messenger st-icon-bg"></i>
                 </div>
                 <div class="mt-3">
-                    <button class="detail-btn" type="button" data-toggle="collapse" data-target="#detail5">
-                        Doanh thu <i class="fas fa-chevron-down ml-1"></i>
+                    <button class="st-detail-btn" type="button" data-custom-target="#st-dt-5">
+                        Xem chi tiết <i class="fas fa-chevron-down ml-1 st-chevron"></i>
                     </button>
                 </div>
             </div>
-            <div class="collapse collapse-content" id="detail5">
-                <div>Tổng doanh thu: <strong>{{ number_format($totalRevenue ?? 0) }} VNĐ</strong></div>
+            <div class="st-collapse-content" id="st-dt-5">
+                <div class="st-padding">
+                    <!-- Hiển thị doanh thu dự tính -->
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="fas fa-money-bill-wave mr-2 text-success"></i>
+                        Dự thu: <strong class="ml-1 text-white">{{ number_format($totalMessengerRevenue) }}w</strong>
+                    </div>
+                    <hr style="border-top: 1px solid rgba(255,255,255,0.2); margin: 5px 0;">
+                    <!-- Hiển thị phân loại -->
+                    <div class="d-flex justify-content-between">
+                        <span><i class="fas fa-mobile-alt mr-1"></i> Điện thoại:</span>
+                        <strong>{{ $phoneMessCount }}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mt-1">
+                        <span><i class="fas fa-sim-card mr-1"></i> Gói cước:</span>
+                        <strong>{{ $packageMessCount }}</strong>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Cột 6: Truy cập Website -->
+    <!-- Cột 6: Website -->
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card stat-card card-gradient-6 shadow-sm h-100">
-            <div class="card-body">
+        <div class="st-card st-grad-6 shadow-sm h-100">
+            <div class="st-card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-white-50 text-xs font-weight-bold text-uppercase mb-1">Truy cập Website</div>
-                        <div class="h3 mb-0 font-weight-bold">{{ number_format($webVisits ?? 0) }}</div>
+                        <div class="st-label">Truy cập Website</div>
+                        <!-- Hiển thị tổng số lượt truy cập -->
+                        <div class="st-value">{{ number_format($webVisits ?? 0) }}</div>
                     </div>
-                    <i class="fas fa-globe fa-2x text-white-50"></i>
+                    <i class="fas fa-globe st-icon-bg"></i>
                 </div>
                 <div class="mt-3">
-                    <button class="detail-btn" type="button" data-toggle="collapse" data-target="#detail6">
-                        Thiết bị truy cập <i class="fas fa-chevron-down ml-1"></i>
+                    <button class="st-detail-btn" type="button" data-custom-target="#st-dt-6">
+                        Thiết bị <i class="fas fa-chevron-down ml-1 st-chevron"></i>
                     </button>
                 </div>
             </div>
-            <div class="collapse collapse-content" id="detail6">
-                <div>Mobile: 65% | Desktop: 35%</div>
+            <div class="st-collapse-content" id="st-dt-6">
+                <div class="st-padding">
+                    <!-- Hiển thị chi tiết Mobile -->
+                    <div class="d-flex align-items-center mb-1">
+                        <i class="fas fa-mobile-alt mr-2"></i>
+                        Mobile: {{ $mobileRate }}% ({{ number_format($mobileHits) }})
+                    </div>
+                    <!-- Hiển thị chi tiết Desktop -->
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-desktop mr-2"></i>
+                        Desktop: {{ $desktopRate }}% ({{ number_format($desktopHits) }})
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Cột 7: Yêu thích -->
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card stat-card card-gradient-7 shadow-sm h-100">
-            <div class="card-body">
+        <div class="st-card st-grad-7 shadow-sm h-100">
+            <div class="st-card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-white-50 text-xs font-weight-bold text-uppercase mb-1">Lượt yêu thích SP</div>
-                        <div class="h3 mb-0 font-weight-bold">{{ number_format($totalFavorites ?? 0) }}</div>
+                        <div class="st-label">Lượt yêu thích SP</div>
+                        <div class="st-value">{{ number_format($totalFavorites ?? 0) }}</div>
                     </div>
-                    <i class="fas fa-heart fa-2x text-white-50"></i>
+                    <i class="fas fa-heart st-icon-bg"></i>
                 </div>
                 <div class="mt-3">
-                    <button class="detail-btn" type="button" data-toggle="collapse" data-target="#detail7">
-                        Tỉ lệ quan tâm <i class="fas fa-chevron-down ml-1"></i>
+                    <button class="st-detail-btn" type="button" data-custom-target="#st-dt-7">
+                        Tỉ lệ quan tâm <i class="fas fa-chevron-down ml-1 st-chevron"></i>
                     </button>
                 </div>
             </div>
-            <div class="collapse collapse-content" id="detail7">
-                <div>Tăng 12% so với tháng trước</div>
+            <div class="st-collapse-content" id="st-dt-7">
+                <div class="st-padding">
+                    <div class="d-flex align-items-center"><i class="fas fa-chart-line mr-2"></i> Tăng 12% tháng này
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Cột 8: Sắp hết hàng -->
+    <!-- Cột 8: Hết hàng -->
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card stat-card card-gradient-8 shadow-sm h-100">
-            <div class="card-body">
+        <div class="st-card st-grad-8 shadow-sm h-100">
+            <div class="st-card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-white-50 text-xs font-weight-bold text-uppercase mb-1">Cần nhập kho</div>
-                        <div class="h3 mb-0 font-weight-bold text-warning">{{ $outOfStockCount ?? 0 }} <small style="font-size:12px">mẫu</small></div>
+                        <div class="st-label">Cần nhập kho</div>
+                        <div class="st-value st-text-warn">{{ $outOfStockCount ?? 0 }} <small>mẫu</small></div>
                     </div>
-                    <i class="fas fa-exclamation-triangle fa-2x text-white-50"></i>
+                    <i class="fas fa-exclamation-triangle st-icon-bg"></i>
                 </div>
                 <div class="mt-3">
-                    <button class="detail-btn" type="button" data-toggle="collapse" data-target="#detail8">
-                        Xem danh sách <i class="fas fa-chevron-down ml-1"></i>
+                    <button class="st-detail-btn" type="button" data-custom-target="#st-dt-8">
+                        Xem danh sách <i class="fas fa-chevron-down ml-1 st-chevron"></i>
                     </button>
                 </div>
             </div>
-            <div class="collapse collapse-content" id="detail8">
-                @foreach($lowStockPhones as $lp)
-                   <div class="text-truncate" style="max-width: 180px;">• {{ $lp->name }} (Còn {{ $lp->variants_sum_stock }})</div>
-                @endforeach
+            <div class="st-collapse-content" id="st-dt-8">
+                <div class="st-padding">
+                    @foreach ($lowStockPhones as $lp)
+                        <div class="text-truncate d-flex justify-content-between mb-1">
+                            <span><i class="fas fa-angle-right mr-1"></i> {{ $lp->name }}</span>
+                            <strong class="st-text-warn">({{ $lp->variants_sum_stock }})</strong>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+@include('admin.general.part4-lib')

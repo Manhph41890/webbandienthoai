@@ -1,72 +1,92 @@
 <script>
-(function() {
-    // --- CẤU HÌNH ---
-    const pageUsername = "anhtoan270189"; // Username Fanpage của bạn
-    const isIphone = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    (function() {
+        // --- 1. CẤU HÌNH ---
+        const pageUsername = "anhtoan270189";
+        const isIphone = navigator.userAgent.match(/iPhone|iPad|iPod/i);
 
-    // Lắng nghe sự kiện click trên toàn trang
-    document.addEventListener('click', function(e) {
-        // Tìm xem phần tử bị click có phải nút MUA NGAY không
-        const buyBtn = e.target.closest('.btn-buy-package');
-        
-        if (buyBtn) {
-            e.preventDefault();
+        document.addEventListener('click', function(e) {
+            const buyBtn = e.target.closest('.btn-buy-package');
 
-            // 1. Lấy thông tin từ thuộc tính data của nút
-            const name = buyBtn.getAttribute('data-name');
-            const price = buyBtn.getAttribute('data-price');
-            const duration = buyBtn.getAttribute('data-duration');
-            const carrier = buyBtn.getAttribute('data-carrier');
-            const sim = buyBtn.getAttribute('data-sim');
-            const currentUrl = window.location.href;
+            if (buyBtn) {
+                e.preventDefault();
 
-            // 2. Tạo nội dung tin nhắn
-            let message = `Chào Shop, mình muốn đăng ký gói cước:\n`;
-            message += `📦 Gói cước: ${name}\n`;
-            message += `💰 Giá: ${price}\n`;
-            message += `⏳ Thời hạn: ${duration} ngày\n`;
-            message += `📶 Nhà mạng: ${carrier}\n`;
-            message += `📱 Loại SIM: ${sim}\n`;
-            message += `🔗 Link: ${currentUrl}`;
+                // 2. Lấy thông tin từ data attributes
+                const packageId = buyBtn.getAttribute('data-id'); // Cần thêm data-id vào nút
+                const name = buyBtn.getAttribute('data-name');
+                const priceText = buyBtn.getAttribute('data-price');
+                const duration = buyBtn.getAttribute('data-duration');
+                const carrier = buyBtn.getAttribute('data-carrier');
+                const sim = buyBtn.getAttribute('data-sim');
+                const currentUrl = window.location.href;
 
-            const encodedMessage = encodeURIComponent(message);
-            
-            // Link Messenger (Dùng Username cho iPhone để tránh lỗi Guest Session)
-            const messengerUrl = `https://m.me/${pageUsername}?text=${encodedMessage}`;
+                // Xử lý giá về dạng số để Dashboard cộng dồn (ví dụ "50,000w" -> 50000)
+                const priceNumeric = parseFloat(priceText.replace(/[^0-9.]/g, '')) || 0;
 
-            // 3. Hiển thị thông báo xác nhận (SweetAlert2)
-            if (typeof Swal !== 'undefined') {
-                Swal.fire({
-                    title: 'Xác nhận đăng ký',
-                    html: `Bạn đang chọn gói <b>${name}</b>.<br>Hệ thống sẽ mở Messenger để gửi yêu cầu!`,
-                    icon: 'info',
-                    showCancelButton: true,
-                    confirmButtonColor: '#0084FF',
-                    confirmButtonText: 'Gửi ngay',
-                    cancelButtonText: 'Đóng',
-                    showClass: { popup: '' }, // Tắt hiệu ứng để mượt trên mobile
-                    hideClass: { popup: '' }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        redirectMessenger(messengerUrl);
-                    }
-                });
+                // 3. Tạo mã REF (Để Admin biết khách nhấn từ iPhone hay Android)
+                const refCode = `PACK_${isIphone ? 'IP' : 'AD'}_${packageId}`.toUpperCase();
+
+                // 4. Soạn tin nhắn
+                let message = `Chào Shop, mình muốn đăng ký gói cước:\n`;
+                message += `📦 Gói cước: ${name}\n`;
+                message += `💰 Giá: ${priceText}\n`;
+                message += `⏳ Thời hạn: ${duration} ngày\n`;
+                message += `📶 Nhà mạng: ${carrier}\n`;
+                message += `📱 Loại SIM: ${sim}\n`;
+                message += `🔗 Link: ${currentUrl}`;
+
+                const messengerUrl =
+                    `https://m.me/${pageUsername}?ref=${refCode}&text=${encodeURIComponent(message)}`;
+
+                // 5. Hiển thị thông báo xác nhận
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        title: 'Xác nhận đăng ký',
+                        html: `Bạn đang chọn gói <b>${name}</b>.<br>Hệ thống sẽ mở Messenger để gửi yêu cầu!`,
+                        icon: 'info',
+                        showCancelButton: true,
+                        confirmButtonColor: '#0084FF',
+                        confirmButtonText: 'Gửi ngay',
+                        cancelButtonText: 'Đóng',
+                        reverseButtons: isIphone
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // --- GỬI THỐNG KÊ TRƯỚC KHI CHUYỂN HƯỚNG ---
+                            sendTracking(packageId, name, priceNumeric, carrier, duration, sim);
+                            redirectMessenger(messengerUrl);
+                        }
+                    });
+                } else {
+                    sendTracking(packageId, name, priceNumeric, carrier, duration, sim);
+                    redirectMessenger(messengerUrl);
+                }
+            }
+        });
+
+        // --- HÀM GỬI THỐNG KÊ VỀ DATABASE ---
+        function sendTracking(id, name, price, carrier, duration, sim) {
+            fetch("{{ route('track.messenger') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}" // Laravel CSRF Token
+                },
+                body: JSON.stringify({
+                    type: 'package',
+                    product_id: id || 0,
+                    product_name: name,
+                    product_slug: 'package-' + id,
+                    variant_info: `Mạng: ${carrier} | Hạn: ${duration} ngày | SIM: ${sim}`,
+                    price: price
+                })
+            }).catch(err => console.error("Tracking Error:", err));
+        }
+
+        function redirectMessenger(url) {
+            if (isIphone) {
+                window.location.href = url;
             } else {
-                // Nếu không có SweetAlert thì chuyển hướng luôn
-                redirectMessenger(messengerUrl);
+                window.location.assign(url);
             }
         }
-    });
-
-    // Hàm chuyển hướng tối ưu cho từng nền tảng
-    function redirectMessenger(url) {
-        if (isIphone) {
-            // iPhone ưu tiên href để nhảy thẳng vào App
-            window.location.href = url;
-        } else {
-            // Android xử lý tốt hơn với assign hoặc mở tab mới nếu cần
-            window.location.assign(url);
-        }
-    }
-})();
+    })();
 </script>

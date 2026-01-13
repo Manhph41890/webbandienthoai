@@ -7,19 +7,20 @@
         const skuEl = document.getElementById('ss-pd-sku');
         const stockStatusEl = document.getElementById('ss-pd-stock-status');
         const buyBtn = document.getElementById('btn-buy-now');
+        const usedInfo = document.getElementById('ss-pd-used-info');
 
         let selectedCondition = null,
             selectedSize = null,
             selectedColor = null,
             currentVariant = null;
 
-        // 1. Hàm tạo mã REF chuyên nghiệp
+        // 1. Hàm tạo mã REF chuyên nghiệp (Cập nhật để nhận được cả trường hợp variant null)
         function generateRefCode(variant) {
-            // Định dạng: MUA_[ID]_[Tên không dấu]_[Dung lượng]
             const nameSlug = "{{ Str::slug($phone->name, '_') }}";
             const sizeName = document.querySelector(`.ss-pd-v-item[data-type="size"].active`)?.innerText.trim()
                 .replace(/\s+/g, '') || '0';
-            return `MUA_${variant.id}_${nameSlug}_${sizeName}`.toUpperCase();
+            const vId = variant ? variant.id : 'PRE'; // Nếu không có variant thì để là PRE (Pre-order)
+            return `MUA_${vId}_${nameSlug}_${sizeName}`.toUpperCase();
         }
 
         function updateDisplay() {
@@ -30,12 +31,12 @@
             );
 
             if (currentVariant) {
+                // TRƯỜNG HỢP CÓ BIẾN THỂ TRONG DATA
                 priceEl.innerText = new Intl.NumberFormat('vi-VN').format(currentVariant.price) + 'w';
                 if (skuEl) skuEl.innerText = currentVariant.sku || 'N/A';
                 stockStatusEl.innerText = "Sẵn hàng tại Toàn Hồng Korea";
                 stockStatusEl.style.color = "#16a34a";
 
-                const usedInfo = document.getElementById('ss-pd-used-info');
                 if (selectedCondition !== 'new' && usedInfo) {
                     usedInfo.style.display = 'flex';
                     document.getElementById('val-pin').innerText = (currentVariant.battery_health || '98') +
@@ -45,15 +46,21 @@
                 } else if (usedInfo) {
                     usedInfo.style.display = 'none';
                 }
+            } else {
+                // TRƯỜNG HỢP KHÔNG CÓ BIẾN THỂ (Tính năng mới thêm)
+                priceEl.innerText = "Giá: Liên hệ";
+                if (skuEl) skuEl.innerText = 'Pre-Order';
+                stockStatusEl.innerText = "Hàng đặt trước (Liên hệ shop)";
+                stockStatusEl.style.color = "#3498db";
+                if (usedInfo) usedInfo.style.display = 'none';
             }
         }
 
-        // 2. Hàm sao chép hiện đại hơn
+        // 2. Hàm sao chép
         async function copyToClipboard(text) {
             try {
                 await navigator.clipboard.writeText(text);
             } catch (err) {
-                // Fallback cho trình duyệt cũ
                 const el = document.createElement('textarea');
                 el.value = text;
                 document.body.appendChild(el);
@@ -80,7 +87,8 @@
             buyBtn.onclick = async function(e) {
                 e.preventDefault();
 
-                if (!currentVariant) {
+                // Thay đổi logic: Chỉ cần chọn đủ 3 trường, không quan tâm variant có null hay không
+                if (!selectedCondition || !selectedSize || !selectedColor) {
                     Swal.fire({
                         icon: 'warning',
                         title: 'Chọn cấu hình',
@@ -95,24 +103,21 @@
                     .innerText.trim();
                 const refCode = generateRefCode(currentVariant);
 
-                // Nội dung tin nhắn để khách Paste (Dự phòng cho Desktop)
                 let message = `🛒 ĐƠN ĐẶT HÀNG:\n`;
                 message += `Sản phẩm: {{ $phone->name }}\n`;
                 message += `Cấu hình: ${sizeText} - ${colorText}\n`;
                 message += `Tình trạng: ${selectedCondition == 'new' ? 'Mới 100%' : 'Like New'}\n`;
-                message += `Giá: ${priceEl.innerText}\n`;
-                message += `Mã SP: ${currentVariant.sku}\n`;
+                message += `Giá: ${priceEl.innerText}\n`; // Sẽ là số tiền hoặc "Giá: Liên hệ"
+                message += `Mã SP: ${skuEl ? skuEl.innerText : 'N/A'}\n`;
                 message += `Link: ${window.location.href}`;
 
-                // Link Messenger kết hợp cả REF và TEXT
                 const pageUsername = "anhtoan270189";
                 const messengerUrl =
                     `https://m.me/${pageUsername}?ref=${refCode}&text=${encodeURIComponent(message)}`;
 
-                // Thực hiện sao chép
+                // Sao chép trước khi hiện Swal
                 await copyToClipboard(message);
 
-                // Thông báo chuyên nghiệp
                 Swal.fire({
                     title: 'Đang mở Messenger...',
                     html: `
@@ -131,6 +136,27 @@
                     confirmButtonColor: '#0084FF'
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        // --- GỬI THỐNG KÊ ---
+                        fetch("{{ route('track.messenger') }}", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                            },
+                            body: JSON.stringify({
+                                type: 'phone',
+                                product_id: "{{ $phone->id }}",
+                                variant_id: currentVariant ? currentVariant.id :
+                                    0, // 0 nếu không có variant
+                                product_name: "{{ $phone->name }}",
+                                product_slug: "{{ $phone->slug }}",
+                                variant_info: `${selectedCondition} | ${sizeText} | ${colorText}`,
+                                price: currentVariant ? currentVariant.price :
+                                    0 // 0 nếu liên hệ
+                            })
+                        });
+
+                        // Mở link Messenger
                         window.open(messengerUrl, '_blank');
                     }
                 });

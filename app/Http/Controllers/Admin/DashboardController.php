@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\MessengerOrder;
 use App\Models\Package;
 use App\Models\Phone;
 use App\Models\User;
 use App\Models\Variant;
+use App\Models\VisitorStatistic;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -69,12 +71,32 @@ class DashboardController extends Controller
         // CỘT 4: Tổng lượt xem sản phẩm (Sử dụng SUM views_count)
         $totalProductViews = Phone::sum('views_count');
 
-        // CỘT 5: Đơn hàng mới (Dữ liệu thêm cho "Xịn")
-        // Giả sử bạn có model Order
+        // --- CỘT 5: THỐNG KÊ ĐƠN QUA MESSENGER ---
+        // Sử dụng $applyFilter đã có của bạn để lọc theo ngày tháng
+        $messengerQuery = MessengerOrder::query();
+        $messengerQuery = $applyFilter($messengerQuery);
+
+        // 1. Tổng số lượt nhấn mua (Total)
+        $totalMessengerOrders = (clone $messengerQuery)->count();
+
+        // 2. Doanh thu dự tính (Tổng giá trị các sản phẩm khách đã nhấn)
+        $totalMessengerRevenue = (clone $messengerQuery)->sum('price');
+
+        // 3. Phân loại đơn (Để hiển thị chi tiết trong collapse)
+        $phoneMessCount = (clone $messengerQuery)->phones()->count();
+        $packageMessCount = (clone $messengerQuery)->packages()->count();
 
         // CỘT 6: Tổng lượt truy cập Website
-        // (Nếu bạn chưa có bảng theo dõi traffic, có thể dùng tạm số liệu giả lập hoặc query từ bảng lưu log truy cập)
-        // $webVisits = \DB::table('s_visits')->count(); // Giả định bạn có bảng lưu visit
+        // Lưu ý: Vì bảng visitor_statistics dùng cột 'date', ta filter theo cột đó thay vì 'created_at'
+        $webStats = VisitorStatistic::whereBetween('date', [$startDate->format('Y-m-d'), $endDate->format('Y-m-d')])->get();
+
+        $mobileHits = $webStats->where('device_type', 'mobile')->sum('hits');
+        $desktopHits = $webStats->where('device_type', 'desktop')->sum('hits');
+        $webVisits = $mobileHits + $desktopHits;
+
+        // Tính phần trăm để hiển thị
+        $mobileRate = $webVisits > 0 ? round(($mobileHits / $webVisits) * 100) : 0;
+        $desktopRate = $webVisits > 0 ? round(($desktopHits / $webVisits) * 100) : 0;
 
         // CỘT 7: Sản phẩm yêu thích (Engagement)
         $totalFavorites = \DB::table('favorites')->count();
@@ -118,7 +140,48 @@ class DashboardController extends Controller
         foreach ($carriers as $carrier) {
             $carrierData[] = $applyFilter(Package::where('carrier', $carrier))->count();
         }
+        return view(
+            'admin.general.dashboard',
+            compact(
+                // 1. Thông tin bộ lọc (Để hiển thị lại trên Form)
+                'startDate',
+                'endDate',
+                'range',
 
-        return view('admin.general.dashboard', compact('packagesCount', 'usersCount', 'employeesCount', 'totalViews', 'topPhones', 'catNames', 'catCounts', 'carrierData', 'categoriesLevel2', 'employees', 'lowStockPhones', 'totalVariants', 'totalStock', 'totalProductViews', 'totalFavorites', 'outOfStockCount'));
+                // 2. Thống kê kho hàng & Sản phẩm
+                'totalVariants',
+                'totalStock',
+                'outOfStockCount',
+                'lowStockPhones',
+                'topPhones',
+                'totalProductViews', // Thay cho totalViews vì giống nhau
+
+                // 3. Gói cước & Đơn hàng Messenger (Phần bạn đã tính nhưng thiếu trong compact cũ)
+                'packagesCount',
+                'totalMessengerOrders',
+                'totalMessengerRevenue',
+                'phoneMessCount',
+                'packageMessCount',
+
+                // 4. Người dùng & Nhân sự
+                'usersCount',
+                'employeesCount',
+                'employees',
+                'totalFavorites',
+
+                // 5. Thống kê truy cập Web
+                'webVisits',
+                'mobileHits',
+                'desktopHits',
+                'mobileRate',
+                'desktopRate',
+
+                // 6. Dữ liệu biểu đồ (Charts)
+                'catNames',
+                'catCounts',
+                'carrierData',
+                'categoriesLevel2',
+            ),
+        );
     }
 }

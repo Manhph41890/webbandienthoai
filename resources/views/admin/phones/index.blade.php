@@ -53,7 +53,7 @@
                                         </div>
                                         <div>
                                             <div class="font-weight-bold text-dark">{{ $phone->name }}</div>
-                                            <span class="text-muted" style="font-size: 11px;">
+                                            <span class="text-muted" style="font-size: 13px;">
                                                 <i class="fas fa-tag mr-1"></i>{{ $phone->category->name ?? 'N/A' }}
                                             </span>
                                         </div>
@@ -63,7 +63,7 @@
                                     <div class="small font-weight-bold text-primary">
                                         <i class="fas fa-eye mr-1"></i>{{ number_format($phone->views_count ?? 0) }}
                                     </div>
-                                    <div class="small text-muted" style="font-size: 10px;">Lượt xem</div>
+                                    <div class="small text-muted" style="font-size: 12px;">Lượt xem</div>
                                 </td>
                                 <td>
                                     @if ($phone->variants->count() > 0)

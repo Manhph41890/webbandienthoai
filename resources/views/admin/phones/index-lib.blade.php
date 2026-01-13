@@ -32,7 +32,6 @@
     .img-container {
         width: 60px;
         height: 60px;
-        border-radius: 12px;
         overflow: hidden;
         border: 1px solid #eee;
         transition: transform 0.3s;
