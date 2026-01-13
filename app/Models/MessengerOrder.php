@@ -67,4 +67,9 @@ class MessengerOrder extends Model
     {
         return $query->whereBetween('created_at', [$startDate, $endDate]);
     }
+
+    public function scopeByUser($query, $user)
+    {
+        return $query->where('user_id', $user->id);
+    }
 }

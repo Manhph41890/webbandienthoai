@@ -124,21 +124,35 @@
             <div class="st-card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="st-label">Tiêu đề</div>
-                        <div class="st-value">5</div>
+                        <div class="st-label">ĐƠN MESSENGER</div>
+                        <div class="st-value">{{ number_format($totalMessengerOrders) }}</div>
                     </div>
-                    <i class="fas fa-shopping-cart st-icon-bg"></i>
+                    <!-- Đổi sang icon Messenger cho đúng ngữ cảnh -->
+                    <i class="fab fa-facebook-messenger st-icon-bg"></i>
                 </div>
                 <div class="mt-3">
                     <button class="st-detail-btn" type="button" data-custom-target="#st-dt-5">
-                        Doanh thu <i class="fas fa-chevron-down ml-1 st-chevron"></i>
+                        Xem chi tiết <i class="fas fa-chevron-down ml-1 st-chevron"></i>
                     </button>
                 </div>
             </div>
             <div class="st-collapse-content" id="st-dt-5">
                 <div class="st-padding">
-                    <div class="d-flex align-items-center"><i class="fas fa-money-bill-wave mr-2"></i> Tổng: <strong
-                            class="ml-1">{{ number_format($totalRevenue ?? 0) }} VNĐ</strong></div>
+                    <!-- Hiển thị doanh thu dự tính -->
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="fas fa-money-bill-wave mr-2 text-success"></i>
+                        Dự thu: <strong class="ml-1 text-white">{{ number_format($totalMessengerRevenue) }}w</strong>
+                    </div>
+                    <hr style="border-top: 1px solid rgba(255,255,255,0.2); margin: 5px 0;">
+                    <!-- Hiển thị phân loại -->
+                    <div class="d-flex justify-content-between">
+                        <span><i class="fas fa-mobile-alt mr-1"></i> Điện thoại:</span>
+                        <strong>{{ $phoneMessCount }}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mt-1">
+                        <span><i class="fas fa-sim-card mr-1"></i> Gói cước:</span>
+                        <strong>{{ $packageMessCount }}</strong>
+                    </div>
                 </div>
             </div>
         </div>

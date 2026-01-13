@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\MessengerOrder;
 use App\Models\Package;
 use App\Models\Phone;
 use App\Models\User;
@@ -70,8 +71,20 @@ class DashboardController extends Controller
         // CỘT 4: Tổng lượt xem sản phẩm (Sử dụng SUM views_count)
         $totalProductViews = Phone::sum('views_count');
 
-        // CỘT 5: Đơn hàng mới (Dữ liệu thêm cho "Xịn")
+        // --- CỘT 5: THỐNG KÊ ĐƠN QUA MESSENGER ---
+        // Sử dụng $applyFilter đã có của bạn để lọc theo ngày tháng
+        $messengerQuery = MessengerOrder::query();
+        $messengerQuery = $applyFilter($messengerQuery);
 
+        // 1. Tổng số lượt nhấn mua (Total)
+        $totalMessengerOrders = (clone $messengerQuery)->count();
+
+        // 2. Doanh thu dự tính (Tổng giá trị các sản phẩm khách đã nhấn)
+        $totalMessengerRevenue = (clone $messengerQuery)->sum('price');
+
+        // 3. Phân loại đơn (Để hiển thị chi tiết trong collapse)
+        $phoneMessCount = (clone $messengerQuery)->phones()->count();
+        $packageMessCount = (clone $messengerQuery)->packages()->count();
 
         // CỘT 6: Tổng lượt truy cập Website
         // Lưu ý: Vì bảng visitor_statistics dùng cột 'date', ta filter theo cột đó thay vì 'created_at'
@@ -127,13 +140,48 @@ class DashboardController extends Controller
         foreach ($carriers as $carrier) {
             $carrierData[] = $applyFilter(Package::where('carrier', $carrier))->count();
         }
-        return view('admin.general.dashboard',
-         compact(
-    'packagesCount', 'usersCount', 'employeesCount', 'totalViews', 'topPhones', 
-            'catNames', 'catCounts', 'carrierData', 'categoriesLevel2', 'employees', 
-            'lowStockPhones', 'totalVariants', 'totalStock', 'totalProductViews', 
-            'totalFavorites', 'outOfStockCount',
-            'webVisits', 'mobileHits', 'desktopHits', 'mobileRate', 'desktopRate'
-        ));
+        return view(
+            'admin.general.dashboard',
+            compact(
+                // 1. Thông tin bộ lọc (Để hiển thị lại trên Form)
+                'startDate',
+                'endDate',
+                'range',
+
+                // 2. Thống kê kho hàng & Sản phẩm
+                'totalVariants',
+                'totalStock',
+                'outOfStockCount',
+                'lowStockPhones',
+                'topPhones',
+                'totalProductViews', // Thay cho totalViews vì giống nhau
+
+                // 3. Gói cước & Đơn hàng Messenger (Phần bạn đã tính nhưng thiếu trong compact cũ)
+                'packagesCount',
+                'totalMessengerOrders',
+                'totalMessengerRevenue',
+                'phoneMessCount',
+                'packageMessCount',
+
+                // 4. Người dùng & Nhân sự
+                'usersCount',
+                'employeesCount',
+                'employees',
+                'totalFavorites',
+
+                // 5. Thống kê truy cập Web
+                'webVisits',
+                'mobileHits',
+                'desktopHits',
+                'mobileRate',
+                'desktopRate',
+
+                // 6. Dữ liệu biểu đồ (Charts)
+                'catNames',
+                'catCounts',
+                'carrierData',
+                'categoriesLevel2',
+            ),
+        );
     }
 }
