@@ -13,22 +13,13 @@
         </div>
     </div>
 
-    <!-- Biểu đồ tròn: Nhà mạng Gói cước -->
+    <!-- Biểu đồ tròn: doanh thu -->
     <div class="col-xl-4 col-lg-5">
         <div class="card shadow-sm border-0 mb-4 rounded-xl">
             <div class="card-header bg-white py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-dark">Thị phần Nhà mạng</h6>
+                <h6 class="m-0 font-weight-bold text-dark">Tiêu đề</h6>
             </div>
-            <div class="card-body">
-                <div class="chart-pie pt-4 pb-2" style="height: 300px;">
-                    <canvas id="carrierChart"></canvas>
-                </div>
-                <div class="mt-4 text-center small">
-                    <span class="mr-2"><i class="fas fa-circle text-primary"></i> SK</span>
-                    <span class="mr-2"><i class="fas fa-circle text-success"></i> KT</span>
-                    <span class="mr-2"><i class="fas fa-circle text-info"></i> LGU+</span>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
