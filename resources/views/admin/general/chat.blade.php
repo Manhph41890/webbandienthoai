@@ -33,6 +33,11 @@
             $('#chat-messages').html(
                 '<div class="text-center small text-muted">Đang tải tin nhắn...</div>');
             loadMessages(currentReceiverId);
+
+            window.axios.post(`/chat/read/${currentReceiverId}`).then(res => {
+                // Sau khi update xong, bạn có thể cho ẩn con số thông báo (badge) đi
+                $(this).find('.badge-unread').hide();
+            });
         });
 
         // 2. Load lịch sử tin nhắn
@@ -71,15 +76,18 @@
 
         // 4. Lắng nghe Realtime từ người khác gửi tới
         window.Echo.private(`chat.${authId}`)
-            .listen('MessageSent', (e) => {
-                // Nếu mình đang mở khung chat của đúng người vừa gửi tới
-                if (currentReceiverId == e.message.sender_id) {
+            .listen('.MessageSent', (e) => { // 1. Thêm dấu chấm trước tên Event
+                console.log("Tin nhắn đến:", e); // 2. Thêm log để kiểm tra
+
+                // e.message bây giờ là dữ liệu từ Pusher gửi về
+                if (currentReceiverId && currentReceiverId == e.message.sender_id) {
                     appendMessage(e.message);
                 } else {
-                    // Nếu đang chat với người khác hoặc chưa mở khung chat thì thông báo
-                    alert("Bạn có tin nhắn mới từ " + e.message.sender.name);
-                    // Bạn có thể thay alert bằng một tiếng "ting ting" hoặc icon thông báo
+                    // Hiển thị thông báo hoặc cập nhật số tin nhắn chưa đọc
+                    alert("Bạn có tin nhắn mới từ " + (e.message.sender ? e.message.sender.name :
+                        "Đồng nghiệp"));
                 }
             });
+
     });
 </script>

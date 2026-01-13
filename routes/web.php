@@ -79,12 +79,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/chat/messages/{userId}', [ChatController::class, 'getMessages']);
     Route::post('/chat/send', [ChatController::class, 'sendMessage']);
+    Route::post('/chat/read/{userId}', [ChatController::class, 'markAsRead']);
 });
-
-Route::get('/test-config', function () {
-    return config('broadcasting.connections.pusher.options.cluster');
-});
-
 /*
 |--------------------------------------------------------------------------
 | 4. ADMIN & STAFF ROUTES (Roles 1 & 2)
