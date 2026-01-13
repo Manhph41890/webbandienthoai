@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\Client\ContactController;
 use App\Http\Controllers\Client\FavoriteController;
 use App\Http\Controllers\Client\HomeController;
@@ -76,6 +77,12 @@ Route::middleware(['auth'])->group(function () {
     // Profile cá nhân
     Route::get('/profile/user', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/chat/messages/{userId}', [ChatController::class, 'getMessages']);
+    Route::post('/chat/send', [ChatController::class, 'sendMessage']);
+});
+
+Route::get('/test-config', function () {
+    return config('broadcasting.connections.pusher.options.cluster');
 });
 
 /*
@@ -106,8 +113,7 @@ Route::prefix('admin')
         Route::delete('phones/{id}/force-delete', [PhoneController::class, 'forceDelete'])->name('phones.forceDelete');
         Route::get('phones/get-variant-form-fields', [PhoneController::class, 'getVariantFormFields'])->name('phones.getVariantFormFields');
         Route::patch('phones/{phone}/change-status', [PhoneController::class, 'changeStatus'])->name('phones.changeStatus');
-        Route::patch('/phones/{phone}/toggle-featured', [PhoneController::class, 'toggleFeatured'])
-        ->name('phones.toggle-featured');
+        Route::patch('/phones/{phone}/toggle-featured', [PhoneController::class, 'toggleFeatured'])->name('phones.toggle-featured');
         Route::resource('phones', PhoneController::class);
 
         // --- Quản lý Gói cước (Packages) ---
