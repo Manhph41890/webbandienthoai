@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Color;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ColorController extends Controller
 {
@@ -12,7 +13,7 @@ class ColorController extends Controller
     {
         // Lấy danh sách màu kèm theo số lượng biến thể đang sử dụng màu đó
         $colors = Color::withCount('variants')->latest()->paginate(10);
-        return view('admin.colors.index', compact('colors'));
+        return view('admin.variants.colors.index', compact('colors'));
     }
 
     public function store(Request $request)
@@ -26,8 +27,8 @@ class ColorController extends Controller
         ]);
 
         Color::create($request->all());
-
-        return redirect()->back()->with('success', 'Thêm màu sắc thành công!');
+Alert::success('Thêm màu sắc thành công!');
+        return redirect()->back();
     }
 
     public function update(Request $request, Color $color)
@@ -38,16 +39,18 @@ class ColorController extends Controller
         ]);
 
         $color->update($request->all());
-
-        return redirect()->back()->with('success', 'Cập nhật thành công!');
+Alert::success('Câp nhật màu sắc thành công!');
+        return redirect()->back();
     }
 
     public function destroy(Color $color)
     {
         if ($color->variants()->count() > 0) {
-            return redirect()->back()->with('error', 'Không thể xóa màu đang có sản phẩm sử dụng!');
+            Alert::error('Không thể xóa màu sắc đang sử dụng!');
+            return redirect()->back();
         }
         $color->delete();
-        return redirect()->back()->with('success', 'Xóa màu thành công!');
+        Alert::success('Xóa màu sắc thành công!');
+        return redirect()->back();
     }
 }

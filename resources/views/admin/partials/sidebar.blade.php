@@ -3,7 +3,7 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center">
-            <img src="{{asset('logo/logo_remove.png')}}" alt="Logo" width="90%">
+        <img src="{{ asset('logo/logo_remove.png') }}" alt="Logo" width="90%">
     </a>
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
@@ -33,19 +33,31 @@
     </li>
 
     <!-- Nav Item - Quản lý Điện thoại -->
-    <li class="nav-item {{ Request::is('admin/phones*') ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsephones"
-            aria-expanded="true" aria-controls="collapsephones">
-            <i class="fas fa-fw fa-pen-square"></i>
-            <span>Quản lý Điện thoại</span>
+    <li class="nav-item {{ Request::is('admin/phones*', 'admin/colors*', 'admin/sizes*') ? 'active' : '' }}">
+        <a class="nav-link {{ Request::is('admin/phones*', 'admin/colors*', 'admin/sizes*') ? '' : 'collapsed' }}"
+            href="#" data-toggle="collapse" data-target="#collapsePhones" aria-expanded="true"
+            aria-controls="collapsePhones">
+            <i class="fas fa-fw fa-mobile-alt"></i>
+            <span>Quản lý Sản phẩm</span>
         </a>
-        <div id="collapsephones" class="collapse {{ Request::is('admin/phones*') ? 'show' : '' }}"
-            aria-labelledby="headingphones" data-parent="#accordionSidebar">
+        <div id="collapsePhones"
+            class="collapse {{ Request::is('admin/phones*', 'admin/colors*', 'admin/sizes*') ? 'show' : '' }}"
+            aria-labelledby="headingPhones" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item {{ Request::is('admin/phones') && !request()->routeIs('phones.trash') ? 'active' : '' }}"
-                    href="{{ route('admin.phones.index') }}">Danh sách</a>
-                <a class="collapse-item {{ Request::is('admin/phones/create') ? 'active' : '' }}"
-                    href="{{ route('admin.phones.create') }}">Thêm mới</a>
+                <h6 class="collapse-header">Sản phẩm chính:</h6>
+                <a class="collapse-item {{ Request::is('admin/phones') && !request()->routeIs('admin.phones.trash') ? 'active' : '' }}"
+                    href="{{ route('admin.phones.index') }}">Danh sách điện thoại</a>
+
+                <div class="collapse-divider"></div>
+                <h6 class="collapse-header">Thuộc tính:</h6>
+                <a class="collapse-item {{ Request::is('admin/colors*') ? 'active' : '' }}"
+                    href="{{ route('admin.colors.index') }}">
+                    <i class="fas fa-palette mr-1"></i> Quản lý màu sắc
+                </a>
+                <a class="collapse-item {{ Request::is('admin/sizes*') ? 'active' : '' }}"
+                    href="{{ route('admin.sizes.index') }}">
+                    <i class="fas fa-hdd mr-1"></i> Quản lý dung lượng
+                </a>
             </div>
         </div>
     </li>

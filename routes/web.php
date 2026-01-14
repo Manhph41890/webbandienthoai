@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\ChatController;
@@ -115,6 +116,7 @@ Route::prefix('admin')
 
         // --- Quản lý biến thể
         Route::resource('colors', ColorController::class)->except(['create', 'show', 'edit']); 
+        Route::resource('sizes', SizeController::class)->except(['create', 'show', 'edit']);
 
         // --- Quản lý Gói cước (Packages) ---
         Route::get('packages/trash', [PackageController::class, 'trash'])->name('packages.trash');

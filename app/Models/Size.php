@@ -15,4 +15,9 @@ class Size extends Model
     {
         return $this->hasMany(Variant::class);
     }
+     // Scope tìm kiếm
+    public function scopeSearch($query, $keyword)
+    {
+        return $query->where('name', 'like', "%$keyword%");
+    }
 }
