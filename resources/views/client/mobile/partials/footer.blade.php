@@ -80,9 +80,13 @@
         <!-- Payment & Trust -->
         <div class="mf-trust-section">
             <div class="mf-payment-icons">
+
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa">
+
                 <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard">
+
                 <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal">
+
             </div>
         </div>
     </div>
@@ -95,5 +99,6 @@
     <button id="backToTop" class="mf-back-to-top">
         <i class="fa-solid fa-arrow-up"></i>
     </button>
+    
 </footer>
 @include('client.mobile.partials.footer-lib')
