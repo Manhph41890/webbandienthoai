@@ -35,7 +35,7 @@
                 <div class="m-pd-rating">
                     <i class="fas fa-star"></i> 5.0 <span>(99+ đánh giá)</span>
                 </div>
-                <div class="m-pd-sku">SKU: <span id="ss-pd-sku">N/A</span></div>
+                <div class="m-pd-sku">SKU: <span id="ss-pd-sku">{{ $phone->sku ? $phone->sku : 'N/A' }}</span></div>
             </div>
 
             <div class="m-pd-price-box">
@@ -114,7 +114,8 @@
 
         <!-- 6. Sticky Footer Actions -->
         <div class="m-pd-sticky-actions">
-            <button class="m-btn-contact"><i class="fab fa-facebook-messenger"></i> Tư vấn</button>
+            <button class="m-btn-contact" onclick="openMessenger()"><i class="fab fa-facebook-messenger"></i> Tư
+                vấn</button>
             <button class="m-btn-buy" id="btn-add-to-cart"><i class="fab fa-facebook-messenger"></i> MUA NGAY</button>
         </div>
     </div>
@@ -123,6 +124,23 @@
 <script>
     // Đảm bảo dữ liệu variant luôn có sẵn cho cả 2 bản script
     const VARIANT_DATA = @json($variants);
+
+    function openMessenger() {
+        // ID Fanpage hoặc Username
+        const pageUsername = "anhtoan270189";
+        const messengerUrl = "https://m.me/" + pageUsername;
+
+        // Kiểm tra nếu là thiết bị di động
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        if (isMobile) {
+            // Trên mobile: Dùng href để kích hoạt mở App
+            window.location.href = messengerUrl;
+        } else {
+            // Trên PC: Mở tab mới để vào bản web messenger.com hoặc facebook.com
+            window.open(messengerUrl, '_blank');
+        }
+    }
 </script>
 @include('client.mobile.phones.zoom-thumbnail')
 @include('client.mobile.phones.lib-detail')

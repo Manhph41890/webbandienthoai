@@ -95,7 +95,7 @@
                                 <a href="{{ url('/phone/samsung-galaxy-s24-ultra') }}" class="dx-item-title">
                                     Galaxy <span>S24 Ultra</span>
                                 </a>
-                                <p class="dx-item-price">930.000 <span>won</span></p>
+                                <p class="dx-item-price">990.000<span>won</span></p>
                                 <a href="{{ url('/phone/samsung-galaxy-s24-ultra') }}" class="dx-btn-view">
                                     Chi tiết <i class="fa-solid fa-arrow-right"></i>
                                 </a>
@@ -116,7 +116,7 @@
                                 <a href="{{ url('/phone/iphone-17-pro-max') }}" class="dx-item-title">
                                     iPhone <span>17 Pro Max</span>
                                 </a>
-                                <p class="dx-item-price">930.000 <span>won</span></p>
+                                <p class="dx-item-price">1.999.000 <span>won</span></p>
                                 <a href="{{ url('/phone/iphone-17-pro-max') }}" class="dx-btn-view">
                                     Chi tiết <i class="fa-solid fa-arrow-right"></i>
                                 </a>
@@ -137,7 +137,7 @@
                                 <a href="{{ url('/phone/samsung-galaxy-z-flip-7') }}" class="dx-item-title">
                                     Galaxy <span>Z Flip 7</span>
                                 </a>
-                                <p class="dx-item-price">930.000 <span>won</span></p>
+                                <p class="dx-item-price">1.099.000 <span>won</span></p>
                                 <a href="{{ url('/phone/samsung-galaxy-z-flip-7') }}" class="dx-btn-view">
                                     Chi tiết <i class="fa-solid fa-arrow-right"></i>
                                 </a>
