@@ -3,7 +3,7 @@
     <div class="th-cat-slider-container">
         <!-- Main Slider -->
         <div class="th-cat-slider-main" id="thCatSlider">
-            <div class="th-cat-slider-track">
+            {{-- <div class="th-cat-slider-track">
                 <!-- Slide 1 -->
                 <div class="th-cat-slider-item">
                     <img src="{{ asset('images/banner_categori_samsung_1.png') }}" alt="Banner 1">
@@ -12,7 +12,7 @@
                 <div class="th-cat-slider-item">
                     <img src="{{ asset('images/banner_categori_samsung_2.png') }}" alt="Banner 2">
                 </div>
-            </div>
+            </div> --}}
 
             <!-- Nút điều hướng -->
             <button class="th-cat-slider-btn th-prev" id="thPrevBtn">
