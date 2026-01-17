@@ -13,6 +13,7 @@ use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PhoneController;
 use App\Http\Controllers\Client\PackageClientController;
+use App\Http\Controllers\Client\PageController;
 use App\Http\Controllers\Client\PhoneClientController;
 use App\Http\Controllers\Client\ProfileController;
 use App\Http\Controllers\HTTPStatusController;
@@ -48,6 +49,9 @@ Route::get('/wishlist/list', [FavoriteController::class, 'index'])->name('wishli
 Route::post('/wishlist/toggle', [FavoriteController::class, 'toggle'])->name('wishlist.toggle');
 
 Route::post('/track-messenger-click', [MessengerTrackingController::class, 'trackClick'])->name('track.messenger');
+
+Route::get('pages/chinh-sach-bao-mat', [PageController::class, 'privacy'])->name('privacy');
+Route::get('pages/dieu-khoan-su-dung', [PageController::class, 'terms'])->name('terms');
 
 /*
 |--------------------------------------------------------------------------

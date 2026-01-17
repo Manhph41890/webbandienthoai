@@ -1,0 +1,50 @@
+:root {
+    --primary-color: #1E293C;
+    --text-white: #ffffff;
+    --transition: all 0.3s ease;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Bước 2: Tạo lớp bọc (Container) */
+.container {
+    width: 100%;
+    /* Luôn chiếm 100% trên màn hình nhỏ */
+    max-width: 1200px !important;
+    /* Không bao giờ vượt quá 1200px */
+    margin-right: auto !important;
+    /* Căn giữa */
+    margin-left: auto !important;
+    /* Căn giữa */
+    padding-right: 15px;
+    /* Khoảng đệm để nội dung không dính sát mép màn hình điện thoại */
+    padding-left: 15px;
+    /* Khoảng đệm trên mobile */
+}
+
+/* Hiệu ứng mượt mà khi cuộn trang */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Tùy chỉnh thanh cuộn cho chuyên nghiệp */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

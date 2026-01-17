@@ -1,0 +1,163 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
+use Illuminate\Support\Str;
+
+class CategoryController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        $query = Category::query();
+        $trashedCount = Category::onlyTrashed()->count();
+
+        // 1. Xử lý tìm kiếm theo tên hoặc mô tả
+        if ($search = $request->input('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')->orWhere('description', 'like', '%' . $search . '%');
+            });
+        }
+
+        // 2. Lọc theo cấp bậc (Chuyên mục cha)
+        if ($request->has('parent_id') && $request->parent_id !== null) {
+            if ($request->parent_id == 'root') {
+                $query->whereNull('parent_id'); // Lấy các chuyên mục gốc
+            } else {
+                $query->where('parent_id', $request->parent_id);
+            }
+        }
+
+        // Eager load 'parent' để tránh N+1 query khi hiển thị bảng
+        $categories = $query->with('parent')->latest()->paginate(10);
+
+        // 3. Lấy danh sách chuyên mục để làm bộ lọc (Dùng đệ quy nhẹ hoặc lấy tất cả để xử lý)
+        // Ở đây ta lấy các chuyên mục có thể làm cha (thường là cấp 1 và cấp 2)
+        $filterCategories = Category::whereNull('parent_id')->with('children')->get();
+
+        return view('admin.categories.index', compact('categories', 'trashedCount', 'filterCategories'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $parentCategories = Category::ordered()->get();
+        return view('admin.categories.create', compact('parentCategories'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreCategoryRequest $request)
+    {
+        // Lấy dữ liệu đã được validate từ Form Request
+        $validatedData = $request->validated();
+
+        // Tự động tạo slug từ name nếu slug không được nhập
+        if (empty($validatedData['slug'])) {
+            $validatedData['slug'] = Str::slug($validatedData['name']);
+        }
+
+        // Tạo mới category
+        Category::create($validatedData);
+
+        Alert::success('Thành công', 'Gói cước đã được tạo thành công!');
+        // Chuyển hướng về trang danh sách và gửi kèm một thông báo thành công
+        return redirect()->route('admin.categories.index');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Category $category)
+    {
+        return redirect()->route('categories.index');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Category $category)
+    {
+        $parentCategories = Category::where('id', '!=', $category->id)->ordered()->get();
+        return view('admin.categories.edit', compact('category', 'parentCategories'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateCategoryRequest $request, Category $category)
+    {
+        $validatedData = $request->validated();
+
+        if (empty($validatedData['slug'])) {
+            $validatedData['slug'] = Str::slug($validatedData['name']);
+        }
+        Alert::success('Thành công', 'Gói cước đã được cập nhật thành công.');
+        $category->update($validatedData);
+        return redirect()->route('admin.categories.index');
+    }
+
+    /**
+     * 1. Xóa mềm (soft delete) chuyên mục
+     * 2. Trả về trang danh sách chuyên mục với thông báo thành công
+     */
+    public function destroy(Category $category)
+    {
+        // Kiểm tra nếu category có ràng buộc (ví dụ có sản phẩm) thì có thể báo lỗi nếu muốn
+        // if ($category->phones()->count() > 0) {
+        //     return back()->with('error', 'Không thể xóa danh mục đang có sản phẩm!');
+        // }
+
+        $category->delete();
+        Alert::success('Thành công', 'Danh mục đã được chuyển vào thùng rác.');
+        return redirect()->route('admin.categories.index');
+    }
+
+    /**
+     * 2. Hiển thị danh sách thùng rác (Trash)
+     */
+    public function trash()
+    {
+        // Lấy ra những danh mục đã bị xóa mềm
+        $trashCategories = Category::onlyTrashed()->latest()->get();
+        return view('admin.categories.trash', compact('trashCategories'));
+    }
+
+    /**
+     * 3. Khôi phục danh mục (Restore)
+     */
+    public function restore($id)
+    {
+        // Tìm ID trong danh sách đã xóa mềm
+        $category = Category::onlyTrashed()->findOrFail($id);
+        $category->restore();
+        Alert::success('Thành công', 'Danh mục đã được khôi phục thành công!');
+        return redirect()->route('admin..trash');
+    }
+
+    /**
+     * 4. Xóa vĩnh viễn (Force Delete)
+     */
+    public function forceDelete($id)
+    {
+        $category = Category::onlyTrashed()->findOrFail($id);
+
+        // Xử lý thêm: nếu danh mục có ảnh đại diện thì xóa file vật lý tại đây
+        // if ($category->image) { Storage::disk('public')->delete($category->image); }
+
+        $category->forceDelete(); // Xóa hoàn toàn khỏi database
+        Alert::success('Thành công', 'Danh mục đã được xóa vĩnh viễn!');
+        return redirect()->route('admin.categories.trash');
+    }
+}
