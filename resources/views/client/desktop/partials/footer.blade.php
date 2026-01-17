@@ -11,10 +11,10 @@
                     Quốc. Chúng tôi cam kết mang đến giá trị thực, dịch vụ tận tâm và trải nghiệm mua sắm hoàn hảo nhất.
                 </p>
                 <div class="df-socials">
-                    <a href="#" class="df-social-link fb"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="df-social-link tt"><i class="fab fa-tiktok"></i></a>
-                    <a href="#" class="df-social-link yt"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="df-social-link ig"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/anhtoan270189/" class="df-social-link fb"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.facebook.com/anhtoan270189/" class="df-social-link tt"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/anhtoan270189/" class="df-social-link yt"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.facebook.com/anhtoan270189/" class="df-social-link ig"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
 
