@@ -75,27 +75,46 @@
                         <div class="m-icon"><i class="fa-solid fa-location-dot"></i></div>
                         <div class="m-text">
                             <strong>Địa chỉ:</strong>
-                            <p>Nhà Văn Hóa Thôn Thế Giới, Đông Ninh, Đông Sơn, Thanh Hóa</p>
+                            <p>부산시 사하구 장림시장4길 19번호 1층 <br>
+                                19 Jangrimsijang 4-gil, Saha-gu, Busan</p>
                         </div>
                     </div>
                     <div class="m-info-item">
                         <div class="m-icon"><i class="fa-solid fa-phone"></i></div>
                         <div class="m-text">
                             <strong>Hotline:</strong>
-                            <p>01065652999 - 010 8282 6868</p>
+                            <p>01065652999 - 01025282999</p>
                         </div><br>
                         <div class="info-item">
                             <i class="fa-brands fa-facebook"></i>
-                            <a href="https://www.facebook.com/anhtoan270189/" target="_blank" style="text-decoration: none; color: blacks;">Toàn Hồng Korea</a>
+                            <a href="https://www.facebook.com/anhtoan270189/" target="_blank"
+                                style="text-decoration: none; color: blacks;">Toàn Hồng Korea</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="m-map-wrapper">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4618.629331215925!2d105.66507217594844!3d19.816552628305796!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3136fb00202ec2a5%3A0x2ef88b4e807fa3e7!2zVGjDtG4gVGjhur8gR2nhu5tpIC0gWMOjIMSQw7RuZyBOaW5oIC0gxJDDtG5nIFPGoW4!5e1!3m2!1svi!2s!4v1767490804932!5m2!1svi!2s"
-                        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
-                    </iframe>
+                    <!-- * 카카오맵 - 지도퍼가기 -->
+                    <!-- 1. 지도 노드 -->
+                    <div id="daumRoughmapContainer1768626191910" class="root_daum_roughmap root_daum_roughmap_landing">
+                    </div>
+
+                    <!--
+                    2. 설치 스크립트
+                    * 지도 퍼가기 서비스를 2개 이상 넣을 경우, 설치 스크립트는 하나만 삽입합니다.
+                    -->
+                    <script charset="UTF-8" class="daum_roughmap_loader_script"
+                        src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+
+                    <!-- 3. 실행 스크립트 -->
+                    <script charset="UTF-8">
+                        new daum.roughmap.Lander({
+                            "timestamp": "1768626191910",
+                            "key": "frphd7wf4yk",
+                            "mapWidth": "100%",
+                            "mapHeight": "250"
+                        }).render();
+                    </script>
                 </div>
             </div>
         </div>

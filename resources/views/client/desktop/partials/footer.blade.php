@@ -50,7 +50,7 @@
                         <div class="df-icon"><i class="fa-solid fa-location-dot"></i></div>
                         <div class="df-text">
                             <strong>Địa chỉ:</strong>
-                            <p>Seoul, Republic of Korea</p>
+                            <p>부산시 사하구 장림시장4길 19번호 1층</p>
                         </div>
                     </div>
                     <div class="df-contact-item">

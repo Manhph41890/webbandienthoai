@@ -66,9 +66,9 @@
                 </a>
             </div>
 
-            <a href="mailto:support@toanhongkorea.com" class="mf-contact-row">
+            <a href="mailto:hongtoan0509@gmail.com" class="mf-contact-row">
                 <i class="fa-solid fa-envelope"></i>
-                <span>support@toanhongkorea.com</span>
+                <span>hongtoan0509@gmail.com</span>
             </a>
 
             <div class="mf-contact-row">
