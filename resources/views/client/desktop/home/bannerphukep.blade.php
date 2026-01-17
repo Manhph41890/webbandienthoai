@@ -7,13 +7,13 @@
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <a href="#">
-                                <img src="{{ asset('images/categories/s25-cate-1225-v1.jpg') }}" alt="Samsung S25 Ultra">
+                                <img src="{{ asset('images/banner_categori_samsung_1 1.png') }}" alt="Samsung S25 Ultra">
                             </a>
                         </div>
                         {{-- Bạn có thể thêm nhiều slide ảnh khác ở đây để nó tự chạy --}}
                         <div class="swiper-slide">
                             <a href="#">
-                                <img src="{{ asset('images/categories/fold7-cate1225-v1.jpg') }}" alt="Galaxy Fold 7">
+                                <img src="{{ asset('images/banner_categori_samsung_2 1.png') }}" alt="Galaxy Fold 7">
                             </a>
                         </div>
                     </div>
@@ -29,12 +29,12 @@
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <a href="#">
-                                <img src="{{ asset('images/categories/fold7-cate1225-v1.jpg') }}" alt="Galaxy Fold 7">
+                                <img src="{{ asset('images/banner_categori_samsung_2 1.png') }}" alt="Galaxy Fold 7">
                             </a>
                         </div>
                         <div class="swiper-slide">
                             <a href="#">
-                                <img src="{{ asset('images/categories/s25-cate-1225-v1.jpg') }}" alt="Samsung S25 Ultra">
+                                <img src="{{ asset('images/banner_categori_samsung_1 1.png') }}" alt="Samsung S25 Ultra">
                             </a>
                         </div>
                     </div>

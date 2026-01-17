@@ -11,10 +11,10 @@
                     Quốc. Chúng tôi cam kết mang đến giá trị thực, dịch vụ tận tâm và trải nghiệm mua sắm hoàn hảo nhất.
                 </p>
                 <div class="df-socials">
-                    <a href="#" class="df-social-link fb"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="df-social-link tt"><i class="fab fa-tiktok"></i></a>
-                    <a href="#" class="df-social-link yt"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="df-social-link ig"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/anhtoan270189/" class="df-social-link fb"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.facebook.com/anhtoan270189/" class="df-social-link tt"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/anhtoan270189/" class="df-social-link yt"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.facebook.com/anhtoan270189/" class="df-social-link ig"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
 
@@ -50,14 +50,14 @@
                         <div class="df-icon"><i class="fa-solid fa-location-dot"></i></div>
                         <div class="df-text">
                             <strong>Địa chỉ:</strong>
-                            <p>Seoul, Republic of Korea</p>
+                            <p>부산시 사하구 장림시장4길 19번호 1층</p>
                         </div>
                     </div>
                     <div class="df-contact-item">
                         <div class="df-icon"><i class="fa-solid fa-phone-volume"></i></div>
                         <div class="df-text">
                             <strong>Hotline 24/7:</strong>
-                            <p>010 2828 8333 — 010 8282 6886</p>
+                            <p>01065652999 — 01025282999</p>
                         </div>
                     </div>
                     <div class="df-contact-item">

@@ -3,16 +3,16 @@
     <div class="th-cat-slider-container">
         <!-- Main Slider -->
         <div class="th-cat-slider-main" id="thCatSlider">
-            <div class="th-cat-slider-track">
+            {{-- <div class="th-cat-slider-track">
                 <!-- Slide 1 -->
                 <div class="th-cat-slider-item">
-                    <img src="{{ asset('images/banner_categori_iphones_1.png') }}" alt="iPhone 17 Pro Banner 1">
+                    <img src="{{ asset('images/banner_categori_iphones_1 1.png') }}" alt="iPhone 17 Pro Banner 1">
                 </div>
                 <!-- Slide 2 -->
                 <div class="th-cat-slider-item">
-                    <img src="{{ asset('images/banner_categori_iphones_2.png') }}" alt="iPhone 17 Pro Banner 2">
+                    <img src="{{ asset('images/banner_categori_iphones_2 1.png') }}" alt="iPhone 17 Pro Banner 2">
                 </div>
-            </div>
+            </div> --}}
 
             <!-- Nút điều hướng -->
             <button class="th-cat-slider-btn th-prev" id="thPrevBtn">

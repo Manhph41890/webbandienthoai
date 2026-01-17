@@ -8,23 +8,23 @@
         </a>
 
         <!-- Nút Gọi Số 1 -->
-        <a href="tel:01028288333" class="contact-bubble phone-color">
+        <a href="tel:01065652999" class="contact-bubble phone-color">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
                     fill="white" />
             </svg>
-            <span class="phone-text">010 2828 8333</span>
+            <span class="phone-text">01065652999</span>
         </a>
 
         <!-- Nút Gọi Số 2 -->
-        <a href="tel:01082826886" class="contact-bubble phone-color">
+        <a href="tel:01025282999" class="contact-bubble phone-color">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
                     fill="white" />
             </svg>
-            <span class="phone-text">010 8282 6886</span>
+            <span class="phone-text">01025282999</span>
         </a>
     </div>
 

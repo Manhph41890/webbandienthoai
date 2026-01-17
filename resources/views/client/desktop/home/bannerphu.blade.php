@@ -5,21 +5,21 @@
                 <!-- Banner 1 -->
                 <div class="swiper-slide">
                     <a href="#">
-                        <img src="{{ asset('images/samsung-ads-t12---a56-a36-615x104.png') }}" alt="Samsung A56 A36" class="w-100">
+                        <img src="{{ asset('images/image 3.png') }}" alt="Samsung A56 A36" class="w-100">
                     </a>
                 </div>
                 <!-- Banner 2 -->
                 <div class="swiper-slide">
                     <a href="#">
-                        <img src="{{ asset('images/samsung-ads-t12---ff7-615x104.png') }}" alt="Samsung FF7" class="w-100">
+                        <img src="{{ asset('images/image 5.png') }}" alt="Samsung FF7" class="w-100">
                     </a>
                 </div>
                 <!-- Banner 3 -->
-                <div class="swiper-slide">
+                {{-- <div class="swiper-slide">
                     <a href="#">
-                        <img src="{{ asset('images/samsung-ads-t12---s25-615x104.png') }}" alt="Samsung S25" class="w-100">
+                        <img src="{{ asset('images/image 3.png') }}" alt="Samsung S25" class="w-100">
                     </a>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Nút điều hướng -->
