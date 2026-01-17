@@ -66,6 +66,7 @@ Route::prefix('auth')
         // Social Login
         Route::get('facebook', 'redirectToFacebook')->name('facebook.login');
         Route::get('facebook/callback', 'handleFacebookCallback');
+        Route::post('/delete-user-data', [AuthController::class, 'deleteFacebookData']);
         Route::get('google', 'redirectToGoogle')->name('google.login');
         Route::get('google/callback', 'handleGoogleCallback');
     });
