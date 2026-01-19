@@ -54,7 +54,7 @@
     {{-- Nếu KHÔNG PHẢI mobile (tức là desktop) thì mới hiển thị --}}
     @if (!$isMobile)
         <div class="auth-image-column">
-            <img src="{{ asset('logo/logo_remove.png') }}" alt="ToanHongKorea Interior">
+            <img src="{{ asset('logo/logo_remove.png') }}" alt="TuoiDuyenMobile Interior">
             <h3>Kết nối thông minh cho cuộc sống số</h3>
             <p>Giải pháp trọn gói từ điện thoại, sim đến gói cước – đơn giản, nhanh gọn, tiết kiệm chi phí.</p>
         </div>

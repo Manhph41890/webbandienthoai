@@ -92,7 +92,7 @@
                                         <p class="wl-pkg-price">{{ number_format($item->price) }} won/tháng</p>
                                     </div>
 
-                                    <a href="https://m.me/100063769254777?text={{ urlencode('Tôi muốn đăng ký gói cước: ' . $item->name) }}"
+                                    <a href="https://m.me/61575141059562?text={{ urlencode('Tôi muốn đăng ký gói cước: ' . $item->name) }}"
                                         class="wl-pkg-chat">
                                         <i class="fa-brands fa-facebook-messenger"></i>
                                     </a>

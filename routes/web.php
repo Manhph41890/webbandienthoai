@@ -44,8 +44,8 @@ Route::get('/chi-tiet-goi/{slug}', [PackageClientController::class, 'detail'])->
 Route::get('/phone/{slug}', [PhoneClientController::class, 'phoneDetail'])->name('phone.detail');
 Route::get('/{slug}', [PhoneClientController::class, 'listByCategory'])->name('category.show');
 
-Route::get('toanhongkorea/404', [HTTPStatusController::class, 'http404'])->name('404');
-Route::get('toanhongkorea/403', [HTTPStatusController::class, 'http403'])->name('403');
+Route::get('tuoiduyenmobile/404', [HTTPStatusController::class, 'http404'])->name('404');
+Route::get('tuoiduyenmobile/403', [HTTPStatusController::class, 'http403'])->name('403');
 
 // Wishlist web ưu tiên không cần đăng nhập
 Route::get('/wishlist/list', [FavoriteController::class, 'index'])->name('wishlist.index');

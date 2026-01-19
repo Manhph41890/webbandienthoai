@@ -98,7 +98,7 @@
         <div class="privacy-header">
             <div class="container">
                 <h1 class="fw-bold">Chính Sách Bảo Mật</h1>
-                <p class="mb-0 opacity-75">Cam kết bảo vệ quyền riêng tư và dữ liệu của khách hàng tại Toàn Hồng Korea</p>
+                <p class="mb-0 opacity-75">Cam kết bảo vệ quyền riêng tư và dữ liệu của khách hàng tại Tươi Duyên Mobile</p>
             </div>
         </div>
 
@@ -108,7 +108,8 @@
                     <div class="privacy-card">
                         <div class="content-box">
                             <p class="lead text-center mb-4">
-                                Chào mừng bạn đến với <strong>Toàn Hồng Korea</strong>. Chúng tôi hiểu rằng sự riêng tư của
+                                Chào mừng bạn đến với <strong>Tươi Duyên Mobile</strong>. Chúng tôi hiểu rằng sự riêng tư
+                                của
                                 bạn là vô cùng quan trọng.
                             </p>
 
@@ -139,14 +140,15 @@
                             <p>Chúng tôi tôn trọng quyền kiểm soát dữ liệu của bạn. Theo quy định của Facebook, chúng tôi
                                 cung cấp quy trình xóa dữ liệu rõ ràng:</p>
                             <div class="deletion-instruction">
-                                <p class="fw-bold mb-2">Để xóa dữ liệu hoạt động trên Toàn Hồng Korea, bạn thực hiện một
+                                <p class="fw-bold mb-2">Để xóa dữ liệu hoạt động trên Tươi Duyên Mobile, bạn thực hiện một
                                     trong hai cách:</p>
                                 <ol>
                                     <li><strong>Gửi Email:</strong> Gửi yêu cầu tới <a
-                                            href="mailto:support@toanhongkorea.com"
-                                            class="text-decoration-none fw-bold">support@toanhongkorea.com</a> với nội dung
+                                            href="mailto:support@TuoiDuyenMobile.com"
+                                            class="text-decoration-none fw-bold">support@TuoiDuyenMobile.com</a> với nội
+                                        dung
                                         "Yêu cầu xóa tài khoản".</li>
-                                    <li><strong>Liên hệ trực tiếp:</strong> Gọi Hotline <a href="tel:01065652999"
+                                    <li><strong>Liên hệ trực tiếp:</strong> Gọi Hotline <a href="tel:01028288333"
                                             class="text-decoration-none fw-bold">010.6565.2999</a> để được hỗ trợ tức thì.
                                     </li>
                                 </ol>
@@ -158,7 +160,7 @@
                             <!-- Mục 4 -->
                             <h3 class="section-title"><i class="bi bi-geo-alt-fill me-2"></i>4. Thông tin liên hệ</h3>
                             <div class="contact-info-card">
-                                <h5 class="fw-bold">Cửa hàng Toàn Hồng Korea</h5>
+                                <h5 class="fw-bold">Cửa hàng Tươi Duyên Mobile</h5>
                                 <div class="contact-item">
                                     <i class="bi bi-house-door"></i>
                                     <span>19 Jangrimsijang 4-gil, Saha-gu, Busan <br> (부산시 사하구 장림시장4길 19번호 1층)</span>
@@ -169,7 +171,7 @@
                                 </div>
                                 <div class="contact-item">
                                     <i class="bi bi-envelope"></i>
-                                    <span>support@toanhongkorea.com</span>
+                                    <span>support@TuoiDuyenMobile.com</span>
                                 </div>
                             </div>
 

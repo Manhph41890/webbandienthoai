@@ -24,7 +24,7 @@
                                                 won/Tháng
                                             </div>
                                         </div>
-                                        <a href="https://m.me/100063769254777?text={{ urlencode('Tôi muốn đăng ký gói cước: ' . $item->name) }}"
+                                        <a href="https://m.me/61575141059562?text={{ urlencode('Tôi muốn đăng ký gói cước: ' . $item->name) }}"
                                             class="btn btn-primary btn-sm rounded-circle shadow">
                                             <i class="fab fa-facebook-messenger"></i>
                                         </a>

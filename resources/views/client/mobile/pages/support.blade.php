@@ -11,7 +11,7 @@
                     </div>
                     <div class="card-body p-5">
                         <p class="lead">Để được hỗ trợ nhanh nhất các dịch vụ sau, quý khách vui lòng liên hệ trực tiếp với
-                            đội ngũ kỹ thuật của <strong>Toàn Hồng Korea</strong>:</p>
+                            đội ngũ kỹ thuật của <strong>Tươi Duyên Mobile</strong>:</p>
 
                         <div class="row g-3 my-4 text-start">
                             <div class="col-6"><i class="fa-solid fa-check text-success me-2"></i> Kiểm tra dung lượng Data
@@ -24,7 +24,7 @@
                         </div>
 
                         <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                            <a href="tel:01065652999" class="btn btn-danger btn-lg px-4 fw-bold">Hotline: 010-6565-2999</a>
+                            <a href="tel:01028288333" class="btn btn-danger btn-lg px-4 fw-bold">Hotline: 010-6565-2999</a>
                             <a class="btn btn-primary btn-lg px-4 fw-bold">Chat Messenger</a>
                         </div>
 

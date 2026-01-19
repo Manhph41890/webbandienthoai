@@ -26,7 +26,7 @@
                 </h2>
                 <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
-                        Có! Toàn Hồng Korea hỗ trợ gửi điện thoại và phụ kiện về tận tay khách hàng tại Việt Nam qua đường
+                        Có! Tươi Duyên Mobile hỗ trợ gửi điện thoại và phụ kiện về tận tay khách hàng tại Việt Nam qua đường
                         bay uy tín.
                     </div>
                 </div>

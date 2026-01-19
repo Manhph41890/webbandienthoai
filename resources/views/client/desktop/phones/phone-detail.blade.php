@@ -96,7 +96,7 @@
 
                     <!-- KHỐI ƯU ĐÃI (Giữ nguyên phong cách chuyên nghiệp) -->
                     <div class="ss-pd-promo-box">
-                        <div class="promo-title"><i class="fas fa-gift"></i> ĐẶC QUYỀN KHI MUA TẠI TOANHONG KOREA</div>
+                        <div class="promo-title"><i class="fas fa-gift"></i> ĐẶC QUYỀN KHI MUA TẠI TuoiDuyen Mobile</div>
                         <ul class="promo-list">
                             <li><i class="check-icon">✓</i> <strong>Bộ phụ kiện:</strong> Tặng Sạc nhanh, Ốp lưng thời
                                 trang, Dán màn hình PPF.</li>
@@ -136,7 +136,7 @@
 
         function openMessenger() {
             // Sử dụng Username từ ảnh bạn cung cấp để link ổn định nhất
-            const pageUsername = "anhtoan270189";
+            const pageUsername = "dienthoaituoiduyen";
             const messengerUrl = "https://m.me/" + pageUsername;
             window.open(messengerUrl, '_blank');
         }

@@ -3,20 +3,20 @@
         <!-- Brand Section -->
         <div class="mf-section mf-brand">
             <a href="/" class="mf-logo">
-                <img src="{{ asset('logo/logo_remove.png') }}" alt="Toanhong Korea">
+                <img src="{{ asset('logo/logo_remove.png') }}" alt="TuoiDuyen Mobile">
             </a>
             <p class="mf-description">
-                <strong>TOANHONG KOREA</strong> - Hệ thống phân phối iPhone, Samsung và giải pháp Viễn thông hàng đầu
+                <strong>TuoiDuyen Mobile</strong> - Hệ thống phân phối iPhone, Samsung và giải pháp Viễn thông hàng đầu
                 cho cộng đồng người Việt tại Hàn Quốc.
             </p>
             <div class="mf-socials">
-                <a href="https://www.facebook.com/anhtoan270189/" class="mf-social-btn fb"><i
+                <a href="https://www.facebook.com/dienthoaituoiduyen/" class="mf-social-btn fb"><i
                         class="fab fa-facebook-f"></i></a>
-                <a href="https://www.facebook.com/anhtoan270189/" class="mf-social-btn tt"><i
+                <a href="https://www.facebook.com/dienthoaituoiduyen/" class="mf-social-btn tt"><i
                         class="fab fa-tiktok"></i></a>
-                <a href="https://www.facebook.com/anhtoan270189/" class="mf-social-btn yt"><i
+                <a href="https://www.facebook.com/dienthoaituoiduyen/" class="mf-social-btn yt"><i
                         class="fab fa-youtube"></i></a>
-                <a href="https://www.facebook.com/anhtoan270189/" class="mf-social-btn ig"><i
+                <a href="https://www.facebook.com/dienthoaituoiduyen/" class="mf-social-btn ig"><i
                         class="fab fa-instagram"></i></a>
             </div>
         </div>
@@ -62,11 +62,11 @@
             <div class="mf-phone-grid">
                 <a href="tel:01028288333" class="mf-phone-btn">
                     <i class="fa-solid fa-phone"></i>
-                    <span>01065652999</span>
+                    <span>01028288333</span>
                 </a>
                 <a href="tel:01082826886" class="mf-phone-btn">
                     <i class="fa-solid fa-phone"></i>
-                    <span>01025282999</span>
+                    <span>01082826886</span>
                 </a>
             </div>
 
@@ -96,7 +96,7 @@
     </div>
 
     <div class="mf-bottom">
-        <p>© 2025 <span>Toanhong Korea</span>. Thiết kế bởi ManhDev</p>
+        <p>© 2026 <span>TuoiDuyen Mobile</span>. Thiết kế bởi ManhDev</p>
     </div>
 
     <!-- Nút quay lại đầu trang mượt mà -->

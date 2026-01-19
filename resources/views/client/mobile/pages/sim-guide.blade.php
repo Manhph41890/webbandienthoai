@@ -31,7 +31,7 @@
                         Quy trình đăng ký</h4>
                     <div class="ms-3">
                         <p><strong>Bước 1:</strong> Chọn gói cước phù hợp với nhu cầu (Data, Nghe gọi).</p>
-                        <p><strong>Bước 2:</strong> Gửi ảnh giấy tờ và địa chỉ nhận sim cho quản trị viên qua 01065652999
+                        <p><strong>Bước 2:</strong> Gửi ảnh giấy tờ và địa chỉ nhận sim cho quản trị viên qua 01028288333
                         </p>
                         <p><strong>Bước 3:</strong> Cửa hàng kích hoạt và gửi Sim hỏa tốc.</p>
                     </div>
@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="text-center mt-4">
-                        <a href="tel:01065652999" class="btn btn-primary btn-lg px-5">Liên hệ đăng ký ngay:
+                        <a href="tel:01028288333" class="btn btn-primary btn-lg px-5">Liên hệ đăng ký ngay:
                             010.6565.2999</a>
                     </div>
                 </div>

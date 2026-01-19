@@ -4,7 +4,7 @@
 
     <!-- Cấu hình Google One Tap -->
     <div id="g_id_onload" data-client_id="479761304566-lv0pgsc1tfgpfd9u0u34uok23jdo9jcn.apps.googleusercontent.com"
-        data-login_uri="https://toanhongkorea.com/auth/google/one-tap" data-auto_prompt="true"
+        data-login_uri="https://tuoiduyenmobile.com/auth/google/one-tap" data-auto_prompt="true"
         data-use_fedcm_for_prompt="true">
     </div>
 

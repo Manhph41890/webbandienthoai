@@ -65,8 +65,8 @@
             <div class="col-lg-9">
                 <div class="policy-card">
                     <p class="text-muted mb-5 italic">
-                        Chào mừng bạn đến với <strong>Toàn Hồng Korea</strong>. Việc bạn truy cập và sử dụng website
-                        <a href="https://toanhongkorea.com" class="text-decoration-none">toanhongkorea.com</a>
+                        Chào mừng bạn đến với <strong>Tươi Duyên Mobile</strong>. Việc bạn truy cập và sử dụng website
+                        <a href="https://tuoiduyenmobile.com" class="text-decoration-none">TuoiDuyenMobile.com</a>
                         đồng nghĩa với việc bạn chấp nhận các điều khoản và điều kiện dưới đây:
                     </p>
 
@@ -94,7 +94,7 @@
                     <!-- Mục 3 -->
                     <div class="policy-section">
                         <h3><i class="bi bi-credit-card"></i> 3. Quy định thanh toán</h3>
-                        <p>Mọi giao dịch tại <strong>Toàn Hồng Korea</strong> được thực hiện minh bạch:</p>
+                        <p>Mọi giao dịch tại <strong>Tươi Duyên Mobile</strong> được thực hiện minh bạch:</p>
                         <div class="info-box">
                             <p class="mb-0">Chấp nhận thanh toán tiền mặt trực tiếp hoặc chuyển khoản qua hệ thống ngân
                                 hàng Hàn Quốc (KB Bank, Shinhan, Woori, v.v.).</p>
@@ -107,7 +107,7 @@
                         <p>Mọi thắc mắc về điều khoản, vui lòng liên hệ trực tiếp cửa hàng:</p>
                         <div class="card bg-light border-0">
                             <div class="card-body">
-                                <h5 class="fw-bold">Cửa hàng Toàn Hồng Korea</h5>
+                                <h5 class="fw-bold">Cửa hàng Tươi Duyên Mobile</h5>
                                 <p class="mb-1"><i class="bi bi-map"></i> <strong>Địa chỉ:</strong> 19 Jangrimsijang
                                     4-gil, Saha-gu, Busan.</p>
                                 <p class="mb-0"><i class="bi bi-telephone"></i> <strong>Hotline:</strong> 010-6565-2999 /

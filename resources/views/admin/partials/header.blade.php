@@ -12,7 +12,7 @@
 
     <!-- Right Side Actions -->
     <div class="adm-hb-right">
-        
+
         <!-- Nút quay về trang chủ (Rất hữu ích cho Admin) -->
         <a href="/" class="adm-hb-icon-link" title="Xem trang chủ">
             <i class="fa-solid fa-house-chimney"></i>
@@ -24,7 +24,7 @@
                 <i class="fa-solid fa-bell"></i>
                 <span class="adm-hb-badge">1</span>
             </div>
-            
+
             <div class="adm-hb-dropdown-menu adm-hb-menu-right" id="alertMenu">
                 <div class="adm-hb-menu-header">Thông báo</div>
                 <div class="adm-hb-menu-body">
@@ -33,7 +33,7 @@
                             <i class="fas fa-exclamation-triangle"></i>
                         </div>
                         <div class="adm-hb-item-content">
-                            <p class="adm-hb-item-text">Chào mừng đến với trang quản trị <b>Toàn Hồng Korea</b>!</p>
+                            <p class="adm-hb-item-text">Chào mừng đến với trang quản trị <b>Tươi Duyên Mobile</b>!</p>
                             <span class="adm-hb-item-time">{{ date('d/m/Y') }}</span>
                         </div>
                     </a>
@@ -42,39 +42,40 @@
         </div>
 
         <div class="adm-hb-divider"></div>
-        
+
         <!-- Thông tin User -->
         @auth
-        <div class="adm-hb-dropdown">
-            <div class="adm-hb-user-trigger adm-hb-trigger" id="userTrigger">
-                <div class="adm-hb-user-info d-none d-lg-block">
-                    <span class="adm-hb-user-name">{{ Auth::user()->name }}</span>
-                    <span class="adm-hb-user-role">{{ Auth::user()->role->name }}</span>
+            <div class="adm-hb-dropdown">
+                <div class="adm-hb-user-trigger adm-hb-trigger" id="userTrigger">
+                    <div class="adm-hb-user-info d-none d-lg-block">
+                        <span class="adm-hb-user-name">{{ Auth::user()->name }}</span>
+                        <span class="adm-hb-user-role">{{ Auth::user()->role->name }}</span>
+                    </div>
+                    <div class="adm-hb-user-avatar">
+                        @if (Auth::user()->avatar)
+                            <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="Avatar">
+                        @else
+                            <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=1a222d&color=fff"
+                                alt="Default">
+                        @endif
+                    </div>
                 </div>
-                <div class="adm-hb-user-avatar">
-                    @if (Auth::user()->avatar)
-                        <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="Avatar">
-                    @else
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=1a222d&color=fff" alt="Default">
-                    @endif
-                </div>
-            </div>
 
-            <div class="adm-hb-dropdown-menu adm-hb-menu-right" id="userMenu">
-                <div class="adm-hb-menu-inner">
-                    <a href="{{ route('profile.index') }}" class="adm-hb-menu-link">
-                        <i class="fa-solid fa-user-circle"></i> Hồ sơ cá nhân
-                    </a>
-                    <a href="#" class="adm-hb-menu-link">
-                        <i class="fa-solid fa-gear"></i> Cài đặt hệ thống
-                    </a>
-                    <div class="adm-hb-menu-divider"></div>
-                    <a href="#" class="adm-hb-menu-link logout" id="admLogoutTrigger">
-                        <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
-                    </a>
+                <div class="adm-hb-dropdown-menu adm-hb-menu-right" id="userMenu">
+                    <div class="adm-hb-menu-inner">
+                        <a href="{{ route('profile.index') }}" class="adm-hb-menu-link">
+                            <i class="fa-solid fa-user-circle"></i> Hồ sơ cá nhân
+                        </a>
+                        <a href="#" class="adm-hb-menu-link">
+                            <i class="fa-solid fa-gear"></i> Cài đặt hệ thống
+                        </a>
+                        <div class="adm-hb-menu-divider"></div>
+                        <a href="#" class="adm-hb-menu-link logout" id="admLogoutTrigger">
+                            <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
         @endauth
     </div>
 </header>

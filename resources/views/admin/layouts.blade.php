@@ -10,9 +10,9 @@
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Toàn Hồng - @yield('title', 'Dashboard')</title>
+    <title>Tươi Duyên - @yield('title', 'Dashboard')</title>
     <title>@yield('title', 'ToanHong Admin')</title>
-    
+
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">

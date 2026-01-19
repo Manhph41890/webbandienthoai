@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Toàn Hồng Korea')</title>
+    <title>@yield('title', 'Tươi Duyên Mobile')</title>
 
     <!-- Thêm Favicon (Biểu tượng trên tab trình duyệt) -->
     <link rel="icon" type="image/png" href="{{ asset('logo/logo.png') }}">

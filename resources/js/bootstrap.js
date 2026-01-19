@@ -19,7 +19,7 @@ window.Echo = new Echo({
     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
     forceTLS: true,
     // Thêm dòng này để đảm bảo nó gửi auth về đúng IP máy chủ của bạn
-    authEndpoint: "https://toanhongkorea.com/broadcasting/auth",
+    authEndpoint: "https://tuoiduyenmobile.com/broadcasting/auth",
 });
 
 /**

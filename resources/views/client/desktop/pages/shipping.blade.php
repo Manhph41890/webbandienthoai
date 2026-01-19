@@ -137,7 +137,7 @@
                 <p class="mb-0">Sau khi gửi hàng, chúng tôi sẽ cung cấp <strong>Mã vận đơn</strong>. Quý khách có thể tự
                     tra cứu trên app của hãng Taekbae hoặc nhắn tin để nhân viên hỗ trợ check vị trí kiện hàng.</p>
                 <div class="mt-3">
-                    <a href="tel:01065652999" class="btn btn-primary rounded-pill px-4 fw-bold">Hotline Busan:
+                    <a href="tel:01028288333" class="btn btn-primary rounded-pill px-4 fw-bold">Hotline Busan:
                         010.6565.2999</a>
                 </div>
             </div>

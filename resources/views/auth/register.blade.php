@@ -59,14 +59,14 @@
 
         <p class="register-terms">
             Khi bấm đăng ký bạn đã đồng ý với <a href="#">Điều khoản dịch vụ</a> và <a href="#">Chính sách quyền
-                riêng tư</a> của ToanHongKorea.
+                riêng tư</a> của TuoiDuyenMobile.
         </p>
 
     </div>
 
     <div class="auth-image-column">
         {{-- Thay thế ảnh minh họa bằng ảnh nội thất sang trọng --}}
-        <img src="{{ asset('logo/logo_remove.png') }}" alt="ToanHongKorea Interior">
+        <img src="{{ asset('logo/logo_remove.png') }}" alt="TuoiDuyenMobile Interior">
         <h3>Kết nối thông minh cho cuộc sống số</h3>
         <p>Giải pháp trọn gói từ điện thoại, sim đến gói cước – đơn giản, nhanh gọn, tiết kiệm chi phí.</p>
     </div>

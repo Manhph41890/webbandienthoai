@@ -19,7 +19,7 @@
 
         <div class="mh-logo">
             <a href="/">
-                <img src="{{ asset('logo/logo_remove.png') }}" alt="Toanhong Korea">
+                <img src="{{ asset('logo/logo_remove.png') }}" alt="TuoiDuyen Mobile">
             </a>
         </div>
 
@@ -156,7 +156,7 @@
         </div>
 
         <div class="mh-drawer-footer">
-            <p>© 2024 Toanhong Korea - Mobile App Version</p>
+            <p>© 2026 TuoiDuyen Mobile - Mobile App Version</p>
         </div>
     </aside>
 </header>

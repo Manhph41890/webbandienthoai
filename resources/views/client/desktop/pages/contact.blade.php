@@ -77,9 +77,9 @@
                         </div>
 
                         <!--
-                        2. 설치 스크립트
-                        * 지도 퍼가기 서비스를 2개 이상 넣을 경우, 설치 스크립트는 하나만 삽입합니다.
-                        -->
+                                                2. 설치 스크립트
+                                                * 지도 퍼가기 서비스를 2개 이상 넣을 경우, 설치 스크립트는 하나만 삽입합니다.
+                                                -->
                         <script charset="UTF-8" class="daum_roughmap_loader_script"
                             src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
 
@@ -95,7 +95,7 @@
                     </div>
                     <div class="contact-container">
                         <!-- Tên cửa hàng từ hình ảnh -->
-                        <h2 class="store-name">Điện Thoại Sim thẻ Toàn Hồng Korea</h2>
+                        <h2 class="store-name">Điện Thoại Sim thẻ Tươi Duyên Mobile</h2>
 
                         <div class="info-item">
                             <i class="fa-solid fa-location-dot"></i>
@@ -105,13 +105,13 @@
 
                         <div class="info-item">
                             <i class="fa-solid fa-phone"></i>
-                            <span>01065652999 - 010 8282 6868</span>
+                            <span>01028288333 - 010 8282 6868</span>
                         </div>
 
                         <!-- Mục Facebook mới thêm -->
                         <div class="info-item">
                             <i class="fa-brands fa-facebook"></i>
-                            <a href="https://www.facebook.com/anhtoan270189/" target="_blank">Toàn Hồng Korea</a>
+                            <a href="https://www.facebook.com/dienthoaituoiduyen/" target="_blank">Tươi Duyên Mobile</a>
                         </div>
                     </div>
                 </div>

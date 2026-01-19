@@ -4,20 +4,21 @@
             <!-- Cột 1: Thương hiệu -->
             <div class="df-col df-brand">
                 <a href="/" class="df-logo">
-                    <img src="{{ asset('logo/logo_remove.png') }}" alt="Toanhong Korea">
+                    <img src="{{ asset('logo/logo_remove.png') }}" alt="TuoiDuyen Mobile">
                 </a>
                 <p class="df-desc">
-                    <strong>TOANHONG KOREA</strong> tự hào là cầu nối công nghệ tin cậy cho cộng đồng người Việt tại Hàn
+                    <strong>TuoiDuyen Mobile</strong> tự hào là cầu nối công nghệ tin cậy cho cộng đồng người Việt tại
+                    Hàn
                     Quốc. Chúng tôi cam kết mang đến giá trị thực, dịch vụ tận tâm và trải nghiệm mua sắm hoàn hảo nhất.
                 </p>
                 <div class="df-socials">
-                    <a href="https://www.facebook.com/anhtoan270189/" class="df-social-link fb"><i
+                    <a href="https://www.facebook.com/dienthoaituoiduyen/" class="df-social-link fb"><i
                             class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.facebook.com/anhtoan270189/" class="df-social-link tt"><i
+                    <a href="https://www.facebook.com/dienthoaituoiduyen/" class="df-social-link tt"><i
                             class="fab fa-tiktok"></i></a>
-                    <a href="https://www.facebook.com/anhtoan270189/" class="df-social-link yt"><i
+                    <a href="https://www.facebook.com/dienthoaituoiduyen/" class="df-social-link yt"><i
                             class="fab fa-youtube"></i></a>
-                    <a href="https://www.facebook.com/anhtoan270189/" class="df-social-link ig"><i
+                    <a href="https://www.facebook.com/dienthoaituoiduyen/" class="df-social-link ig"><i
                             class="fab fa-instagram"></i></a>
                 </div>
             </div>
@@ -72,7 +73,7 @@
                         <div class="df-icon"><i class="fa-solid fa-phone-volume"></i></div>
                         <div class="df-text">
                             <strong>Hotline 24/7:</strong>
-                            <p>01065652999 — 01025282999</p>
+                            <p>01028288333 — 01082826886</p>
                         </div>
                     </div>
                     <div class="df-contact-item">
@@ -102,7 +103,7 @@
         <div class="df-container">
             <div class="df-bottom-inner">
                 <div class="df-copy">
-                    © 2025 <span>Toanhong Korea</span>. All rights reserved.
+                    © 2026 <span>TuoiDuyen Mobile</span>. All rights reserved.
                 </div>
                 <div class="df-author">
                     Designed by <a href="#">ManhDev</a>
