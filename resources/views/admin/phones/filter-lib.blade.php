@@ -1,6 +1,6 @@
 <style>
     :root {
-        --adm-navy: #1a222d;
+        --adm-navy: #140000;
         --adm-accent: #ff4d6d;
         --adm-border: #e2e8f0;
     }
@@ -30,7 +30,7 @@
     .adm-fl-search-box i {
         position: absolute;
         left: 15px;
-        color: #94a3b8;
+        color: #ffffff;
     }
 
     .adm-fl-search-box input {
@@ -160,7 +160,7 @@
 
     .adm-fl-reset {
         font-size: 13px;
-        color: #94a3b8;
+        color: #ffffff;
         text-decoration: none;
         font-weight: 600;
     }

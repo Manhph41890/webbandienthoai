@@ -1,7 +1,7 @@
 <style>
     :root {
         --wl-red: #ff4d6d;
-        --wl-navy: #1a222d;
+        --wl-navy: #140000;
         --wl-bg: #f5f7fa;
         --wl-card: #ffffff;
     }

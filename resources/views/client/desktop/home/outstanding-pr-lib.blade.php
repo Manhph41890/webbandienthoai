@@ -271,7 +271,7 @@
 
         .btn-messenger {
             flex: 2;
-            background: linear-gradient(180deg, #1E293C 30%, #e56583 100%) !important;
+            background: linear-gradient(180deg, #000000 30%, #bd0530 100%) !important;
             color: #fff;
             text-decoration: none;
             font-size: 11px;
@@ -386,25 +386,25 @@
 
         .category-tabs {
             display: flex !important;
-            gap: 10px!important;
-            overflow-x: auto!important;
+            gap: 10px !important;
+            overflow-x: auto !important;
             /* Cho phép vuốt ngang trên điện thoại */
-            padding: 10px 0!important;
-            position: relative!important;
-            z-index: 10!important;
+            padding: 10px 0 !important;
+            position: relative !important;
+            z-index: 10 !important;
             /* Đảm bảo nằm trên các phần tử khác */
         }
 
         .tab-item {
             display: inline-block;
             /* Quan trọng để thẻ <a> nhận padding/border tốt hơn */
-            padding: 6px 15px!important;
-            border: 1px solid #ddd!important;
-            border-radius: 4px!important;
-            white-space: nowrap!important;
-            text-decoration: none!important;
-            font-size: 14px!important;
-            cursor: pointer!important;
+            padding: 6px 15px !important;
+            border: 1px solid #ddd !important;
+            border-radius: 4px !important;
+            white-space: nowrap !important;
+            text-decoration: none !important;
+            font-size: 14px !important;
+            cursor: pointer !important;
             /* Hiển thị hình bàn tay khi di chuột vào */
         }
     </style>
@@ -442,7 +442,8 @@
                     li.addEventListener('click', function() {
                         currentPage = i;
                         displayProducts(currentPage);
-                        document.querySelectorAll('#pagination .page-item').forEach(el => el.classList.remove('active'));
+                        document.querySelectorAll('#pagination .page-item').forEach(el => el.classList
+                            .remove('active'));
                         li.classList.add('active');
                     });
                     paginationContainer.appendChild(li);
@@ -469,8 +470,8 @@
                 // Chỉ chặn chuyển trang nếu link là "#" (Tab Nổi bật)
                 // Nếu link là đường dẫn thật (category.show), để trình duyệt tự chuyển trang
                 if (href === '#' || href === 'javascript:void(0)') {
-                    e.preventDefault(); 
-                    
+                    e.preventDefault();
+
                     // Cập nhật giao diện active (chỉ dùng cho lọc tại chỗ)
                     tabs.forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
@@ -484,13 +485,19 @@
         // Nút kéo sang trái/phải (Giữ nguyên)
         if (btnRight && tagContainer) {
             btnRight.addEventListener('click', () => {
-                tagContainer.scrollBy({ left: 200, behavior: 'smooth' });
+                tagContainer.scrollBy({
+                    left: 200,
+                    behavior: 'smooth'
+                });
             });
         }
 
         if (btnLeft && tagContainer) {
             btnLeft.addEventListener('click', () => {
-                tagContainer.scrollBy({ left: -200, behavior: 'smooth' });
+                tagContainer.scrollBy({
+                    left: -200,
+                    behavior: 'smooth'
+                });
             });
         }
     });

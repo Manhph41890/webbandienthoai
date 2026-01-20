@@ -97,7 +97,7 @@
 
     /* Phần menu thực tế */
     .dropdown-inner {
-        background: #1a222d;
+        background: #140000;
         /* Màu navy đậm theo header */
         border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -108,7 +108,7 @@
     /* Header trong menu */
     .user-info-header {
         padding: 15px;
-        background: linear-gradient(135deg, #1a222d 0%, #2c3e50 100%);
+        background: linear-gradient(135deg, #140000 0%, #2c3e50 100%);
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
@@ -227,7 +227,7 @@
         font-weight: 800;
         padding: 2px 6px;
         border-radius: 20px;
-        border: 2px solid #1a222d;
+        border: 2px solid #140000;
         /* Viền trùng màu nền header để tạo độ tách khối */
         min-width: 18px;
         text-align: center;

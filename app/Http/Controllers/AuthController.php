@@ -233,7 +233,7 @@ public function handleGoogleOneTap(Request $request)
     }
 
     // Khởi tạo Client với ID của bạn
-    $client = new Google_Client(['client_id' => '479761304566-lv0pgsc1tfgpfd9u0u34uok23jdo9jcn.apps.googleusercontent.com']);
+    $client = new Google_Client(['client_id' => '479761304566-i84psbv35dri5jrsg7brlp2hnh7mpq49.apps.googleusercontent.com']);
     
     // Xác thực ID Token
     $payload = $client->verifyIdToken($idToken);

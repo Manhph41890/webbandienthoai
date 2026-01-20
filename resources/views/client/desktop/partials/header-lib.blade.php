@@ -1,17 +1,17 @@
 <style>
     :root {
-        --th-navy: #1a222d;
+        --th-navy: #140000;
         /* Màu nền Dark của Footer */
         --th-red: #ff4d6d;
         /* Màu gạch chân và tiêu đề đỏ của Footer */
         --th-text-white: #ffffff;
-        --th-text-gray: #94a3b8;
+        --th-text-gray: #ffffff;
         --th-font-main: 'Inter', sans-serif;
         /* Hoặc font bạn đang dùng cho footer */
     }
 
     .th-header {
-        --th-navy: #1a222d;
+        --th-navy: #140000;
         --th-red: #ff4d6d;
         /* Sử dụng font Inter giúp hiển thị tiếng Việt hoàn hảo */
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -224,7 +224,7 @@
     /* Font Inter chuyên dụng cho tiếng Việt */
     .th-header {
         font-family: 'Inter', sans-serif;
-        background-color: #1a222d;
+        background: #140000;
     }
 
     .th-nav-item {

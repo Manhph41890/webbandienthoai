@@ -92,7 +92,8 @@
             text-decoration: none;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
-            .x-aside-premium1 {
+
+        .x-aside-premium1 {
             position: relative;
             display: block;
             width: 100%;
@@ -235,7 +236,7 @@
         }
 
         :root {
-            --dx-navy: #1a222d;
+            --dx-navy: #140000;
             --dx-red: #ff4d6d;
             --dx-gray: #f4f7fa;
             --dx-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);

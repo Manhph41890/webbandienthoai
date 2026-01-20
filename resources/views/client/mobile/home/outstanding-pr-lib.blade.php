@@ -178,7 +178,7 @@
             transform: translate(-100%, -100%);
             /* Giấu ở góc trái trên */
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            pointer-events: none !important; 
+            pointer-events: none !important;
         }
 
         /* Lớp mờ 2: Góc phải dưới */
@@ -272,7 +272,7 @@
 
         .btn-messenger {
             flex: 2;
-            background: linear-gradient(180deg, #1E293C 30%, #e56583 100%) !important;
+            background: linear-gradient(180deg, #000000 30%, #bd0530 100%) !important;
             color: #fff;
             text-decoration: none;
             font-size: 11px;

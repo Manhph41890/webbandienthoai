@@ -2,7 +2,7 @@
     <style>
         /* Container bao bọc bên ngoài */
         .spc-pagination-outer {
-            overflow: hidden !important; 
+            overflow: hidden !important;
             /* Ẩn các sản phẩm ở trang khác */
             width: 100%;
             cursor: grab;
@@ -255,7 +255,7 @@
 
         .spc-btn-buy {
             flex: 1.8;
-            background-color: #4a6cf7;
+            background: linear-gradient(180deg, #000000 30%, #bd0530 100%) !important;
             /* Màu xanh đen như ảnh */
             color: white !important;
             text-decoration: none;

@@ -59,7 +59,8 @@
                                         <span class="old-price">{{ number_format($oldPrice, 0, ',', '.') }}w</span>
                                         <span class="sale-percent">-{{ $salePercent }}%</span>
                                         <button class="spc-heart-btn {{ $phone->isFavorited() ? 'active' : '' }}"
-                                            data-id="{{ $phone->id }}" data-type="phone" style="padding-left: 100px">
+                                            data-id="{{ $phone->id }}" data-type="phone"
+                                            style="padding-left: 100px">
                                             <i
                                                 class="{{ $phone->isFavorited() ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
                                         </button>
@@ -86,7 +87,7 @@
 
         /* Header màu đỏ rực rỡ */
         .top-selling-header {
-            background: linear-gradient(180deg, #1E293C 30%, #e56583 100%);
+            background: linear-gradient(180deg, #000000 30%, #7e0e28 100%);
             padding: 15px;
             text-align: center;
             border-bottom: 3px solid #efeef2;

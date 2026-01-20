@@ -1,8 +1,8 @@
 <style>
     :root {
-        --df-navy: #1a222d;
+        --df-navy: #140000;
         --df-accent: #ff4d6d;
-        --df-text: #94a3b8;
+        --df-text: #ffffff;
         --df-white: #ffffff;
         --df-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }

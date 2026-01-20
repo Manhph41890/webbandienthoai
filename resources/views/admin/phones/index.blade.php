@@ -15,7 +15,7 @@
                 <i class="fas fa-trash-alt mr-1"></i> Thùng rác ({{ $trashedCount }})
             </a>
             <a href="{{ route('admin.phones.create') }}" class="btn btn-sm btn-primary shadow-sm px-3"
-                style="border-radius: 10px; background: #1a222d; border: none;">
+                style="border-radius: 10px; background: #140000; border: none;">
                 <i class="fas fa-plus-circle mr-1"></i> Thêm sản phẩm mới
             </a>
         </div>
@@ -134,9 +134,8 @@
                                             title="Xem nhanh" data-toggle="modal" data-target="#phoneDetailModal">
                                             <i class="fas fa-eye text-info"></i>
                                         </button> --}}
-                                        <button class="btn-action view-phone-detail"
-                                            data-id="{{ $phone->id }}" title="Xem chi tiết" data-toggle="modal"
-                                            data-target="#phoneDetailModal">
+                                        <button class="btn-action view-phone-detail" data-id="{{ $phone->id }}"
+                                            title="Xem chi tiết" data-toggle="modal" data-target="#phoneDetailModal">
                                             <i class="fas fa-eye text-info"></i>
                                         </button>
                                         <a href="{{ route('admin.phones.edit', $phone->id) }}" class="btn-action"

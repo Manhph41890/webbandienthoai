@@ -1,6 +1,6 @@
 <style>
     :root {
-        --mh-navy: #1a222d;
+        --mh-navy: #140000;
         --mh-accent: #ff4d6d;
         --mh-gray: #f4f6f8;
         --mh-text: #333;

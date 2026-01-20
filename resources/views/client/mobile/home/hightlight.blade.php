@@ -69,7 +69,7 @@
     <style>
         /* Màu nền chủ đạo */
         .hot-sale-box {
-            background: linear-gradient(180deg, #1E293C 0%, #be5466 100%);
+            background: linear-gradient(255deg, #000000 0%, #95515d 100%);
             border-radius: 15px;
             padding: 20px 10px;
             position: relative;

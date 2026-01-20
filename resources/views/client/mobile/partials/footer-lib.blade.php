@@ -1,8 +1,8 @@
 <style>
     :root {
-        --mf-navy: #1a222d;
+        --mf-navy: #140000;
         --mf-accent: #ff4d6d;
-        --mf-text-dim: #94a3b8;
+        --mf-text-dim: #ffffff;
         --mf-white: #ffffff;
     }
 

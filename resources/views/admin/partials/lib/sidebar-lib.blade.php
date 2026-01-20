@@ -1,6 +1,6 @@
 <style>
     :root {
-        --sb-bg: #1a222d;
+        --sb-bg: #140000;
         /* Màu navy đậm sang trọng */
         --sb-active: #ff4d6d;
         /* Màu accent hồng đỏ như mobile bạn đang dùng */
@@ -140,4 +140,3 @@
         margin: 1rem 0;
     }
 </style>
-
