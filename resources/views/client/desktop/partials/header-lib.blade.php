@@ -225,7 +225,6 @@
     .th-header {
         font-family: 'Inter', sans-serif;
         background: #140000;
-        ;
     }
 
     .th-nav-item {
