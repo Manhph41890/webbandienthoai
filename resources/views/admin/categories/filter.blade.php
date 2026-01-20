@@ -44,7 +44,7 @@
             <!-- Nút hành động -->
             <div class="col-md-3 d-flex" style="gap: 8px;">
                 <button type="submit" class="btn btn-primary flex-grow-1 shadow-sm font-weight-bold"
-                    style="background: #1a222d; border: none; height: 38px;">
+                    style="background: #140000; border: none; height: 38px;">
                     <i class="fas fa-filter mr-1"></i> Lọc
                 </button>
                 <a href="{{ route('admin.categories.index') }}"
@@ -66,7 +66,7 @@
 
     .form-control:focus {
         box-shadow: none;
-        border-color: #1a222d;
+        border-color: #140000;
     }
 
     .input-group-text {

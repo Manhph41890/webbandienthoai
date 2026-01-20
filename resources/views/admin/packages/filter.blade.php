@@ -152,7 +152,7 @@
     .adm-fl-search-box i {
         position: absolute;
         left: 15px;
-        color: #94a3b8;
+        color: #ffffff;
     }
 
     .adm-fl-search-box input {
@@ -168,7 +168,7 @@
     .adm-fl-search-box input:focus {
         outline: none;
         background: #fff;
-        border-color: #1a222d;
+        border-color: #140000;
         box-shadow: 0 0 0 3px rgba(26, 34, 45, 0.1);
     }
 
@@ -204,7 +204,7 @@
     }
 
     .adm-fl-submit-btn {
-        background: #1a222d;
+        background: #140000;
         color: #fff;
         border: none;
         padding: 0 25px;
@@ -275,7 +275,7 @@
     }
 
     .adm-fl-range span {
-        color: #94a3b8;
+        color: #ffffff;
     }
 
     /* 6. Footer của bộ lọc */

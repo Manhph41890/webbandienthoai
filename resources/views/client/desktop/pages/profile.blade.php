@@ -156,7 +156,7 @@
         .dp-sidebar-header {
             padding: 30px 20px;
             text-align: center;
-            background: linear-gradient(135deg, #1a222d 0%, #2c3e50 100%);
+            background: linear-gradient(135deg, #140000 0%, #2c3e50 100%);
             color: white;
         }
 
@@ -237,7 +237,7 @@
 
         .dp-card-header h4 {
             font-weight: 700;
-            color: #1a222d;
+            color: #140000;
             margin-bottom: 5px;
         }
 
@@ -288,7 +288,7 @@
         }
 
         .dp-btn-save {
-            background: #1a222d;
+            background: #140000;
             color: white;
             padding: 12px 30px;
             border-radius: 8px;

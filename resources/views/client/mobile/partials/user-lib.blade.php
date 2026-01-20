@@ -76,7 +76,7 @@
         /* Ẩn đi */
         width: 280px;
         height: 100%;
-        background: #1a222d;
+        background: #140000;
         z-index: 10000;
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
@@ -133,7 +133,7 @@
     /* Card User */
     .user-profile-card {
         padding: 20px;
-        background: linear-gradient(135deg, #242f3e 0%, #1a222d 100%);
+        background: linear-gradient(135deg, #242f3e 0%, #140000 100%);
         display: flex;
         align-items: center;
         gap: 15px;

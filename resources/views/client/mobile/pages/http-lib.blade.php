@@ -1,6 +1,6 @@
 <style>
     :root {
-        --err-navy: #1a222d;
+        --err-navy: #140000;
         --err-accent: #ff4d6d;
         --err-text: #64748b;
     }

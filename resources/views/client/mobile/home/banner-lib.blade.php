@@ -3,7 +3,7 @@
     :root {
         --mb-accent: #ff4d6d;
         /* Màu hồng/đỏ chủ đạo */
-        --mb-navy: #1a222d;
+        --mb-navy: #140000;
         --mb-radius: 12px;
     }
 
@@ -59,7 +59,7 @@
 
     .mb-promo-card {
         display: flex;
-        background: linear-gradient(135deg, #1a222d 0%, #2c3e50 100%);
+        background: linear-gradient(135deg, #140000 0%, #2c3e50 100%);
         border-radius: var(--mb-radius);
         text-decoration: none;
         overflow: hidden;

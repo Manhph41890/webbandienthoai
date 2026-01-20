@@ -94,7 +94,7 @@
     .price-text {
         font-size: 14px;
         font-weight: 700;
-        color: #1a222d;
+        color: #140000;
         /* Màu Navy */
     }
 </style>

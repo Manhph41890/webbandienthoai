@@ -1,6 +1,6 @@
 <style>
     :root {
-        --adm-navy: #1a222d;
+        --adm-navy: #140000;
         --adm-accent: #ff4d6d;
         --adm-bg: #ffffff;
         --adm-text: #334155;
@@ -119,7 +119,7 @@
     .adm-hb-user-role {
         display: block;
         font-size: 11px;
-        color: #94a3b8;
+        color: #ffffff;
         text-transform: uppercase;
     }
 
@@ -204,7 +204,7 @@
 
     .adm-hb-item-time {
         font-size: 11px;
-        color: #94a3b8;
+        color: #ffffff;
     }
 
     .adm-hb-menu-link {
